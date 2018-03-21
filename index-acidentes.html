@@ -489,7 +489,7 @@
         var props = feature.properties,
             fields = metadata.fields,
             popupContent = '';
-        //console.log('feature: ', feature);
+        console.log('feature: ', feature);
         //console.log('layer: ', layer);
 
         popupFields.map(function (key) {
@@ -497,12 +497,14 @@
             if (props[key]) {
                 var val = props[key],
                     label = fields[key].name;
+                var id = props['ID'];
                 //console.log('val: ', val);
                 if (fields[key].lookup) {
                     val = fields[key].lookup[val];
-                    //console.log('val 2: ', val);
+                    console.log('val 2: ', val);
                 }
-                popupContent += '<span class="attribute"><span class="label">' + label + ':</span> ' + val + '</span>';
+                popupContent += '<span class="attribute"><span class="label">' + label + ':</span> ' + val + '</span>' + 'id: ' + id;
+                //console.log('popupContent: ' , popupContent);
             }
         });
         popupContent = '<div class="map-popup">' + popupContent + '</div>';
