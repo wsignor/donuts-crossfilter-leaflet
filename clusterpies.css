@@ -96,6 +96,44 @@
   border-color: #444;
 }
 
+/*marker categories*/
+.category-ABALROAMENTO{
+  fill: #F88;
+  stroke: #800;
+  background: #F88;
+  border-color: #800;
+}
+.category-ATROPELAMENTO{
+  fill: #FA0;
+  stroke: #B60;
+  background: #FA0;
+  border-color: #B60;
+}
+.category-CHOQUE{
+  fill: #FF3;
+  stroke: #D80;
+  background: #FF3;
+  border-color: #D80;
+}
+.category-COLISAO{
+  fill: #BFB;
+  stroke: #070;
+  background: #BFB;
+  border-color: #070;
+}
+.category-QUEDA{
+  fill: #9DF;
+  stroke: #007;
+  background: #9DF;
+  border-color: #007;
+}
+.category-EVENTUAL{
+  fill: #CCC;
+  stroke: #444;
+  background: #CCC;
+  border-color: #444;
+}
+
 /*marker icons*/
 .icon-1{
   background-image: url('running-16.png');
