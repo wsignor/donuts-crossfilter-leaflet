@@ -79,11 +79,11 @@
         metadata,
         geojsonPath = 'traffic_accidents.geojson',
         // injuries
-        categoryField = '5074', //This is the fieldname for marker category (used in the pie and legend)
+        categoryField = 'injuriesid', //This is the fieldname for marker category (used in the pie and legend)
         // accident-type
-        iconField = '5065', //This is the fieldame for marker icon
+        iconField = 'accidentid', //This is the fieldame for marker icon
         // accident-type, date and injuries
-        popupFields = ['5065', '5055', '5074'], //Popup will display these fields
+        popupFields = ['accidentid', 'dateevent', 'injuriesid'], //Popup will display these fields
         tileServer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         tileAttribution = 'Map data: <a href="http://openstreetmap.org">OSM</a>',
         rmax = 30, //Maximum radius for cluster pies
@@ -131,7 +131,7 @@
             })
 
             var magDimension = filter.dimension(function (d) {
-                var mag = d.properties[5074]
+                var mag = d.properties['injuriesid']
 //            return mag < 1.5 ? '1-1.5' :
 //                mag < 2 ? '1.5-2' :
 //                mag < 2.5 ? '2-2.5' :
@@ -145,7 +145,7 @@
 
 
             var depthDimension = filter.dimension(function (d) {
-                var depth = d.properties[5065]
+                var depth = d.properties['accidentid']
 //            return (depth < 5) ? ' <5' :
 //                depth < 10 ? ' 5-10' :
 //                    depth < 50 ? '10-50' :
@@ -162,7 +162,7 @@
 
             var dateDimension = filter.dimension(function (d) {
 
-                return d3.time.day(new Date(d.properties[5055]))
+                return d3.time.day(new Date(d.properties['dateevent']))
             })
 
             var dateDimensionGroup = dateDimension.group()
@@ -183,7 +183,7 @@
                         opacity: 1,
                         fillOpacity: 0.8
                     })
-                        .bindPopup(feature.properties[5074].toString());
+                        .bindPopup(feature.properties['injuriesid'].toString());
                 }
             }).addTo(map);
 
@@ -413,7 +413,7 @@
         }
         var data = options.data,
             valueFunc = options.valueFunc,
-            r = options.outerRadius ? options.outerRadius : 28, //Default outer radius = 28px
+            r = options.outerRadius ? options.outerRadius : 8, //Default outer radius = 28px
             rInner = options.innerRadius ? options.innerRadius : r - 10, //Default inner radius = r-10
             strokeWidth = options.strokeWidth ? options.strokeWidth : 1, //Default stroke is 1
             pathClassFunc = options.pathClassFunc ? options.pathClassFunc : function () {
@@ -431,6 +431,10 @@
             h = w,
             donut = d3.layout.pie(),
             arc = d3.svg.arc().innerRadius(rInner).outerRadius(r);
+
+        //console.log(pieClass);
+        //console.log(pieLabel);
+        //console.log(pieLabelClass);
 
         //Create an svg element
         var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
@@ -469,6 +473,7 @@
     function defineFeature(feature, latlng) {
         var categoryVal = feature.properties[categoryField],
             iconVal = feature.properties[iconField];
+        //console.log('iconVal: ' , iconVal);
         var myClass = 'marker category-' + categoryVal + ' icon-' + iconVal;
         var myIcon = L.divIcon({
             className: myClass,
@@ -481,13 +486,18 @@
         var props = feature.properties,
             fields = metadata.fields,
             popupContent = '';
+        //console.log('feature: ', feature);
+        //console.log('layer: ', layer);
 
         popupFields.map(function (key) {
+            //console.log('key: ', key);
             if (props[key]) {
                 var val = props[key],
                     label = fields[key].name;
+                //console.log('val: ', val);
                 if (fields[key].lookup) {
                     val = fields[key].lookup[val];
+                    //console.log('val 2: ', val);
                 }
                 popupContent += '<span class="attribute"><span class="label">' + label + ':</span> ' + val + '</span>';
             }
