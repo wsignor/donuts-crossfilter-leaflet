@@ -81,7 +81,7 @@
         "use strict"
         var geojson,
             metadata,
-            geojsonPath = 'acidentes-2016.geojson',
+            geojsonPath = 'acidentes-2016-less.geojson',
             // injuries
             categoryField = 'TIPO_ACID', //This is the fieldname for marker category (used in the pie and legend)
             // accident-type
@@ -107,246 +107,251 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', { foo: 'bar' }).addTo(map);
 
         map.addLayer(markerclusters);
-        init();
 
-        function init() {
-            //    d3.json('earthquakes.geojson', function (data) {
-            d3.json(geojsonPath, function (error, data) {
+        //    d3.json('earthquakes.geojson', function (data) {
+        d3.json(geojsonPath, function (error, data) {
 
-                if (!error) {
+            if (!error) {
 
-                    // donut map
-                    geojson = data;
-                    metadata = data.properties;
-                    // var geoJsonLayer = L.geoJson({
-                    //     type: 'FeatureCollection',
-                    //     features: geomDimension.top(Infinity)
-                    // }
+                // donut map
+                geojson = data;
+                metadata = data.properties;
+                // var geoJsonLayer = L.geoJson({
+                //     type: 'FeatureCollection',
+                //     features: geomDimension.top(Infinity)
+                // }
 
-                    //create crossfilter and dimensions
-                    var filter = crossfilter(data.features)
-                    var all = filter.groupAll();
-                    var everything = filter.dimension(function (d) {
-                        return d
-                    })
+                //create crossfilter and dimensions
+                var filter = crossfilter(data.features)
+                var all = filter.groupAll();
+                var everything = filter.dimension(function (d) {
+                    return d
+                })
 
-                    var geomDimension = filter.dimension(function (d) {
-                        return d.geometry
-                    })
-                    var markers = L.geoJson(geomDimension.top(Infinity), {
-                        pointToLayer: defineFeature,
-                        onEachFeature: defineFeaturePopup
-                    });
-                    markerclusters.addLayer(markers);
-                    map.fitBounds(markers.getBounds());
-                    map.attributionControl.addAttribution(metadata.attribution);
-                    renderLegend();
-
-                    var magDimension = filter.dimension(function (d) {
-                        var mag = d.properties['AUTO']
-                        //            return mag < 1.5 ? '1-1.5' :
-                        //                mag < 2 ? '1.5-2' :
-                        //                mag < 2.5 ? '2-2.5' :
-                        //                mag < 3 ? '2.5-3' : '>3'
-                        return mag < 2.5 ? '2-2.5' :
-                            mag < 3.5 ? '2.4-3.5' :
-                                mag < 4.5 ? '3.5-4.5' :
-                                    mag < 5.5 ? '4.5-5.5' : '>5.5'
-                    })
-                    var magDimensionGroup = magDimension.group()
-
-
-                    var depthDimension = filter.dimension(function (d) {
-                        var depth = d.properties['TIPO_ACID']
-                        //            return (depth < 5) ? ' <5' :
-                        //                depth < 10 ? ' 5-10' :
-                        //                    depth < 50 ? '10-50' :
-                        //                        depth < 100 ? '50-100' :
-                        //                            '>100'
-                        return (depth < 1) ? ' <1' :
-                            depth < 2 ? ' 1-2' :
-                                depth < 3 ? '2-3' :
-                                    depth < 4 ? '3-4' : '>4'
-
-
-                    });
-                    var depthDimensionGroup = depthDimension.group()
-
-                    var dateDimension = filter.dimension(function (d) {
-
-                        return d3.time.day(new Date(d.properties['DATA']))
-                    })
-
-                    var dateDimensionGroup = dateDimension.group()
-
-                    //add the data to the map
-                    // this point is adding the markers to the map
-                    // geoJsonLayer is used to bing the charts to the map
-                    var geoJsonLayer = L.geoJson({
-                        type: 'FeatureCollection',
-                        features: geomDimension.top(Infinity)
-                    }, {
-                            pointToLayer: function (feature, latlng) {
-                                return L.circleMarker(latlng, {
-                                    radius: 4,
-                                    fillColor: "steelblue",
-                                    color: "#fff",
-                                    weight: 1,
-                                    opacity: 1,
-                                    fillOpacity: 0.8
-                                })
-                                    .bindPopup(feature.properties['FERIDOS'].toString());
-                            }
-                        }).addTo(map);
-
-                    //create charts
-                    var magChart = dc.barChart('#mag-chart')
-
-                    magChart
-
-                        .height(180)
-                        .margins({ top: 10, right: 50, bottom: 30, left: 40 })
-                        .dimension(magDimension)
-                        .group(magDimensionGroup)
-                        .elasticY(true)
-                        .x(d3.scale.ordinal())
-                        .xUnits(dc.units.ordinal)
-                        .yAxis()
-                        .ticks(3)
-
-
-                    var depthChart = dc.barChart('#depth-chart')
-
-                    depthChart
-
-                        .height(180)
-                        .margins({ top: 10, right: 50, bottom: 30, left: 40 })
-                        .dimension(depthDimension)
-                        .group(depthDimensionGroup)
-                        .elasticY(true)
-                        .x(d3.scale.ordinal())
-                        .xUnits(dc.units.ordinal)
-                        .yAxis()
-                        .ticks(3)
-
-
-                    var dateChart = dc.lineChart('#date-chart')
-                    dateChart
-                        .renderArea(true)
-                        .height(200)
-                        .transitionDuration(1000)
-                        .margins({ top: 30, right: 50, bottom: 25, left: 40 })
-                        .dimension(dateDimension)
-                        .group(dateDimensionGroup)
-                        .elasticY(true)
-                        .x(d3.time.scale().domain([new Date(2016, 7, 1), new Date(2016, 8, 1)]))
-                        .xUnits(d3.time.days)
-
-
-                    var earthquakeCount = dc.dataCount('.dc-data-count');
-                    earthquakeCount
-                        .dimension(filter)
-                        .group(all)
-                        .html({
-                            some: '<strong>%filter-count</strong> selecionados de um total de <strong>%total-count</strong> registros' +
-                                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a>',
-                            all: 'Todos registros selecionados. Selecione um gráfico ou interaja com o mapa para aplicar filtros.'
-                        });
-
-                    dc.renderAll();
-
-                    //chart listeners
-
-                    magChart.on('filtered', function (chart, filter) {
-                        updateMap()
-                    })
-
-                    depthChart.on('filtered', function (chart, filter) {
-                        updateMap()
-                    })
-
-                    dateChart.on('filtered', function (chart, filter) {
-                        updateMap()
-                    })
-
-                    function updateMap() {
-                        geoJsonLayer.clearLayers()
-                        geoJsonLayer.addData({
-                            type: 'FeatureCollection',
-                            features: everything.top(Infinity)
-                        })
-                    }
-
-                    //map listeners
-                    map.on('moveend', function () {
-                        updateMapFilter()
-                    })
-
-                    map.on('zoomend', function () {
-                        updateMapFilter()
-                    })
-
-                    function updateMapFilter() {
-
-                        var bounds = map.getBounds(),
-                            n = bounds._northEast.lat,
-                            e = bounds._northEast.lng,
-                            s = bounds._southWest.lat,
-                            w = bounds._southWest.lng;
-
-                        var boundsFeature = {
-                            type: 'Feature',
-                            geometry: {
-                                type: 'Polygon',
-                                coordinates: [
-                                    [
-                                        [
-                                            w,
-                                            s
-                                        ],
-                                        [
-                                            w,
-                                            n
-                                        ],
-                                        [
-                                            e,
-                                            n
-                                        ],
-                                        [
-                                            e,
-                                            s
-                                        ],
-                                        [
-                                            w,
-                                            s
-                                        ]
-                                    ]
-                                ]
-                            }
+                var geomDimension = filter.dimension(function (d) {
+                    return d.geometry
+                })
+                var markers = L.geoJson(geomDimension.top(Infinity), {
+                    pointToLayer: defineFeature,
+                    onEachFeature: defineFeaturePopup
+                }, {
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, {
+                                radius: 4,
+                                fillColor: "steelblue",
+                                color: "#fff",
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.8
+                            })
+                                .bindPopup(feature.properties['FERIDOS'].toString());
                         }
+                    });
 
-                        geomDimension.filter(function (d) {
-                            //make feature
-                            var point = {
-                                type: 'Feature',
-                                geometry: d
-                            }
+                markerclusters.addLayer(markers);
+                map.fitBounds(markers.getBounds());
+                map.attributionControl.addAttribution(metadata.attribution);
+                renderLegend();
 
-                            return turf.inside(point, boundsFeature)
-                        })
+                var magDimension = filter.dimension(function (d) {
+                    var mag = d.properties['AUTO']
+                    //            return mag < 1.5 ? '1-1.5' :
+                    //                mag < 2 ? '1.5-2' :
+                    //                mag < 2.5 ? '2-2.5' :
+                    //                mag < 3 ? '2.5-3' : '>3'
+                    return mag < 2.5 ? '2-2.5' :
+                        mag < 3.5 ? '2.4-3.5' :
+                            mag < 4.5 ? '3.5-4.5' :
+                                mag < 5.5 ? '4.5-5.5' : '>5.5'
+                })
+                var magDimensionGroup = magDimension.group()
 
-                        dc.redrawAll();
-                    }
 
-                } else {
-                    console.log('Could not load data...');
+                var depthDimension = filter.dimension(function (d) {
+                    var depth = d.properties['TIPO_ACID']
+                    //            return (depth < 5) ? ' <5' :
+                    //                depth < 10 ? ' 5-10' :
+                    //                    depth < 50 ? '10-50' :
+                    //                        depth < 100 ? '50-100' :
+                    //                            '>100'
+                    return (depth < 1) ? ' <1' :
+                        depth < 2 ? ' 1-2' :
+                            depth < 3 ? '2-3' :
+                                depth < 4 ? '3-4' : '>4'
+
+
+                });
+                var depthDimensionGroup = depthDimension.group()
+
+                var dateDimension = filter.dimension(function (d) {
+
+                    return d3.time.day(new Date(d.properties['DATA']))
+                })
+
+                var dateDimensionGroup = dateDimension.group()
+
+                // add blue markers to the map
+                // this point is adding the markers to the map
+                // geoJsonLayer is used to bing the charts to the map
+                // var geoJsonLayer = L.geoJson({
+                //     type: 'FeatureCollection',
+                //     features: geomDimension.top(Infinity)
+                // }, {
+                //         pointToLayer: function (feature, latlng) {
+                //             return L.circleMarker(latlng, {
+                //                 radius: 4,
+                //                 fillColor: "steelblue",
+                //                 color: "#fff",
+                //                 weight: 1,
+                //                 opacity: 1,
+                //                 fillOpacity: 0.8
+                //             })
+                //                 .bindPopup(feature.properties['FERIDOS'].toString());
+                //         }
+                //     }).addTo(map);
+
+                //create charts
+                var magChart = dc.barChart('#mag-chart')
+
+                magChart
+
+                    .height(180)
+                    .margins({ top: 10, right: 50, bottom: 30, left: 40 })
+                    .dimension(magDimension)
+                    .group(magDimensionGroup)
+                    .elasticY(true)
+                    .x(d3.scale.ordinal())
+                    .xUnits(dc.units.ordinal)
+                    .yAxis()
+                    .ticks(3)
+
+
+                var depthChart = dc.barChart('#depth-chart')
+
+                depthChart
+
+                    .height(180)
+                    .margins({ top: 10, right: 50, bottom: 30, left: 40 })
+                    .dimension(depthDimension)
+                    .group(depthDimensionGroup)
+                    .elasticY(true)
+                    .x(d3.scale.ordinal())
+                    .xUnits(dc.units.ordinal)
+                    .yAxis()
+                    .ticks(3)
+
+
+                var dateChart = dc.lineChart('#date-chart')
+                dateChart
+                    .renderArea(true)
+                    .height(200)
+                    .transitionDuration(1000)
+                    .margins({ top: 30, right: 50, bottom: 25, left: 40 })
+                    .dimension(dateDimension)
+                    .group(dateDimensionGroup)
+                    .elasticY(true)
+                    .x(d3.time.scale().domain([new Date(2016, 1, 1), new Date(2016, 12, 31)]))
+                    .xUnits(d3.time.days)
+
+
+                var earthquakeCount = dc.dataCount('.dc-data-count');
+                earthquakeCount
+                    .dimension(filter)
+                    .group(all)
+                    .html({
+                        some: '<strong>%filter-count</strong> selecionados de um total de <strong>%total-count</strong> registros' +
+                            ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a>',
+                        all: 'Todos registros selecionados. Selecione um gráfico ou interaja com o mapa para aplicar filtros.'
+                    });
+
+                dc.renderAll();
+
+                //chart listeners
+
+                magChart.on('filtered', function (chart, filter) {
+                    updateMap()
+                })
+
+                depthChart.on('filtered', function (chart, filter) {
+                    updateMap()
+                })
+
+                dateChart.on('filtered', function (chart, filter) {
+                    updateMap()
+                })
+
+                function updateMap() {
+                    // trying to update pie markers according the filters
+
+                    markers.clearLayers()
+                    markers.addData({
+                        type: 'FeatureCollection',
+                        features: everything.top(Infinity)
+                    });
+
+                    markerclusters.clearLayers();
+                    markerclusters.addLayer(markers);
+
+                    // updating blue markers
+                    // geoJsonLayer.clearLayers()
+                    // geoJsonLayer.addData({
+                    //     type: 'FeatureCollection',
+                    //     features: everything.top(Infinity)
+                    // });
                 }
 
-            });
+                //map listeners
+                map.on('moveend', function () {
+                    updateMapFilter()
+                })
+
+                map.on('zoomend', function () {
+                    updateMapFilter()
+                })
+
+                function updateMapFilter() {
+
+                    var bounds = map.getBounds(),
+                        n = bounds._northEast.lat,
+                        e = bounds._northEast.lng,
+                        s = bounds._southWest.lat,
+                        w = bounds._southWest.lng;
+
+                    var boundsFeature = {
+                        type: 'Feature',
+                        geometry: {
+                            type: 'Polygon',
+                            coordinates: [
+                                [[w, s],
+                                [w, n],
+                                [e, n],
+                                [e, s],
+                                [w, s]]
+                            ]
+                        }
+                    }
+
+                    geomDimension.filter(function (d) {
+                        //make feature
+                        var point = {
+                            type: 'Feature',
+                            geometry: d
+                        }
+
+                        return turf.inside(point, boundsFeature)
+                    })
+
+                    dc.redrawAll();
+                }
+
+            } else {
+                console.log('Could not load data...');
+            }
+
+        });
 
 
 
-        }
 
         function defineClusterIcon(cluster) {
             var children = cluster.getAllChildMarkers(),

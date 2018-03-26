@@ -10098,9 +10098,9 @@
          },
          "injuriesid":{
             "lookup":{
-               "1":"Fatal",
-               "3":"Serious injuries",
-               "2":"Very serious injuries",
+               "1":"IDH",
+               "3":"PIB",
+               "2":"Mortes",
                "5":"No injuries",
                "4":"Minor injuries",
                "6":"Not recorded"

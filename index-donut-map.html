@@ -1,227 +1,551 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="utf-8">
     <title>ClusterPies</title>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css'
-          rel='stylesheet'/>
-    <link rel="stylesheet" href="clusterpies.css"/>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+    <link rel="stylesheet" href="clusterpies.css" />
 </head>
+
 <body>
-<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js" charset="utf-8"></script>
-<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js" charset="utf-8"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <div id="container">
+        <div id="map" />
+    </div>
+    <script>
+        "use strict"
+        var geojson,
+            metadata,
+            geojsonPath = 'traffic_accidents.geojson',
+            // injuries
+            categoryField = 'injuriesid', //This is the fieldname for marker category (used in the pie and legend)
+            // accident-type
+            iconField = 'accidentid', //This is the fieldame for marker icon
+            // accident-type, date and injuries
+            popupFields = ['accidentid', 'dateevent', 'injuriesid'], //Popup will display these fields
+            tileServer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            tileAttribution = 'Map data: <a href="http://openstreetmap.org">OSM</a>',
+            rmax = 30, //Maximum radius for cluster pies
+            markerclusters = L.markerClusterGroup({
+                maxClusterRadius: 2 * rmax,
+                iconCreateFunction: defineClusterIconAsBarChart //this is where the magic happens
+            }),
+            map = L.map('map').setView([59.95, 10.78], 8);
 
-<div id="container">
-    <div id="map"/>
-</div>
-<script>
-    "use strict"
-    var geojson,
-        metadata,
-        geojsonPath = 'traffic_accidents.geojson',
-        // injuries
-        categoryField = '5074', //This is the fieldname for marker category (used in the pie and legend)
-        // accident-type
-        iconField = '5065', //This is the fieldame for marker icon
-        // accident-type, date and injuries
-        popupFields = ['5065', '5055', '5074'], //Popup will display these fields
-        tileServer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        tileAttribution = 'Map data: <a href="http://openstreetmap.org">OSM</a>',
-        rmax = 30, //Maximum radius for cluster pies
-        markerclusters = L.markerClusterGroup({
-            maxClusterRadius: 2 * rmax,
-            iconCreateFunction: defineClusterIcon //this is where the magic happens
-        }),
-        map = L.map('map').setView([59.95, 10.78], 8);
+        //Add basemap
+        L.tileLayer(tileServer, { attribution: tileAttribution, maxZoom: 15 }).addTo(map);
+        //and the empty markercluster layer
+        map.addLayer(markerclusters);
 
-    //Add basemap
-    L.tileLayer(tileServer, {attribution: tileAttribution, maxZoom: 15}).addTo(map);
-    //and the empty markercluster layer
-    map.addLayer(markerclusters);
-
-    //Ready to go, load the geojson
-    d3.json(geojsonPath, function (error, data) {
-        if (!error) {
-            geojson = data;
-            metadata = data.properties;
-            var markers = L.geoJson(geojson, {
-                pointToLayer: defineFeature,
-                onEachFeature: defineFeaturePopup
-            });
-            markerclusters.addLayer(markers);
-            map.fitBounds(markers.getBounds());
-            map.attributionControl.addAttribution(metadata.attribution);
-            renderLegend();
-        } else {
-            console.log('Could not load data...');
-        }
-    });
-
-    function defineFeature(feature, latlng) {
-        var categoryVal = feature.properties[categoryField],
-            iconVal = feature.properties[iconField];
-        var myClass = 'marker category-' + categoryVal + ' icon-' + iconVal;
-        var myIcon = L.divIcon({
-            className: myClass,
-            iconSize: null
-        });
-        return L.marker(latlng, {icon: myIcon});
-    }
-
-    function defineFeaturePopup(feature, layer) {
-        var props = feature.properties,
-            fields = metadata.fields,
-            popupContent = '';
-
-        popupFields.map(function (key) {
-            if (props[key]) {
-                var val = props[key],
-                    label = fields[key].name;
-                if (fields[key].lookup) {
-                    val = fields[key].lookup[val];
-                }
-                popupContent += '<span class="attribute"><span class="label">' + label + ':</span> ' + val + '</span>';
+        //Ready to go, load the geojson
+        d3.json(geojsonPath, function (error, data) {
+            if (!error) {
+                geojson = data;
+                metadata = data.properties;
+                var markers = L.geoJson(geojson, {
+                    pointToLayer: defineFeature,
+                    onEachFeature: defineFeaturePopup
+                });
+                markerclusters.addLayer(markers);
+                map.fitBounds(markers.getBounds());
+                map.attributionControl.addAttribution(metadata.attribution);
+                renderLegend();
+            } else {
+                console.log('Could not load data...');
             }
         });
-        popupContent = '<div class="map-popup">' + popupContent + '</div>';
-        layer.bindPopup(popupContent, {offset: L.point(1, -2)});
-    }
 
-    function defineClusterIcon(cluster) {
-        var children = cluster.getAllChildMarkers(),
-            n = children.length, //Get number of markers in cluster
-            strokeWidth = 1, //Set clusterpie stroke width
-            r = rmax - 2 * strokeWidth - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
-            iconDim = (r + strokeWidth) * 2, //...and divIcon dimensions (leaflet really want to know the size)
-            data = d3.nest() //Build a dataset for the pie chart
+        function defineFeature(feature, latlng) {
+            var categoryVal = feature.properties[categoryField],
+                iconVal = feature.properties[iconField];
+            var myClass = 'marker category-' + categoryVal + ' icon-' + iconVal;
+            var myIcon = L.divIcon({
+                className: myClass,
+                iconSize: null
+            });
+            return L.marker(latlng, { icon: myIcon });
+        }
+
+        function defineFeaturePopup(feature, layer) {
+            var props = feature.properties,
+                fields = metadata.fields,
+                popupContent = '';
+
+            popupFields.map(function (key) {
+                if (props[key]) {
+                    var val = props[key],
+                        label = fields[key].name;
+                    if (fields[key].lookup) {
+                        val = fields[key].lookup[val];
+                    }
+                    popupContent += '<span class="attribute"><span class="label">' + label + ':</span> ' + val + '</span>';
+                }
+            });
+            popupContent = '<div class="map-popup">' + popupContent + '</div>';
+            layer.bindPopup(popupContent, { offset: L.point(1, -2) });
+        }
+
+        function defineClusterIcon1(cluster) {
+            var children = cluster.getAllChildMarkers(),
+                n = children.length, //Get number of markers in cluster
+                strokeWidth = 1, //Set clusterpie stroke width
+                r = rmax - 2 * strokeWidth - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
+                iconDim = (r + strokeWidth) * 2, //...and divIcon dimensions (leaflet really want to know the size)
+                data = d3.nest() //Build a dataset for the pie chart
+                    .key(function (d) {
+                        return d.feature.properties[categoryField];
+                    })
+                    // bind other values to the same chart
+                    // .key(function (d) {
+                    //     return d.feature.properties[iconField];
+                    // })
+                    .entries(children, d3.map),
+
+                //bake some svg markup
+                html = bakeBarChart({ //bakeThePie({
+                    data: data,
+                    valueFunc: function (d) {
+                        // console.log('d.values.length: ', d.values.length);
+                        return d.values.length;
+                    },
+                    strokeWidth: 1,
+                    outerRadius: r,
+                    innerRadius: r - 10,
+                    pieClass: 'cluster-pie',
+                    pieLabel: n,
+                    pieLabelClass: 'marker-cluster-pie-label',
+                    pathClassFunc: function (d) {
+                        // console.log('d.data.key: ', d.data.key);
+                        return "category-" + d.data.key;
+                    },
+                    pathTitleFunc: function (d) {
+                        // console.log('metadata.fields[categoryField].lookup[d.data.key]: ', metadata.fields[categoryField].lookup[d.data.key]);
+                        return metadata.fields[categoryField].lookup[d.data.key] + ' (' + d.data.values.length + ' accident' + (d.data.values.length != 1 ? 's' : '') + ')';
+                    }
+                }),
+                //Create a new divIcon and assign the svg markup to the html property
+                myIcon = new L.DivIcon({
+                    html: html,
+                    className: 'marker-cluster',
+                    iconSize: new L.Point(iconDim, iconDim)
+                });
+            // console.log('myIcon: ' , myIcon);
+
+
+            // console.log('defineClusterIcon data: ', data);
+            return myIcon;
+        }
+
+        function defineClusterIconAsBarChart(cluster) {
+            var color = d3.scale.category20b();
+            //some dummy json
+            var myjson = '[{ "label":"Monday", "count": 15 },{ "label":"Tuesday", "count": 20 }]';
+            var dataset1 = JSON.parse(myjson);
+            var children = cluster.getAllChildMarkers();
+            var dataset = d3.nest() //Build a dataset for the pie chart
                 .key(function (d) {
                     return d.feature.properties[categoryField];
                 })
-                .entries(children, d3.map),
-            //bake some svg markup
-            html = bakeThePie({
-                data: data,
-                valueFunc: function (d) {
-                    return d.values.length;
-                },
-                strokeWidth: 1,
-                outerRadius: r,
-                innerRadius: r - 10,
-                pieClass: 'cluster-pie',
-                pieLabel: n,
-                pieLabelClass: 'marker-cluster-pie-label',
-                pathClassFunc: function (d) {
-                    return "category-" + d.data.key;
-                },
-                pathTitleFunc: function (d) {
-                    return metadata.fields[categoryField].lookup[d.data.key] + ' (' + d.data.values.length + ' accident' + (d.data.values.length != 1 ? 's' : '') + ')';
-                }
-            }),
-            //Create a new divIcon and assign the svg markup to the html property
-            myIcon = new L.DivIcon({
+                .entries(children, d3.map);
+
+            var valuesSummed = d3.nest() //Build a dataset for the pie chart
+                .key(function (d) {
+                    return d.feature.properties[iconField];
+                })
+                .entries(children, d3.map);
+
+            console.log('dataset', dataset);
+            console.log('valuesSummed', valuesSummed);
+
+            // sum all values of a specific column
+            // a list can be built with those values and so populate the chart
+            console.log(d3.sum(cluster.getAllChildMarkers(), function (d) { return parseFloat(d.feature.properties[categoryField]) }));
+
+            var size = 35;
+            var radius = size / 2;
+
+            var svgres = document.createElementNS(d3.ns.prefix.svg, 'svg');
+            // var svg = d3.select(svgres).append('svg')
+            //     .attr('width', size)
+            //     .attr('height', size)
+            //     .append('g')
+            //     .attr('transform', 'translate(' + (size / 200) + ',' + (size / 200) + ')'); //center g 
+
+            //     var bar = svg.selectAll("g.bar")
+            //     .data(dataset1)
+            //     .enter().append("g")
+            //     .attr("class", "bar")
+            //     .append("rect")
+            //     .attr('x', function (d, i) {
+            //         return d.count
+            //     })
+            //     .attr('width', size)
+            //     .attr('y', function (d) {
+            //         return d.label;
+            //     })
+            //     .attr('height', size);
+
+            var list = [
+                { id: 'pib', value: 2222 },
+                { id: 'idh', value: 40 },
+                { id: 'pop', value: 231 },
+                { id: 'kkk', value: 2032 }
+            ];
+
+            var svg = d3.select(svgres).append('svg'),
+                margin = { top: 20, right: 20, bottom: 30, left: 40 },
+                width = +svg.attr("width"),
+                height = +svg.attr("height");
+
+            var x = d3.scale.ordinal().rangeRoundBands([0, width], .1),
+                y = d3.scale.linear().rangeRound([height, 0]);
+
+            var tip = d3.tip()
+                .attr('class', 'd3-tip')
+                .offset([-10, 0])
+                .html(function (d) {
+                    return "<strong>" + d.id + "</strong> <span style='color:red'>" + d.value + "</span>";
+                });
+            svg.call(tip);
+
+            var g = svg.append("g");
+
+            x.domain(list.map(function (d) { return d.id; }));
+            y.domain([0, d3.max(list, function (d) { return d.value; })]);
+
+            g.append("g")
+                .attr("class", "axis axis--x")
+                .attr("transform", "translate(0," + height + ")")
+                .append("text", function (d) { return y(d.id); });
+
+            g.append("g")
+                .attr("class", "axis axis--y")
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", "0.71em")
+                .attr("text-anchor", "end");
+
+            g.selectAll(".bar")
+                .data(list)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function (d) { return x(d.id); })
+                .attr("y", function (d) { return y(d.value); })
+                .attr("width", x.rangeBand())
+                .attr("text", function (d) { return d.id; })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                .attr("height", function (d) { return height - y(d.value); });
+
+            var html = serializeXmlNode(svgres);
+
+            var myIcon = new L.DivIcon({
                 html: html,
-                className: 'marker-cluster',
-                iconSize: new L.Point(iconDim, iconDim)
+                className: 'mycluster',
+                iconSize: new L.Point(size, size)
             });
-        return myIcon;
-    }
-
-    /*function that generates a svg markup for the pie chart*/
-    function bakeThePie(options) {
-        /*data and valueFunc are required*/
-        if (!options.data || !options.valueFunc) {
-            return '';
+            return myIcon;
         }
-        var data = options.data,
-            valueFunc = options.valueFunc,
-            r = options.outerRadius ? options.outerRadius : 28, //Default outer radius = 28px
-            rInner = options.innerRadius ? options.innerRadius : r - 10, //Default inner radius = r-10
-            strokeWidth = options.strokeWidth ? options.strokeWidth : 1, //Default stroke is 1
-            pathClassFunc = options.pathClassFunc ? options.pathClassFunc : function () {
-                return '';
-            }, //Class for each path
-            pathTitleFunc = options.pathTitleFunc ? options.pathTitleFunc : function () {
-                return '';
-            }, //Title for each path
-            pieClass = options.pieClass ? options.pieClass : 'marker-cluster-pie', //Class for the whole pie
-            pieLabel = options.pieLabel ? options.pieLabel : d3.sum(data, valueFunc), //Label for the whole pie
-            pieLabelClass = options.pieLabelClass ? options.pieLabelClass : 'marker-cluster-pie-label',//Class for the pie label
 
-            origo = (r + strokeWidth), //Center coordinate
-            w = origo * 2, //width and height of the svg element
-            h = w,
-            donut = d3.layout.pie(),
-            arc = d3.svg.arc().innerRadius(rInner).outerRadius(r);
+        function defineClusterIcon(cluster) {
 
-        //Create an svg element
-        var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
-        //Create the pie chart
-        var vis = d3.select(svg)
-            .data([data])
-            .attr('class', pieClass)
-            .attr('width', w)
-            .attr('height', h);
+            var color = d3.scale.category20b();
+            //some dummy json
+            var myjson = '[{ "label":"Monday", "count": 15 },{ "label":"Tuesday", "count": 20 }]';
+            var dataset1 = JSON.parse(myjson);
+            var children = cluster.getAllChildMarkers();
+            var dataset = d3.nest() //Build a dataset for the pie chart
+                .key(function (d) {
+                    return d.feature.properties[categoryField];
+                })
+                // bind other values to the same chart
+                // .key(function (d) {
+                //     return d.feature.properties[iconField];
+                // })
+                .entries(children, d3.map);
+            var size = 35;
+            var radius = size / 2;
 
-        var arcs = vis.selectAll('g.arc')
-            .data(donut.value(valueFunc))
-            .enter().append('svg:g')
-            .attr('class', 'arc')
-            .attr('transform', 'translate(' + origo + ',' + origo + ')');
+            console.log('dataset1: ', dataset1);
+            console.log('dataset: ', dataset);
 
-        arcs.append('svg:path')
-            .attr('class', pathClassFunc)
-            .attr('stroke-width', strokeWidth)
-            .attr('d', arc)
-            .append('svg:title')
-            .text(pathTitleFunc);
 
-        vis.append('text')
-            .attr('x', origo)
-            .attr('y', origo)
-            .attr('class', pieLabelClass)
-            .attr('text-anchor', 'middle')
-            //.attr('dominant-baseline', 'central')
-            /*IE doesn't seem to support dominant-baseline, but setting dy to .3em does the trick*/
-            .attr('dy', '.3em')
-            .text(pieLabel);
-        //Return the svg-markup rather than the actual element
-        return serializeXmlNode(svg);
-    }
+            var svgres = document.createElementNS(d3.ns.prefix.svg, 'svg');
+            var svg = d3.select(svgres).append('svg')
+                .attr('width', size)
+                .attr('height', size)
+                .append('g')
+                .attr('transform', 'translate(' + (size / 200) + ',' + (size / 200) + ')'); //center g 
 
-    /*Function for generating a legend with the same categories as in the clusterPie*/
-    function renderLegend() {
-        var data = d3.entries(metadata.fields[categoryField].lookup),
-            legenddiv = d3.select('body').append('div')
-                .attr('id', 'legend');
 
-        var heading = legenddiv.append('div')
-            .classed('legendheading', true)
-            .text(metadata.fields[categoryField].name);
+            // trying to create bar chart
+            // var strokeWidth = 1;
+            // var n = children.length;
+            // //var r = rmax - 2 * strokeWidth - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0);
+            // var r = 10;
+            // var origo = (r + strokeWidth), //Center coordinate
+            //     w = origo * 2, //width and height of the svg element
+            //     h = w;
 
-        var legenditems = legenddiv.selectAll('.legenditem')
-            .data(data);
+            // var format = d3.format(",.0f");
 
-        legenditems
-            .enter()
-            .append('div')
-            .attr('class', function (d) {
-                return 'category-' + d.key;
-            })
-            .classed({'legenditem': true})
-            .text(function (d) {
-                return d.value;
+            // var x = d3.scale.linear().range([0, w]),
+            //     y = d3.scale.ordinal().rangeRoundBands([0, h], .1);
+
+            // var xAxis = d3.svg.axis().scale(x).orient("top").tickSize(-h),
+            //     yAxis = d3.svg.axis().scale(y).orient("left").tickSize(0);
+            // x.domain([0, d3.max(dataset, function (d) {
+            //     console.log(d);
+            //     return d.key;
+            // })]);
+            // y.domain(dataset.map(function (d) { return d.length; }));
+
+
+
+            // trying this )$(# again
+            var bar = svg.selectAll("g.bar")
+                .data(dataset1)
+                .enter().append("g")
+                .attr("class", "bar")
+                .append("rect")
+                .attr('x', function (d, i) {
+                    return d.count
+                })
+                .attr('width', size)
+                .attr('y', function (d) {
+                    return d.label;
+                })
+                .attr('height', size);
+
+            // bar.append("text")
+            //     .attr("class", "value")
+            //     .attr("x", function (d) { return x(d.length); })
+            //     .attr("y", y.rangeBand() / 2)
+            //     .attr("dx", -3)
+            //     .attr("dy", ".35em")
+            //     .attr("text-anchor", "end")
+            //     .text(function (d) { return format(d.length); });
+
+            // svg.append("g")
+            //     .attr("class", "x axis")
+            //     .call(xAxis);
+
+            // svg.append("g")
+            //     .attr("class", "y axis")
+            //     .call(yAxis);
+
+
+            // var arc = d3.svg.arc().outerRadius(radius);
+            // var pie = d3.layout.pie().value(function (d) {
+            //     return d.values.length;
+            // });
+
+            // //create final chart
+            // var g = svg.selectAll('path').data(pie(dataset)) //fill dataset into path
+            //     .enter() //create placeholder for data
+            //     .append('path') //fill placeholder with data in path
+            //     .attr('d', arc) //define an attribute d
+            //     .attr('fill', function (d, i) {
+            //         return color(d.data.key);
+            //     });
+
+            var html = serializeXmlNode(svgres);
+
+            var myIcon = new L.DivIcon({
+                html: html,
+                className: 'mycluster',
+                iconSize: new L.Point(size, size)
             });
-    }
-
-    /*Helper function*/
-    function serializeXmlNode(xmlNode) {
-        if (typeof window.XMLSerializer != "undefined") {
-            return (new window.XMLSerializer()).serializeToString(xmlNode);
-        } else if (typeof xmlNode.xml != "undefined") {
-            return xmlNode.xml;
+            return myIcon;
         }
-        return "";
-    }
 
-</script>
+        /*function that generates a svg markup for the pie chart*/
+        function bakeThePie(options) {
+            /*data and valueFunc are required*/
+            if (!options.data || !options.valueFunc) {
+                return '';
+            }
+            var data = options.data,
+                valueFunc = options.valueFunc,
+                r = options.outerRadius ? options.outerRadius : 28, //Default outer radius = 28px
+                rInner = options.innerRadius ? options.innerRadius : r - 10, //Default inner radius = r-10
+                strokeWidth = options.strokeWidth ? options.strokeWidth : 1, //Default stroke is 1
+                pathClassFunc = options.pathClassFunc ? options.pathClassFunc : function () {
+                    return '';
+                }, //Class for each path
+                pathTitleFunc = options.pathTitleFunc ? options.pathTitleFunc : function () {
+                    return '';
+                }, //Title for each path
+                pieClass = options.pieClass ? options.pieClass : 'marker-cluster-pie', //Class for the whole pie
+                pieLabel = options.pieLabel ? options.pieLabel : d3.sum(data, valueFunc), //Label for the whole pie
+                pieLabelClass = options.pieLabelClass ? options.pieLabelClass : 'marker-cluster-pie-label',//Class for the pie label
+
+                origo = (r + strokeWidth), //Center coordinate
+                w = origo * 2, //width and height of the svg element
+                h = w,
+                donut = d3.layout.pie(),
+                arc = d3.svg.arc().innerRadius(rInner).outerRadius(r);
+
+
+            // entender como distribuir os valores aqui
+            // console.log('data: ' , data);
+            // console.log('valueFunc: ' , valueFunc);
+            //Create an svg element
+            var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
+            //Create the pie chart
+            var vis = d3.select(svg)
+                .data([data])
+                .attr('class', pieClass)
+                .attr('width', w)
+                .attr('height', h);
+
+            // console.log('svg: ' , svg);
+            // console.log('arc: ' , arc);
+
+            var arcs = vis.selectAll('g.arc')
+                .data(donut.value(valueFunc))
+                .enter().append('svg:g')
+                .attr('class', 'arc')
+                .attr('transform', 'translate(' + origo + ',' + origo + ')');
+            // console.log('arcs: ' , arcs);
+
+            // console.log('origo: ' , origo);
+            arcs.append('svg:path')
+                .attr('class', pathClassFunc)
+                .attr('stroke-width', strokeWidth)
+                .attr('d', arc)
+                .append('svg:title')
+                .text(pathTitleFunc);
+
+            vis.append('text')
+                .attr('x', origo)
+                .attr('y', origo)
+                .attr('class', pieLabelClass)
+                .attr('text-anchor', 'middle')
+                //.attr('dominant-baseline', 'central')
+                /*IE doesn't seem to support dominant-baseline, but setting dy to .3em does the trick*/
+                .attr('dy', '.3em')
+                .text(pieLabel);
+            //Return the svg-markup rather than the actual element
+
+            console.log('svg: ', svg);
+            return serializeXmlNode(svg);
+        }
+
+        function bakeBarChart(options) {
+            /*data and valueFunc are required*/
+            if (!options.data || !options.valueFunc) {
+                return '';
+            }
+            var data = options.data,
+                valueFunc = options.valueFunc,
+                r = options.outerRadius ? options.outerRadius : 28, //Default outer radius = 28px
+                rInner = options.innerRadius ? options.innerRadius : r - 10, //Default inner radius = r-10
+                strokeWidth = options.strokeWidth ? options.strokeWidth : 1, //Default stroke is 1
+                pathClassFunc = options.pathClassFunc ? options.pathClassFunc : function () {
+                    return '';
+                }, //Class for each path
+                pathTitleFunc = options.pathTitleFunc ? options.pathTitleFunc : function () {
+                    return '';
+                }, //Title for each path
+                pieClass = options.pieClass ? options.pieClass : 'marker-cluster-pie', //Class for the whole pie
+                pieLabel = options.pieLabel ? options.pieLabel : d3.sum(data, valueFunc), //Label for the whole pie
+                pieLabelClass = options.pieLabelClass ? options.pieLabelClass : 'marker-cluster-pie-label',//Class for the pie label
+
+                origo = (r + strokeWidth), //Center coordinate
+                w = origo * 2, //width and height of the svg element
+                h = w,
+                donut = d3.layout.pie(),
+                arc = d3.svg.arc().innerRadius(rInner).outerRadius(r);
+
+
+            // entender como distribuir os valores aqui
+            // console.log('data: ' , data);
+            // console.log('valueFunc: ' , valueFunc);
+            //Create an svg element
+            var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
+            //Create the pie chart
+            // var vis1 = d3.select(svg)
+            //     .data([data])
+            //     .attr('class', pieClass)
+            //     .attr('width', w)
+            //     .attr('height', h);
+
+            var vis = d3.select(svg)
+                .data([data])
+                .attr('class', 'barchart')
+                .attr('width', w)
+                .attr('height', h);
+
+            // console.log('svg: ' , svg);
+            console.log('pathClassFunc: ', pathClassFunc);
+
+            var arcs = vis.selectAll('g.arc')
+                .data(donut.value(valueFunc))
+                .enter().append('svg:g')
+                .attr('class', 'arc')
+                .attr('transform', 'translate(' + origo + ',' + origo + ')');
+            // console.log('arcs: ' , arcs);
+
+            // console.log('origo: ' , origo);
+            arcs.append('svg:path')
+                .attr('class', pathClassFunc)
+                .attr('stroke-width', strokeWidth)
+                .attr('d', arc)
+                .append('svg:title')
+                .text(pathTitleFunc);
+
+            vis.append('text')
+                .attr('x', origo)
+                .attr('y', origo)
+                .attr('class', pieLabelClass)
+                .attr('text-anchor', 'middle')
+                //.attr('dominant-baseline', 'central')
+                /*IE doesn't seem to support dominant-baseline, but setting dy to .3em does the trick*/
+                .attr('dy', '.3em')
+                .text(pieLabel);
+            //Return the svg-markup rather than the actual element
+            return serializeXmlNode(svg);
+        }
+
+        /*Function for generating a legend with the same categories as in the clusterPie*/
+        function renderLegend() {
+            var data = d3.entries(metadata.fields[categoryField].lookup),
+                legenddiv = d3.select('body').append('div')
+                    .attr('id', 'legend');
+
+            var heading = legenddiv.append('div')
+                .classed('legendheading', true)
+                .text(metadata.fields[categoryField].name);
+
+            var legenditems = legenddiv.selectAll('.legenditem')
+                .data(data);
+
+            legenditems
+                .enter()
+                .append('div')
+                .attr('class', function (d) {
+                    return 'category-' + d.key;
+                })
+                .classed({ 'legenditem': true })
+                .text(function (d) {
+                    return d.value;
+                });
+        }
+
+        /*Helper function*/
+        function serializeXmlNode(xmlNode) {
+            if (typeof window.XMLSerializer != "undefined") {
+                return (new window.XMLSerializer()).serializeToString(xmlNode);
+            } else if (typeof xmlNode.xml != "undefined") {
+                return xmlNode.xml;
+            }
+            return "";
+        }
+
+    </script>
