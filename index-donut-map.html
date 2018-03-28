@@ -11,8 +11,10 @@
 <body>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js" charset="utf-8"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
     <div id="container">
         <div id="map" />
     </div>
@@ -53,7 +55,8 @@
                 markerclusters.addLayer(markers);
                 map.fitBounds(markers.getBounds());
                 map.attributionControl.addAttribution(metadata.attribution);
-                renderLegend();
+                //renderLegend()
+                ;
             } else {
                 console.log('Could not load data...');
             }
@@ -141,16 +144,21 @@
         }
 
         function defineClusterIconAsBarChart(cluster) {
-            var color = d3.scale.category20b();
-            //some dummy json
-            var myjson = '[{ "label":"Monday", "count": 15 },{ "label":"Tuesday", "count": 20 }]';
-            var dataset1 = JSON.parse(myjson);
             var children = cluster.getAllChildMarkers();
+            var n = children.length,
+                strokeWidth = 1;
+
             var dataset = d3.nest() //Build a dataset for the pie chart
                 .key(function (d) {
                     return d.feature.properties[categoryField];
                 })
                 .entries(children, d3.map);
+
+            var r = 30 - 2 * 1 - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
+                origo = (r + 1), //Center coordinate
+                w = origo * 2, //width and height of the svg element
+                h = w,
+                iconDim = (r + 1) * 2;
 
             var valuesSummed = d3.nest() //Build a dataset for the pie chart
                 .key(function (d) {
@@ -158,96 +166,68 @@
                 })
                 .entries(children, d3.map);
 
-            console.log('dataset', dataset);
-            console.log('valuesSummed', valuesSummed);
-
-            // sum all values of a specific column
-            // a list can be built with those values and so populate the chart
-            console.log(d3.sum(cluster.getAllChildMarkers(), function (d) { return parseFloat(d.feature.properties[categoryField]) }));
-
-            var size = 35;
-            var radius = size / 2;
-
-            var svgres = document.createElementNS(d3.ns.prefix.svg, 'svg');
-            // var svg = d3.select(svgres).append('svg')
-            //     .attr('width', size)
-            //     .attr('height', size)
-            //     .append('g')
-            //     .attr('transform', 'translate(' + (size / 200) + ',' + (size / 200) + ')'); //center g 
-
-            //     var bar = svg.selectAll("g.bar")
-            //     .data(dataset1)
-            //     .enter().append("g")
-            //     .attr("class", "bar")
-            //     .append("rect")
-            //     .attr('x', function (d, i) {
-            //         return d.count
-            //     })
-            //     .attr('width', size)
-            //     .attr('y', function (d) {
-            //         return d.label;
-            //     })
-            //     .attr('height', size);
-
-            var list = [
-                { id: 'pib', value: 2222 },
-                { id: 'idh', value: 40 },
-                { id: 'pop', value: 231 },
-                { id: 'kkk', value: 2032 }
+            var data2 = [
+                { "id": "1", "value": 1 },
+                { "id": "2", "value": 2 },
+                { "id": "3", "value": 3 }
             ];
 
-            var svg = d3.select(svgres).append('svg'),
-                margin = { top: 20, right: 20, bottom: 30, left: 40 },
-                width = +svg.attr("width"),
-                height = +svg.attr("height");
+            var x = d3.scaleBand().range([0, w]).padding(0.1);
+            var y = d3.scaleLinear().range([h, 0]);
 
-            var x = d3.scale.ordinal().rangeRoundBands([0, width], .1),
-                y = d3.scale.linear().rangeRound([height, 0]);
+            x.domain(data2.map(function (d) { return d.id; }));
+            y.domain([0, d3.max(data2, function (d) { return d.value; })]);
 
-            var tip = d3.tip()
-                .attr('class', 'd3-tip')
-                .offset([-10, 0])
-                .html(function (d) {
-                    return "<strong>" + d.id + "</strong> <span style='color:red'>" + d.value + "</span>";
-                });
-            svg.call(tip);
+            // create a svg element
+            var svg = document.createElementNS(d3.namespace.svg, 'svg');
 
-            var g = svg.append("g");
+            var vis = d3.select(svg)
+                .attr("width", w)
+                .attr("height", h)
+                .append('g')
+                .attr('transform', 'translate(' + (h / 200) + ',' + (w / 200) + ')'); //center g 
 
-            x.domain(list.map(function (d) { return d.id; }));
-            y.domain([0, d3.max(list, function (d) { return d.value; })]);
-
-            g.append("g")
-                .attr("class", "axis axis--x")
-                .attr("transform", "translate(0," + height + ")")
-                .append("text", function (d) { return y(d.id); });
-
-            g.append("g")
-                .attr("class", "axis axis--y")
-                .append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", "0.71em")
-                .attr("text-anchor", "end");
-
-            g.selectAll(".bar")
-                .data(list)
-                .enter().append("rect")
+            vis.selectAll(".bar")
+                .data(data2)
+                .enter()
+                .append("rect")
                 .attr("class", "bar")
-                .attr("x", function (d) { return x(d.id); })
+                .attr("x", function (d) {
+                    return x(d.id);
+                })
+                .attr("width", x.bandwidth())
                 .attr("y", function (d) { return y(d.value); })
-                .attr("width", x.rangeBand())
-                .attr("text", function (d) { return d.id; })
-                .on('mouseover', tip.show)
-                .on('mouseout', tip.hide)
-                .attr("height", function (d) { return height - y(d.value); });
+                .attr("height", function (d) {
+                    return h - y(d.id);
+                });
 
-            var html = serializeXmlNode(svgres);
+            // add the x Axis
+            vis.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + h + ")")
+                .call(d3.axisBottom(x));
+
+            // add the y Axis
+            vis.append("g")
+                .attr("class", "y axis")
+                .call(d3.axisLeft(y));
+
+            // var svg = dimple.newSvg("svg", w,h);
+            // var chart = new dimple.chart(svg, data2);
+            // chart.addCategoryAxis("x", "id");
+            // chart.addMeasureAxis("y", "value");
+            // chart.addSeries(null, dimple.plot.bar);
+            // chart.draw();
+
+            //console.log(svg);
+            //console.log(svg2);
+
+            var html = serializeXmlNode(svg);
 
             var myIcon = new L.DivIcon({
                 html: html,
                 className: 'mycluster',
-                iconSize: new L.Point(size, size)
+                iconSize: new L.Point(iconDim, iconDim)
             });
             return myIcon;
         }

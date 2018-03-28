@@ -13,7 +13,7 @@
         display: none;
     }
 </style>
-<svg width="700" height="700"></svg>
+<svg></svg>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
@@ -25,10 +25,15 @@
         { id: 'kkk', value: 2032 }
     ];
 
-    var svg = d3.select("svg"),
-        margin = { top: 20, right: 20, bottom: 30, left: 40 },
-        width = +svg.attr("width"),
-        height = +svg.attr("height");
+    var width = 700,
+        height = 700;
+
+    var svg = d3.select("svg")
+        .attr("width", width)
+        .attr("height", height);
+    //margin = { top: 20, right: 20, bottom: 30, left: 40 },
+    //width = +svg.attr("width"),
+    //height = +svg.attr("height");
 
     var x = d3.scale.ordinal().rangeRoundBands([0, width], .1),
         y = d3.scale.linear().rangeRound([height, 0]);
