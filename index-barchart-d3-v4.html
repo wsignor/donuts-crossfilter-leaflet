@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    .bar {
+        fill: steelblue;
+    }
+    .bar:hover {
+        fill: brown;
+    }
+
+    .axis--x path {
+        display: none;
+    }
+</style>
+<svg></svg>
+<!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+<script src="d3.v3.min.js" charset="utf-8"></script>
+<!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
+<script src="d3.tip.v0.6.3.js"></script>
+<script>
+    var data2 = [
+        { id: 'pib', value: 2222 },
+        { id: 'idh', value: 40 },
+        { id: 'pop', value: 231 },
+        { id: 'kkk', value: 2032 }
+    ];
+
+    var r = 80, //Calculate clusterpie radius...
+        //origo = (r + 1), //Center coordinate
+        w = r, //width and height of the svg element
+        h = w,
+        iconDim = (r + 1) * 2;
+
+    // var x = d3.scaleBand().rangeRound([0, w]).padding(0.1);
+    // var y = d3.scaleLinear().rangeRound([h, 0]);
+    var x = d3.scale.ordinal().rangeRoundBands([0, w], .1),
+        y = d3.scale.linear().rangeRound([h, 0]);
+    x.domain(data2.map(function (d) { return d.id; }));
+    y.domain([0, d3.max(data2, function (d) { return d.value; })]);
+
+    // create a svg element
+    //var svg = document.createElementNS(d3.namespace.svg, 'svg');
+    var vis = d3.select("svg")
+        .attr("width", w)
+        .attr("height", h)
+        .append('g');
+    //.attr('transform', 'translate(' + (h / 200) + ',' + (w / 200) + ')'); //center g
+
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function (d) {
+            return "<strong>" + d.id + "</strong> <span style='color:red'>" + d.value + "</span>";
+        });
+
+    vis.call(tip);
+    // var tip = d3.tip()
+    //     .attr('class', 'd3-tip')
+    //     .offset([-10, 0])
+    //     .html(function (d) {
+    //         return "<strong>" + d.id + "</strong> <span style='color:red'>" + d.value + "</span>";
+    //     });
+
+    // vis.call(tip);
+
+    // add the x Axis
+    vis.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + h + ")")
+        .append("text", function (d) { return y(d.id); });
+    // add the y Axis
+
+    vis.append("g")
+        .attr("class", "axis axis--y")
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end");
+
+    vis.selectAll(".bar")
+        .data(data2)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function (d) { return x(d.id); })
+        .attr("y", function (d) { return y(d.value); })
+        .attr("width", x.rangeBand())
+        .attr("text", function (d) { return d.id; })
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide)
+        .attr("height", function (d) { return h - y(d.value); });
+
+</script>
