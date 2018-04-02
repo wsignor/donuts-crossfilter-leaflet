@@ -168157,6 +168157,18 @@
                "2":"3"
             },
             "name":"BICICLETA"
+         },
+         "DIA_SEM":{
+            "lookup":{
+               "1":"DOMINGO",
+               "2":"SEGUNDA-FEIRA",
+               "3":"TERCA-FEIRA",
+               "4":"QUARTA-FEIRA",
+               "5":"QUINTA-FEIRA",
+               "6":"SEXTA-FEIRA",
+               "7":"SABADO"
+            },
+            "name":"DIA_SEM"
          }
       },
       "attribution":"Traffic accidents: DATAPOA",
