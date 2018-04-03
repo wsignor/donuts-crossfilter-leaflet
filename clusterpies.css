@@ -29,7 +29,6 @@
   padding: 2px;
   margin-bottom: 2px;
 }
-
 /*Marker clusters*/
 .marker-cluster-pie g.arc{
   fill-opacity: 0.5;
@@ -39,13 +38,11 @@
   font-weight: bold;
   font-family: sans-serif;
 }
-
 .marker-cluster-bar-label {
   font-size: 14px;
   font-weight: bold;
   font-family: sans-serif;
 }
-
 /*Markers*/
 .marker {
   width: 18px;
@@ -66,7 +63,6 @@
   font-weight: bold;
   font-family: sans-serif;
 }
-
 /*marker categories*/
 .category-1{
   fill: #F88;
@@ -104,7 +100,6 @@
   background: #CCC;
   border-color: #444;
 }
-
 /*marker categories*/
 .category-ABALROAMENTO{
   fill: #F88;
@@ -160,7 +155,6 @@
   background: #CCC;
   border-color: #444;
 }
-
 /*marker icons*/
 .icon-1{
   background-image: url('running-16.png');
@@ -182,7 +176,6 @@
   background-repeat: no-repeat;
   background-position: 1px 0px;
 }
-
 /*Popup*/
 .map-popup span.heading {
   display: block;
