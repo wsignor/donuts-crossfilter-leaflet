@@ -61,7 +61,7 @@
                 map.fitBounds(markers.getBounds());
                 map.attributionControl.addAttribution(metadata.attribution);
                 renderLegend()
-                ;
+                    ;
             } else {
                 console.log('Could not load data...');
             }
@@ -278,7 +278,7 @@
 
             var legenditems = legenddiv.selectAll('.legenditem')
                 .data(data);
-                
+
             legenditems
                 .enter()
                 .append('div')

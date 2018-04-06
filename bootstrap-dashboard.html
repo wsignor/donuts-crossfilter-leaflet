@@ -1,0 +1,992 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sufee Admin - HTML5 Admin Template</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/flag-icon.min.css">
+    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
+    <link rel="stylesheet" href="assets/scss/style.css">
+    <link href="assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="leaflet.css" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+    <!-- <link href='MarkerCluster.css' rel='stylesheet' /> -->
+    <link rel="stylesheet" href="clusterpies.css" />
+    <!-- <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css"> -->
+    <link rel="stylesheet" href="https://dc-js.github.io/dc.js/css/dc.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+
+    <!-- <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js" charset="utf-8"></script> -->
+    <script src="leaflet.js" charset="utf-8"></script>
+    <!-- <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script> -->
+    <script src='leaflet.markercluster.js'></script>
+    <!--<script src="https://dc-js.github.io/dc.js/js/d3.js"></script>-->
+    <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+    <script src="d3.v3.min.js" charset="utf-8"></script>
+    <!-- <script src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script> -->
+    <script src="crossfilter.js"></script>
+    <script src="https://dc-js.github.io/dc.js/js/dc.js"></script>
+    <!-- <script src="dc.js"></script> -->
+    <!--<script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>-->
+    <!-- <script src="//api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js"></script> -->
+    <script src="turf.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Acidentes de Trânsito em Porto Alegre - 2016</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li class="active">Dashboard</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content mt-3">
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-flat-color-1">
+                    <div class="card-body pb-0">
+                        <div class="dropdown float-right">
+                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                                <i class="fa fa-cog"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu-content">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="mb-0">
+                            <span class="count">10468</span>
+                        </h4>
+                        <p class="text-light">Members online</p>
+
+                        <div class="chart-wrapper px-0" style="height:70px;" height="70">
+                            <canvas id="widgetChart1"></canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!--/.col-->
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-flat-color-2">
+                    <div class="card-body pb-0">
+                        <div class="dropdown float-right">
+                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                                <i class="fa fa-cog"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu-content">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="mb-0">
+                            <span class="count">10468</span>
+                        </h4>
+                        <p class="text-light">Members online</p>
+
+                        <div class="chart-wrapper px-0" style="height:70px;" height="70">
+                            <canvas id="widgetChart2"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-flat-color-3">
+                    <div class="card-body pb-0">
+                        <div class="dropdown float-right">
+                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                                <i class="fa fa-cog"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu-content">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="mb-0">
+                            <span class="count">10468</span>
+                        </h4>
+                        <p class="text-light">Members online</p>
+
+                    </div>
+
+                    <div class="chart-wrapper px-0" style="height:70px;" height="70">
+                        <canvas id="widgetChart3"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-flat-color-4">
+                    <div class="card-body pb-0">
+                        <div class="dropdown float-right">
+                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                                <i class="fa fa-cog"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu-content">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="mb-0">
+                            <span class="count">10468</span>
+                        </h4>
+                        <p class="text-light">Members online</p>
+
+                        <div class="chart-wrapper px-3" style="height:70px;" height="70">
+                            <canvas id="widgetChart4"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+
+            <div class="col-lg-3 col-md-6">
+                <div class="social-box facebook">
+                    <i class="fa fa-facebook"></i>
+                    <ul>
+                        <li>
+                            <strong>
+                                <span class="count">40</span> k</strong>
+                            <span>friends</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="count">450</span>
+                            </strong>
+                            <span>feeds</span>
+                        </li>
+                    </ul>
+                </div>
+                <!--/social-box-->
+            </div>
+            <!--/.col-->
+
+
+            <div class="col-lg-3 col-md-6">
+                <div class="social-box twitter">
+                    <i class="fa fa-twitter"></i>
+                    <ul>
+                        <li>
+                            <strong>
+                                <span class="count">30</span> k</strong>
+                            <span>friends</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="count">450</span>
+                            </strong>
+                            <span>tweets</span>
+                        </li>
+                    </ul>
+                </div>
+                <!--/social-box-->
+            </div>
+            <!--/.col-->
+
+
+            <div class="col-lg-3 col-md-6">
+                <div class="social-box linkedin">
+                    <i class="fa fa-linkedin"></i>
+                    <ul>
+                        <li>
+                            <strong>
+                                <span class="count">40</span> +</strong>
+                            <span>contacts</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="count">250</span>
+                            </strong>
+                            <span>feeds</span>
+                        </li>
+                    </ul>
+                </div>
+                <!--/social-box-->
+            </div>
+            <!--/.col-->
+
+
+            <div class="col-lg-3 col-md-6">
+                <div class="social-box google-plus">
+                    <i class="fa fa-google-plus"></i>
+                    <ul>
+                        <li>
+                            <strong>
+                                <span class="count">94</span> k</strong>
+                            <span>followers</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="count">92</span>
+                            </strong>
+                            <span>circles</span>
+                        </li>
+                    </ul>
+                </div>
+                <!--/social-box-->
+            </div>
+            <!--/.col-->
+
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h4 class="card-title mb-0">Traffic</h4>
+                                <div class="small text-muted">October 2017</div>
+                            </div>
+                            <!--/.col-->
+                            <div class="col-sm-8 hidden-sm-down">
+                                <button type="button" class="btn btn-primary float-right bg-flat-color-1">
+                                    <i class="fa fa-cloud-download"></i>
+                                </button>
+                                <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+                                    <div class="btn-group mr-3" data-toggle="buttons" aria-label="First group">
+                                        <label class="btn btn-outline-secondary">
+                                            <input type="radio" name="options" id="option1"> Day
+                                        </label>
+                                        <label class="btn btn-outline-secondary active">
+                                            <input type="radio" name="options" id="option2" checked=""> Month
+                                        </label>
+                                        <label class="btn btn-outline-secondary">
+                                            <input type="radio" name="options" id="option3"> Year
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/.col-->
+
+
+                        </div>
+                        <!--/.row-->
+                        <div class="chart-wrapper mt-4">
+                            <canvas id="trafficChart" style="height:200px;" height="200"></canvas>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <ul>
+                            <li>
+                                <div class="text-muted">Visits</div>
+                                <strong>29.703 Users (40%)</strong>
+                                <div class="progress progress-xs mt-2" style="height: 5px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </li>
+                            <li class="hidden-sm-down">
+                                <div class="text-muted">Unique</div>
+                                <strong>24.093 Users (20%)</strong>
+                                <div class="progress progress-xs mt-2" style="height: 5px;">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="text-muted">Pageviews</div>
+                                <strong>78.706 Views (60%)</strong>
+                                <div class="progress progress-xs mt-2" style="height: 5px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </li>
+                            <li class="hidden-sm-down">
+                                <div class="text-muted">New Users</div>
+                                <strong>22.123 Users (80%)</strong>
+                                <div class="progress progress-xs mt-2" style="height: 5px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </li>
+                            <li class="hidden-sm-down">
+                                <div class="text-muted">Bounce Rate</div>
+                                <strong>40.15%</strong>
+                                <div class="progress progress-xs mt-2" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6">
+                <section class="card">
+                    <div class="twt-feed blue-bg">
+                        <div class="corner-ribon black-ribon">
+                            <i class="fa fa-twitter"></i>
+                        </div>
+                        <div class="fa fa-twitter wtt-mark"></div>
+
+                        <div class="media">
+                            <a href="#">
+                                <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
+                            </a>
+                            <div class="media-body">
+                                <h2 class="text-white display-6">Jim Doe</h2>
+                                <p class="text-light">Project Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-category twt-category">
+                        <ul>
+                            <li class="active">
+                                <h5>750</h5>
+                                Tweets
+                            </li>
+                            <li>
+                                <h5>865</h5>
+                                Following
+                            </li>
+                            <li>
+                                <h5>3645</h5>
+                                Followers
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="twt-write col-sm-12">
+                        <textarea placeholder="Write your Tweet and Enter" rows="1" class="form-control t-text-area"></textarea>
+                    </div>
+                    <footer class="twt-footer">
+                        <a href="#">
+                            <i class="fa fa-camera"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-map-marker"></i>
+                        </a>
+                        New Castle, UK
+                        <span class="pull-right">
+                            32
+                        </span>
+                    </footer>
+                </section>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon dib">
+                                <i class="ti-money text-success border-success"></i>
+                            </div>
+                            <div class="stat-content dib">
+                                <div class="stat-text">Total Profit</div>
+                                <div class="stat-digit">1,012</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon dib">
+                                <i class="ti-user text-primary border-primary"></i>
+                            </div>
+                            <div class="stat-content dib">
+                                <div class="stat-text">New Customer</div>
+                                <div class="stat-digit">961</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon dib">
+                                <i class="ti-layout-grid2 text-warning border-warning"></i>
+                            </div>
+                            <div class="stat-content dib">
+                                <div class="stat-text">Active Projects</div>
+                                <div class="stat-digit">770</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>World</h4>
+                    </div>
+                    <div class="Vector-map-js">
+                        <div id="vmap" class="vmap" style="height: 265px;"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- .content -->
+    </div>
+    <!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+    <script src="assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/main.js"></script>
+
+
+    <script src="assets/js/lib/chart-js/Chart.bundle.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/widgets.js"></script>
+    <script src="assets/js/lib/vector-map/jquery.vmap.js"></script>
+    <script src="assets/js/lib/vector-map/jquery.vmap.min.js"></script>
+    <script src="assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
+    <script>
+
+        //"use strict"
+        var geojson,
+            metadata,
+            geojsonPath = 'acidentes-2016-less.geojson',
+            // injuries
+            categoryField = 'TIPO_ACID', //This is the fieldname for marker category (used in the pie and legend)
+            // accident-type
+            iconField = 'FERIDOS', //This is the fieldame for marker icon
+            // accident-type, date and injuries
+            popupFields = ['TIPO_ACID', 'DATA', 'TEMPO', 'AUTO', 'TAXI', 'LOTACAO', 'ONIBUS_URB', 'ONIBUS_MET', 'ONIBUS_INT', 'CAMINHAO', 'MOTO', 'CARROCA', 'BICICLETA', 'DIA_SEM'], //Popup will display these fields
+            tileServer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            tileAttribution = 'Map data: <a href="http://openstreetmap.org">OSM</a>',
+            rmax = 30, //Maximum radius for cluster pies
+            // markerclusters = L.markerClusterGroup({
+            //     maxClusterRadius: 2 * rmax,
+            //     //iconCreateFunction: defineClusterIcon //this is where the magic happens
+            //     iconCreateFunction: defineClusterIconAsBarChart
+            // }),
+            map = L.map('map').setView([59.95, 10.78], 8);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', { foo: 'bar' }).addTo(map);
+        //map.addLayer(markerclusters);
+        init(defineClusterIconAsBarChart);
+        //    d3.json('earthquakes.geojson', function (data) {
+        function init(chartType) {
+            // console.log(chartType);
+            d3.json(geojsonPath, function (error, data) {
+                if (!error) {
+                    // donut map
+                    geojson = data;
+                    metadata = data.properties;
+                    // var geoJsonLayer = L.geoJson({
+                    //     type: 'FeatureCollection',
+                    //     features: geomDimension.top(Infinity)
+                    // }
+                    //create crossfilter and dimensions
+                    var filter = crossfilter(data.features)
+                    var all = filter.groupAll();
+                    var everything = filter.dimension(function (d) {
+                        return d
+                    })
+                    var geomDimension = filter.dimension(function (d) {
+                        return d.geometry
+                    })
+                    var markers = L.geoJson(geomDimension.top(Infinity), {
+                        pointToLayer: defineFeature,
+                        onEachFeature: defineFeaturePopup
+                    }, {
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, {
+                                    radius: 4,
+                                    fillColor: "steelblue",
+                                    color: "#fff",
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                })
+                                    .bindPopup(feature.properties['FERIDOS'].toString());
+                            }
+                        });
+                    markerclusters = L.markerClusterGroup({
+                        maxClusterRadius: 2 * rmax,
+                        iconCreateFunction: chartType
+                    });
+                    map.addLayer(markerclusters);
+                    markerclusters.addLayer(markers);
+                    map.fitBounds(markers.getBounds());
+                    map.attributionControl.addAttribution(metadata.attribution);
+                    renderLegend();
+                    var magDimension = filter.dimension(function (d) {
+                        var mag = d.properties['DIA_SEM']
+                        return mag == 'DOMINGO' ? 'DOMINGO' :
+                            mag == 'SEGUNDA-FEIRA' ? 'SEGUNDA-FEIRA' :
+                                mag == 'TERCA-FEIRA' ? 'TERCA-FEIRA' :
+                                    mag == 'QUARTA-FEIRA' ? 'QUARTA-FEIRA' :
+                                        mag == 'QUINTA-FEIRA' ? 'QUINTA-FEIRA' :
+                                            mag == 'SEXTA-FEIRA' ? 'SEXTA-FEIRA' :
+                                                mag == 'SABADO' ? 'SABADO' : ''
+                    })
+                    var magDimensionGroup = magDimension.group()
+                    var depthDimension = filter.dimension(function (d) {
+                        var depth = d.properties['TIPO_ACID'];
+                        var AUTO = d.properties['AUTO'],
+                            TAXI = d.properties['TAXI'],
+                            LOTACAO = d.properties['LOTACAO'],
+                            ONIBUS_URB = d.properties['ONIBUS_URB'],
+                            ONIBUS_MET = d.properties['ONIBUS_MET'],
+                            ONIBUS_INT = d.properties['ONIBUS_INT'],
+                            CAMINHAO = d.properties['CAMINHAO'],
+                            MOTO = d.properties['MOTO'],
+                            CARROCA = d.properties['CARROCA'],
+                            BICICLETA = d.properties['BICICLETA'];
+                        return (AUTO > 0) ? 'AUTO' :
+                            (MOTO > 0) ? 'MOTO' :
+                                (TAXI > 0) ? 'TAXI' :
+                                    (LOTACAO > 0) ? 'LOTACAO' :
+                                        (ONIBUS_URB > 0) ? 'ONIBUS_URB' :
+                                            (ONIBUS_MET > 0) ? 'ONIBUS_MET' :
+                                                (ONIBUS_INT > 0) ? 'ONIBUS_INT' :
+                                                    (CAMINHAO > 0) ? 'CAMINHAO' :
+                                                        (CARROCA > 0) ? 'CARROCA' :
+                                                            (BICICLETA > 0) ? 'BICICLETA' : ''
+                    });
+                    var depthDimensionGroup = depthDimension.group()
+                    var dateDimension = filter.dimension(function (d) {
+                        return d3.time.day(new Date(d.properties['DATA']))
+                    })
+                    var dateDimensionGroup = dateDimension.group()
+                    // add blue markers to the map
+                    // this point is adding the markers to the map
+                    // geoJsonLayer is used to bing the charts to the map
+                    // var geoJsonLayer = L.geoJson({
+                    //     type: 'FeatureCollection',
+                    //     features: geomDimension.top(Infinity)
+                    // }, {
+                    //         pointToLayer: function (feature, latlng) {
+                    //             return L.circleMarker(latlng, {
+                    //                 radius: 4,
+                    //                 fillColor: "steelblue",
+                    //                 color: "#fff",
+                    //                 weight: 1,
+                    //                 opacity: 1,
+                    //                 fillOpacity: 0.8
+                    //             })
+                    //                 .bindPopup(feature.properties['FERIDOS'].toString());
+                    //         }
+                    //     }).addTo(map);
+                    //create charts
+                    var magChart = dc.barChart('#mag-chart')
+                    magChart
+                        .height(180)
+                        .margins({ top: 10, right: 50, bottom: 30, left: 40 })
+                        .dimension(magDimension)
+                        .group(magDimensionGroup)
+                        .elasticY(true)
+                        .x(d3.scale.ordinal())
+                        .xUnits(dc.units.ordinal)
+                        .yAxis()
+                        .ticks(3);
+                    var depthChart = dc.barChart('#depth-chart')
+                    depthChart
+                        .height(180)
+                        .margins({ top: 10, right: 50, bottom: 30, left: 40 })
+                        .dimension(depthDimension)
+                        .group(depthDimensionGroup)
+                        .elasticY(true)
+                        .x(d3.scale.ordinal())
+                        .xUnits(dc.units.ordinal)
+                        .yAxis()
+                        .ticks(3)
+                    var dateChart = dc.lineChart('#date-chart')
+                    dateChart
+                        .renderArea(true)
+                        .height(200)
+                        .transitionDuration(1000)
+                        .margins({ top: 30, right: 50, bottom: 25, left: 40 })
+                        .dimension(dateDimension)
+                        .group(dateDimensionGroup)
+                        .elasticY(true)
+                        .x(d3.time.scale().domain([new Date(2016, 1, 1), new Date(2016, 12, 31)]))
+                        .xUnits(d3.time.days);
+                    var earthquakeCount = dc.dataCount('.dc-data-count');
+                    earthquakeCount
+                        .dimension(filter)
+                        .group(all)
+                        .html({
+                            some: '<strong>%filter-count</strong> selecionados de um total de <strong>%total-count</strong> registros' +
+                                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a>',
+                            all: 'Todos registros selecionados. Selecione um gráfico ou interaja com o mapa para aplicar filtros.'
+                        });
+                    dc.renderAll();
+                    //chart listeners
+                    magChart.on('filtered', function (chart, filter) {
+                        updateMap()
+                    })
+                    depthChart.on('filtered', function (chart, filter) {
+                        updateMap()
+                    })
+                    dateChart.on('filtered', function (chart, filter) {
+                        updateMap()
+                    })
+                    function updateMap() {
+                        // trying to update pie markers according the filters
+                        markers.clearLayers()
+                        markers.addData({
+                            type: 'FeatureCollection',
+                            features: everything.top(Infinity)
+                        });
+                        markerclusters.clearLayers();
+                        markerclusters.addLayer(markers);
+                        // updating blue markers
+                        // geoJsonLayer.clearLayers()
+                        // geoJsonLayer.addData({
+                        //     type: 'FeatureCollection',
+                        //     features: everything.top(Infinity)
+                        // });
+                    }
+                    //map listeners
+                    map.on('moveend', function () {
+                        updateMapFilter()
+                    })
+                    map.on('zoomend', function () {
+                        updateMapFilter()
+                    })
+                    function updateMapFilter() {
+                        var bounds = map.getBounds(),
+                            n = bounds._northEast.lat,
+                            e = bounds._northEast.lng,
+                            s = bounds._southWest.lat,
+                            w = bounds._southWest.lng;
+                        var boundsFeature = {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Polygon',
+                                coordinates: [
+                                    [[w, s],
+                                    [w, n],
+                                    [e, n],
+                                    [e, s],
+                                    [w, s]]
+                                ]
+                            }
+                        }
+                        geomDimension.filter(function (d) {
+                            //make feature
+                            var point = {
+                                type: 'Feature',
+                                geometry: d
+                            }
+                            return turf.inside(point, boundsFeature)
+                        })
+                        dc.redrawAll();
+                    }
+                } else {
+                    console.log('Could not load data...');
+                }
+            });
+        }
+        function defineClusterIconAsBarChart(cluster) {
+            var children = cluster.getAllChildMarkers();
+            var n = children.length,
+                strokeWidth = 1;
+            var dataset = d3.nest() //Build a dataset for the pie chart
+                .key(function (d) {
+                    return d.feature.properties[categoryField];
+                })
+                .entries(children, d3.map);
+            //console.log(dataset);
+            var r = 30 - 2 * 1 - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
+                origo = (r + 1), //Center coordinate
+                w = origo * 2, //width and height of the svg element
+                h = w,
+                iconDim = (r + 1) * 2;
+            var data2 = [
+                { "id": "1", "value": 1 },
+                { "id": "2", "value": 2 },
+                { "id": "3", "value": 4 },
+                { "id": "4", "value": 3 },
+                { "id": "5", "value": 8 },
+                { "id": "6", "value": 3 }
+            ];
+            var x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1);
+            var y = d3.scale.linear().range([h, 0]);
+            x.domain(dataset.map(function (d) { return d.key; }));
+            y.domain([0, d3.max(dataset, function (d) { return d.values.length; })]);
+            // create a svg element
+            var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
+            // update w according bars > 0
+            var vis = d3.select(svg)
+                .attr("width", w)
+                .attr("height", h)
+                .append('g')
+                .attr('transform', 'translate(' + (h / 200) + ',' + (w / 200) + ')'); //center g
+            vis.selectAll(".bar")
+                .data(dataset)
+                .enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr('class', function (d) {
+                    return "category-" + d.key;
+                })
+                .attr("x", function (d) { return x(d.key); })
+                .attr("y", function (d) { return y(d.values.length); })
+                // define the width of each bar
+                .attr("width", x.rangeBand())
+                .attr("text", function (d) { return d.key; })
+                //.on('mouseover', tip.show)
+                //.on('mouseout', tip.hide)
+                .attr("height", function (d) { return h - y(d.values.length); })
+                .append('svg:title')
+                .text(function (d) {
+                    return metadata.fields[categoryField].lookup[d.key]
+                        + ' (' + d.values.length
+                        + ' acidente' + (d.values.length != 1 ? 's' : '') + ')';
+                });
+            // add the x Axis
+            vis.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + h + ")")
+                //.attr("width", w/dataset.length)
+                ;//.call(d3.axisBottom(x));
+            // add the y Axis
+            vis.append("g")
+                .attr("class", "y axis")
+                ;//.call(d3.axisLeft(y));
+            vis.append('text')
+                .attr('x', origo)
+                .attr('y', origo)
+                .attr('class', 'marker-cluster-bar-label')
+                .attr('text-anchor', 'middle')
+                .attr('dy', '.3em')
+                .text(n);
+            var html = serializeXmlNode(svg);
+            var myIcon = new L.DivIcon({
+                html: html,
+                className: 'mycluster',
+                iconSize: new L.Point(iconDim, iconDim)
+            });
+            return myIcon;
+        }
+        function defineClusterIcon(cluster) {
+            var children = cluster.getAllChildMarkers(),
+                n = children.length, //Get number of markers in cluster
+                strokeWidth = 1, //Set clusterpie stroke width
+                r = rmax - 2 * strokeWidth - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
+                iconDim = (r + strokeWidth) * 2, //...and divIcon dimensions (leaflet really want to know the size)
+                data = d3.nest() //Build a dataset for the pie chart
+                    .key(function (d) {
+                        return d.feature.properties[categoryField];
+                    })
+                    .entries(children, d3.map),
+                //bake some svg markup
+                html = bakeThePie({
+                    data: data,
+                    valueFunc: function (d) {
+                        return d.values.length;
+                    },
+                    strokeWidth: 1,
+                    outerRadius: r,
+                    innerRadius: r - 10,
+                    pieClass: 'cluster-pie',
+                    pieLabel: n,
+                    pieLabelClass: 'marker-cluster-pie-label',
+                    pathClassFunc: function (d) {
+                        return "category-" + d.data.key;
+                    },
+                    pathTitleFunc: function (d) {
+                        return metadata.fields[categoryField].lookup[d.data.key] + ' (' + d.data.values.length + ' acidente' + (d.data.values.length != 1 ? 's' : '') + ')';
+                    }
+                }),
+                //Create a new divIcon and assign the svg markup to the html property
+                myIcon = new L.DivIcon({
+                    html: html,
+                    className: 'marker-cluster',
+                    iconSize: new L.Point(iconDim, iconDim)
+                });
+            return myIcon;
+        }
+        function renderLegend() {
+            var data = d3.entries(metadata.fields[categoryField].lookup),
+                legenddiv = d3.select('body').append('div')
+                    .attr('id', 'legend');
+            var heading = legenddiv.append('div')
+                .classed('legendheading', true)
+                .text(metadata.fields[categoryField].name);
+            var legenditems = legenddiv.selectAll('.legenditem')
+                .data(data);
+            legenditems
+                .enter()
+                .append('div')
+                .attr('class', function (d) {
+                    return 'category-' + d.key;
+                })
+                .classed({ 'legenditem': true })
+                .text(function (d) {
+                    return d.value;
+                });
+        }
+        /*Helper function*/
+        function serializeXmlNode(xmlNode) {
+            if (typeof window.XMLSerializer != "undefined") {
+                return (new window.XMLSerializer()).serializeToString(xmlNode);
+            } else if (typeof xmlNode.xml != "undefined") {
+                return xmlNode.xml;
+            }
+            return "";
+        }
+        /*function that generates a svg markup for the pie chart*/
+        function bakeThePie(options) {
+            /*data and valueFunc are required*/
+            if (!options.data || !options.valueFunc) {
+                return '';
+            }
+            var data = options.data,
+                valueFunc = options.valueFunc,
+                r = options.outerRadius ? options.outerRadius : 8, //Default outer radius = 28px
+                rInner = options.innerRadius ? options.innerRadius : r - 10, //Default inner radius = r-10
+                strokeWidth = options.strokeWidth ? options.strokeWidth : 1, //Default stroke is 1
+                pathClassFunc = options.pathClassFunc ? options.pathClassFunc : function () {
+                    return '';
+                }, //Class for each path
+                pathTitleFunc = options.pathTitleFunc ? options.pathTitleFunc : function () {
+                    return '';
+                }, //Title for each path
+                pieClass = options.pieClass ? options.pieClass : 'marker-cluster-pie', //Class for the whole pie
+                pieLabel = options.pieLabel ? options.pieLabel : d3.sum(data, valueFunc), //Label for the whole pie
+                pieLabelClass = options.pieLabelClass ? options.pieLabelClass : 'marker-cluster-pie-label',//Class for the pie label
+                origo = (r + strokeWidth), //Center coordinate
+                w = origo * 2, //width and height of the svg element
+                h = w,
+                donut = d3.layout.pie(),
+                arc = d3.svg.arc().innerRadius(rInner).outerRadius(r);
+            //Create an svg element
+            var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
+            //Create the pie chart
+            var vis = d3.select(svg)
+                .data([data])
+                .attr('class', pieClass)
+                .attr('width', w)
+                .attr('height', h);
+            var arcs = vis.selectAll('g.arc')
+                .data(donut.value(valueFunc))
+                .enter().append('svg:g')
+                .attr('class', 'arc')
+                .attr('transform', 'translate(' + origo + ',' + origo + ')');
+            arcs.append('svg:path')
+                .attr('class', pathClassFunc)
+                .attr('stroke-width', strokeWidth)
+                .attr('d', arc)
+                .append('svg:title')
+                .text(pathTitleFunc);
+            vis.append('text')
+                .attr('x', origo)
+                .attr('y', origo)
+                .attr('class', pieLabelClass)
+                .attr('text-anchor', 'middle')
+                //.attr('dominant-baseline', 'central')
+                /*IE doesn't seem to support dominant-baseline, but setting dy to .3em does the trick*/
+                .attr('dy', '.3em')
+                .text(pieLabel);
+            //console.log(svg);
+            return serializeXmlNode(svg);
+        }
+        function defineFeature(feature, latlng) {
+            var categoryVal = feature.properties[categoryField],
+                iconVal = feature.properties[iconField];
+            var myClass = 'marker category-' + categoryVal + ' icon-' + iconVal;
+            var myIcon = L.divIcon({
+                className: myClass,
+                iconSize: null
+            });
+            return L.marker(latlng, { icon: myIcon });
+        }
+        function defineFeaturePopup(feature, layer) {
+            var props = feature.properties,
+                fields = metadata.fields,
+                popupContent = '';
+            popupFields.map(function (key) {
+                if (props[key]) {
+                    var val = props[key],
+                        label = fields[key].name;
+                    if (fields[key].lookup) {
+                        val = fields[key].lookup[val];
+                        if (typeof (val) != 'undefined') {
+                            popupContent += '<span class="attribute"><span class="label" style="color: #000000">' + label + ':</span> ' + val + '</span>';
+                        }
+                    }
+                }
+            });
+            popupContent = '<div class="map-popup">' + popupContent + '</div>';
+            layer.bindPopup(popupContent, { offset: L.point(1, -2) });
+        }
+        function changeChart() {
+            markerclusters.clearLayers();
+            if (document.getElementById("buttonUpdateChart").innerText == 'Bar chart') {
+                document.getElementById("buttonUpdateChart").innerText = 'Pie chart';
+                init(defineClusterIconAsBarChart);
+            } else {
+                document.getElementById("buttonUpdateChart").innerText = 'Bar chart';
+                init(defineClusterIcon);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
