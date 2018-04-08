@@ -168062,8 +168062,7 @@
                "EVENTUAL":"EVENTUAL",
                "INCENDIO":"INCENDIO",
                "QUEDA":"QUEDA",
-               "TOMBAMENTO":"TOMBAMENTO",
-               "N/A":"N/A"
+               "TOMBAMENTO":"TOMBAMENTO"
             },
             "name":"TIPO ACIDENTE"
          },
