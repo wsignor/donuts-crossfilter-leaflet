@@ -168064,7 +168064,7 @@
                "QUEDA":"QUEDA",
                "TOMBAMENTO":"TOMBAMENTO"
             },
-            "name":"TIPO ACIDENTE"
+            "name":"Categoria"
          },
          "DATA":{
             "name":"DATA ou DATE"
