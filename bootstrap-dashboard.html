@@ -12,12 +12,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <title>Geo charts</title>
+    <meta name="description" content="Geo charts">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-icon.png">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico">
 
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -30,11 +30,10 @@
     <link href="assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="leaflet.css"/>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css'
-          rel='stylesheet'/>
+    <link rel="stylesheet" href="leaflet.css" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
     <!-- <link href='MarkerCluster.css' rel='stylesheet' /> -->
-    <link rel="stylesheet" href="clusterpies-dash.css"/>
+    <link rel="stylesheet" href="clusterpies-dash.css" />
     <!-- <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css"> -->
     <link rel="stylesheet" href="https://dc-js.github.io/dc.js/css/dc.min.css">
     <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -61,672 +60,709 @@
 
 <body>
 
-<!-- Left Panel -->
+    <!-- Left Panel -->
 
-<!-- Right Panel -->
+    <!-- Right Panel -->
 
-<div id="right-panel" class="right-panel">
+    <div id="right-panel" class="right-panel">
 
 
-    <div class="breadcrumbs">
-        <div class="col-sm-4">
-            <div class="page-header float-left">
-                <div class="page-title">
-                    <h1>Acidentes de Trânsito em Porto Alegre - 2016</h1>
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Acidentes de Trânsito em Porto Alegre - 2016</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li class="active">Geo charts</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-8">
-            <div class="page-header float-right">
-                <div class="page-title">
-                    <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
-                    </ol>
+
+
+        <div class="content mt-3">
+            <div class="col-xl-6">
+                <div class="card-body" style="height:670px;">
+                    <div id="map">
+                    </div>
+
                 </div>
             </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="dc-data-count">
+                </div>
+                <button onclick="changeChart()" class="button" id="buttonUpdateChart">Pie chart</button>
+            </div>
+
+
+            <div class="col-sm-6 col-lg-3">
+
+                <h4>Dia da Semana</h4>
+                <div id="mag-chart"></div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3">
+
+                <h4>Meio de Transporte</h4>
+                <div id="depth-chart"></div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3">
+                <h4>Dia do Ano</h4>
+                <div id="date-chart"></div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3">
+                <h4>Região da cidade</h4>
+                <div id="regiao-chart" style="padding-top:20px;padding-left:50px"></div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3">
+                <h4>Condições climáticas</h4>
+                <div id="tempo-chart" style="padding-top:20px;padding-left:50px"></div>
+            </div>
+
+
         </div>
     </div>
 
 
-    <div class="content mt-3">
-        <div class="col-xl-6">
-            <div class="card-body" style="height:670px;">
-                <div id="map">
-                </div>
-
-            </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="dc-data-count">
-            </div>
-            <button onclick="changeChart()" class="button" id="buttonUpdateChart">Pie chart</button>
-        </div>
+    <!-- <script src="assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/main.js"></script> -->
 
 
-        <div class="col-sm-6 col-lg-3">
+    <!-- <script src="assets/js/lib/chart-js/Chart.bundle.js"></script> -->
+    <!-- <script src="assets/js/dashboard.js"></script> -->
+    <!-- <script src="assets/js/widgets.js"></script> -->
+    <!-- <script src="assets/js/lib/vector-map/jquery.vmap.js"></script>
+    <script src="assets/js/lib/vector-map/jquery.vmap.min.js"></script>
+    <script src="assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.world.js"></script> -->
+    <script>
 
-            <h4>Dia da Semana</h4>
-            <div id="mag-chart"></div>
-        </div>
-
-        <div class="col-sm-6 col-lg-3">
-
-            <h4>Meio de Transporte</h4>
-            <div id="depth-chart"></div>
-        </div>
-
-        <div class="col-sm-6 col-lg-3">
-            <h4>Dia do Ano</h4>
-            <div id="date-chart"></div>
-        </div>
-
-        <div class="col-sm-6 col-lg-3">
-            <h4>Região da cidade</h4>
-            <div id="regiao-chart" style="padding-top:20px;padding-left:50px"></div>
-        </div>
-
-        <div class="col-sm-6 col-lg-3">
-            <h4>Condições climáticas</h4>
-            <div id="tempo-chart" style="padding-top:20px;padding-left:50px"></div>
-        </div>
-
-
-    </div>
-</div>
-
-
-<script src="assets/js/vendor/jquery-2.1.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-<script src="assets/js/plugins.js"></script>
-<script src="assets/js/main.js"></script>
-
-
-<script src="assets/js/lib/chart-js/Chart.bundle.js"></script>
-<script src="assets/js/dashboard.js"></script>
-<script src="assets/js/widgets.js"></script>
-<script src="assets/js/lib/vector-map/jquery.vmap.js"></script>
-<script src="assets/js/lib/vector-map/jquery.vmap.min.js"></script>
-<script src="assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
-<script src="assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
-<script>
-
-    //"use strict"
-    var geojson,
-        metadata,
-        geojsonPath = 'acidentes-2016-less.geojson',
-        // injuries
-        categoryField = 'TIPO_ACID', //This is the fieldname for marker category (used in the pie and legend)
-        // accident-type
-        iconField = 'FERIDOS', //This is the fieldame for marker icon
-        // accident-type, date and injuries
-        popupFields = ['TIPO_ACID', 'DATA', 'TEMPO', 'AUTO', 'TAXI', 'LOTACAO', 'ONIBUS_URB', 'ONIBUS_MET', 'ONIBUS_INT', 'CAMINHAO', 'MOTO', 'CARROCA', 'BICICLETA', 'DIA_SEM'], //Popup will display these fields
-        tileServer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        tileAttribution = 'Map data: <a href="http://openstreetmap.org">OSM</a>',
-        rmax = 30, //Maximum radius for cluster pies
-        // markerclusters = L.markerClusterGroup({
-        //     maxClusterRadius: 2 * rmax,
-        //     //iconCreateFunction: defineClusterIcon //this is where the magic happens
-        //     iconCreateFunction: defineClusterIconAsBarChart
-        // }),
-        map = L.map('map').setView([59.95, 10.78], 8);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
-    //map.addLayer(markerclusters);
-    init(defineClusterIconAsBarChart);
-    //    d3.json('earthquakes.geojson', function (data) {
-    function init(chartType) {
-        // console.log(chartType);
-        d3.json(geojsonPath, function (error, data) {
-            if (!error) {
-                // donut map
-                geojson = data;
-                metadata = data.properties;
-                // var geoJsonLayer = L.geoJson({
-                //     type: 'FeatureCollection',
-                //     features: geomDimension.top(Infinity)
-                // }
-                //create crossfilter and dimensions
-                var filter = crossfilter(data.features)
-                var all = filter.groupAll();
-                var everything = filter.dimension(function (d) {
-                    return d
-                })
-                var geomDimension = filter.dimension(function (d) {
-                    return d.geometry
-                })
-                var markers = L.geoJson(geomDimension.top(Infinity), {
-                    pointToLayer: defineFeature,
-                    onEachFeature: defineFeaturePopup
-                }, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(latlng, {
-                            radius: 4,
-                            fillColor: "steelblue",
-                            color: "#fff",
-                            weight: 1,
-                            opacity: 1,
-                            fillOpacity: 0.8
-                        })
-                            .bindPopup(feature.properties['FERIDOS'].toString());
-                    }
-                });
-                markerclusters = L.markerClusterGroup({
-                    maxClusterRadius: 2 * rmax,
-                    iconCreateFunction: chartType
-                });
-                map.addLayer(markerclusters);
-                markerclusters.addLayer(markers);
-                map.fitBounds(markers.getBounds());
-                map.attributionControl.addAttribution(metadata.attribution);
-                renderLegend();
-                var magDimension = filter.dimension(function (d) {
-                    var mag = d.properties['DIA_SEM']
-                    return mag == 'DOMINGO' ? 'DOMINGO' :
-                        mag == 'SEGUNDA-FEIRA' ? 'SEGUNDA-FEIRA' :
-                            mag == 'TERCA-FEIRA' ? 'TERCA-FEIRA' :
-                                mag == 'QUARTA-FEIRA' ? 'QUARTA-FEIRA' :
-                                    mag == 'QUINTA-FEIRA' ? 'QUINTA-FEIRA' :
-                                        mag == 'SEXTA-FEIRA' ? 'SEXTA-FEIRA' :
-                                            mag == 'SABADO' ? 'SABADO' : ''
-                })
-                var magDimensionGroup = magDimension.group()
-                var depthDimension = filter.dimension(function (d) {
-                    var depth = d.properties['TIPO_ACID'];
-                    var AUTO = d.properties['AUTO'],
-                        TAXI = d.properties['TAXI'],
-                        LOTACAO = d.properties['LOTACAO'],
-                        ONIBUS_URB = d.properties['ONIBUS_URB'],
-                        ONIBUS_MET = d.properties['ONIBUS_MET'],
-                        ONIBUS_INT = d.properties['ONIBUS_INT'],
-                        CAMINHAO = d.properties['CAMINHAO'],
-                        MOTO = d.properties['MOTO'],
-                        CARROCA = d.properties['CARROCA'],
-                        BICICLETA = d.properties['BICICLETA'];
-                    return (AUTO > 0) ? 'AUTO' :
-                        (MOTO > 0) ? 'MOTO' :
-                            (TAXI > 0) ? 'TAXI' :
-                                (LOTACAO > 0) ? 'LOTACAO' :
-                                    (ONIBUS_URB > 0) ? 'ONIBUS_URB' :
-                                        (ONIBUS_MET > 0) ? 'ONIBUS_MET' :
-                                            (ONIBUS_INT > 0) ? 'ONIBUS_INT' :
-                                                (CAMINHAO > 0) ? 'CAMINHAO' :
-                                                    (CARROCA > 0) ? 'CARROCA' :
-                                                        (BICICLETA > 0) ? 'BICICLETA' : ''
-                });
-
-                var regiaoDimension = filter.dimension(function (d) {
-                    var reg = d.properties['REGIAO']
-                    return reg == 'NORTE' ? 'NORTE' :
-                        reg == 'SUL' ? 'SUL' :
-                            reg == 'LESTE' ? 'LESTE' :
-                                reg == 'CENTRO' ? 'CENTRO' : ''
-                });
-                var regiaoDimensionGroup = regiaoDimension.group();
-
-                var tempoDimension = filter.dimension(function (d) {
-                    var reg = d.properties['TEMPO']
-                    return reg == 'NUBLADO' ? 'NUBLADO' :
-                        reg == 'BOM' ? 'BOM' :
-                            reg == 'CHUVOSO' ? 'CHUVOSO' : ''
-                });
-                var tempoDimensionGroup = tempoDimension.group();
-
-                var depthDimensionGroup = depthDimension.group();
-
-                var dateDimension = filter.dimension(function (d) {
-                    return d3.time.day(new Date(d.properties['DATA']))
-                });
-
-                var dateDimensionGroup = dateDimension.group();
-
-                var magChart = dc.barChart('#mag-chart');
-                magChart
-                    .height(180)
-                    .margins({top: 10, right: 50, bottom: 30, left: 40})
-                    .dimension(magDimension)
-                    .group(magDimensionGroup)
-                    .elasticY(true)
-                    .x(d3.scale.ordinal())
-                    .xUnits(dc.units.ordinal)
-                    .yAxis()
-                    .ticks(3);
-
-                var depthChart = dc.barChart('#depth-chart');
-                depthChart
-                    .height(180)
-                    .margins({top: 10, right: 50, bottom: 30, left: 40})
-                    .dimension(depthDimension)
-                    .group(depthDimensionGroup)
-                    .elasticY(true)
-                    .x(d3.scale.ordinal())
-                    .xUnits(dc.units.ordinal)
-                    .yAxis()
-                    .ticks(3);
-
-                var dateChart = dc.lineChart('#date-chart');
-                dateChart
-                    .renderArea(true)
-                    .height(180)
-                    .transitionDuration(1000)
-                    .margins({top: 30, right: 50, bottom: 25, left: 40})
-                    .dimension(dateDimension)
-                    .group(dateDimensionGroup)
-                    .elasticY(true)
-                    .x(d3.time.scale().domain([new Date(2016, 1, 1), new Date(2016, 12, 31)]))
-                    .xUnits(d3.time.days);
-
-                var regiaoChart = dc.pieChart('#regiao-chart')
-                regiaoChart
-                    .height(180)
-                    .dimension(regiaoDimension)
-                    .group(regiaoDimensionGroup)
-                    .innerRadius(40);
-
-                var tempoChart = dc.pieChart('#tempo-chart')
-                tempoChart
-                    .height(180)
-                    .dimension(tempoDimension)
-                    .group(tempoDimensionGroup);
-
-                var earthquakeCount = dc.dataCount('.dc-data-count');
-                earthquakeCount
-                    .dimension(filter)
-                    .group(all)
-                    .html({
-                        some: '<strong>%filter-count</strong> selecionados de um total de <strong>%total-count</strong> registros' +
-                        ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a>',
-                        all: 'Todos registros selecionados. Selecione um gráfico ou interaja com o mapa para aplicar filtros.'
-                    });
-
-                dc.renderAll();
-
-                //chart listeners
-                magChart.on('filtered', function (chart, filter) {
-                    updateMap()
-                })
-                depthChart.on('filtered', function (chart, filter) {
-                    updateMap()
-                })
-                dateChart.on('filtered', function (chart, filter) {
-                    updateMap()
-                })
-                regiaoChart.on('filtered', function (chart, filter) {
-                    updateMap()
-                })
-                tempoChart.on('filtered', function (chart, filter) {
-                    updateMap()
-                })
-                function updateMap() {
-                    // trying to update pie markers according the filters
-                    markers.clearLayers()
-                    markers.addData({
-                        type: 'FeatureCollection',
-                        features: everything.top(Infinity)
-                    });
-                    markerclusters.clearLayers();
-                    markerclusters.addLayer(markers);
-                    // updating blue markers
-                    // geoJsonLayer.clearLayers()
-                    // geoJsonLayer.addData({
+        //"use strict"
+        var geojson,
+            metadata,
+            geojsonPath = 'acidentes-2016-less.geojson',
+            // injuries
+            categoryField = 'TIPO_ACID', //This is the fieldname for marker category (used in the pie and legend)
+            // accident-type
+            iconField = 'FERIDOS', //This is the fieldame for marker icon
+            // accident-type, date and injuries
+            popupFields = ['TIPO_ACID', 'DATE', 'TEMPO', 'AUTO', 'TAXI', 'LOTACAO', 'ONIBUS_URB', 'ONIBUS_MET', 'ONIBUS_INT', 'CAMINHAO', 'MOTO', 'CARROCA', 'BICICLETA', 'DIA_SEM'], //Popup will display these fields
+            tileServer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            tileAttribution = 'Map data: <a href="http://openstreetmap.org">OSM</a>',
+            rmax = 30, //Maximum radius for cluster pies
+            // markerclusters = L.markerClusterGroup({
+            //     maxClusterRadius: 2 * rmax,
+            //     //iconCreateFunction: defineClusterIcon //this is where the magic happens
+            //     iconCreateFunction: defineClusterIconAsBarChart
+            // }),
+            map = L.map('map').setView([59.95, 10.78], 8);
+        //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', { foo: 'bar' }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', { foo: 'bar' }).addTo(map);
+        //map.addLayer(markerclusters);
+        init(defineClusterIconAsBarChart);
+        //    d3.json('earthquakes.geojson', function (data) {
+        function init(chartType) {
+            // console.log(chartType);
+            d3.json(geojsonPath, function (error, data) {
+                if (!error) {
+                    // donut map
+                    geojson = data;
+                    metadata = data.properties;
+                    // var geoJsonLayer = L.geoJson({
                     //     type: 'FeatureCollection',
-                    //     features: everything.top(Infinity)
-                    // });
-                }
+                    //     features: geomDimension.top(Infinity)
+                    // }
+                    //create crossfilter and dimensions
+                    var filter = crossfilter(data.features)
+                    var all = filter.groupAll();
+                    var everything = filter.dimension(function (d) {
+                        return d
+                    })
+                    var geomDimension = filter.dimension(function (d) {
+                        return d.geometry
+                    })
+                    var markers = L.geoJson(geomDimension.top(Infinity), {
+                        pointToLayer: defineFeature,
+                        onEachFeature: defineFeaturePopup
+                    }, {
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, {
+                                    radius: 4,
+                                    fillColor: "steelblue",
+                                    color: "#fff",
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                })
+                                    .bindPopup(feature.properties['FERIDOS'].toString());
+                            }
+                        });
+                    markerclusters = L.markerClusterGroup({
+                        maxClusterRadius: 2 * rmax,
+                        iconCreateFunction: chartType
+                    });
+                    map.addLayer(markerclusters);
+                    markerclusters.addLayer(markers);
+                    map.fitBounds(markers.getBounds());
+                    map.attributionControl.addAttribution(metadata.attribution);
+                    renderLegend();
 
-                //map listeners
-                map.on('moveend', function () {
-                    updateMapFilter()
-                })
-                map.on('zoomend', function () {
-                    updateMapFilter()
-                })
-                function updateMapFilter() {
-                    var bounds = map.getBounds(),
-                        n = bounds._northEast.lat,
-                        e = bounds._northEast.lng,
-                        s = bounds._southWest.lat,
-                        w = bounds._southWest.lng;
-                    var boundsFeature = {
-                        type: 'Feature',
-                        geometry: {
-                            type: 'Polygon',
-                            coordinates: [
-                                [[w, s],
+                    var magDimension = filter.dimension(function (d) {
+                        var mag = d.properties['DIA_SEM']
+                        return mag == 'DOMINGO' ? 'DOMINGO' :
+                            mag == 'SEGUNDA-FEIRA' ? 'SEGUNDA-FEIRA' :
+                                mag == 'TERCA-FEIRA' ? 'TERCA-FEIRA' :
+                                    mag == 'QUARTA-FEIRA' ? 'QUARTA-FEIRA' :
+                                        mag == 'QUINTA-FEIRA' ? 'QUINTA-FEIRA' :
+                                            mag == 'SEXTA-FEIRA' ? 'SEXTA-FEIRA' :
+                                                mag == 'SABADO' ? 'SABADO' : ''
+                    });
+                    var magDimensionGroup = magDimension.group();
+
+                    var depthDimension = filter.dimension(function (d) {
+                        var depth = d.properties['TIPO_ACID'];
+
+                        var AUTO = d.properties['AUTO'],
+                            TAXI = d.properties['TAXI'],
+                            LOTACAO = d.properties['LOTACAO'],
+                            ONIBUS_URB = d.properties['ONIBUS_URB'],
+                            ONIBUS_MET = d.properties['ONIBUS_MET'],
+                            ONIBUS_INT = d.properties['ONIBUS_INT'],
+                            CAMINHAO = d.properties['CAMINHAO'],
+                            MOTO = d.properties['MOTO'],
+                            CARROCA = d.properties['CARROCA'],
+                            BICICLETA = d.properties['BICICLETA'];
+
+                        return (AUTO > 0) ? 'AUTO' :
+                            (MOTO > 0) ? 'MOTO' :
+                                (TAXI > 0) ? 'TAXI' :
+                                    (LOTACAO > 0) ? 'LOTACAO' :
+                                        (ONIBUS_URB > 0) ? 'ONIBUS_URB' :
+                                            (ONIBUS_MET > 0) ? 'ONIBUS_MET' :
+                                                (ONIBUS_INT > 0) ? 'ONIBUS_INT' :
+                                                    (CAMINHAO > 0) ? 'CAMINHAO' :
+                                                        (CARROCA > 0) ? 'CARROCA' :
+                                                            (BICICLETA > 0) ? 'BICICLETA' : ''
+                    });
+
+                    var depthDimensionGroup = depthDimension.group();
+
+                    var regiaoDimension = filter.dimension(function (d) {
+                        var reg = d.properties['REGIAO']
+                        return reg == 'NORTE' ? 'NORTE' :
+                            reg == 'SUL' ? 'SUL' :
+                                reg == 'LESTE' ? 'LESTE' :
+                                    reg == 'CENTRO' ? 'CENTRO' : ''
+                    });
+                    var regiaoDimensionGroup = regiaoDimension.group();
+
+                    var tempoDimension = filter.dimension(function (d) {
+                        var reg = d.properties['TEMPO']
+                        return reg == 'NUBLADO' ? 'NUBLADO' :
+                            reg == 'BOM' ? 'BOM' :
+                                reg == 'CHUVOSO' ? 'CHUVOSO' : ''
+                    });
+                    var tempoDimensionGroup = tempoDimension.group();
+
+                    var dateDimension = filter.dimension(function (d) {
+                        return d3.time.day(new Date(d.properties['DATE']))
+                    });
+                    var dateDimensionGroup = dateDimension.group();
+
+                    var magChart = dc.barChart('#mag-chart');
+                    magChart
+                        .height(180)
+                        .margins({ top: 10, right: 50, bottom: 30, left: 40 })
+                        .dimension(magDimension)
+                        .group(magDimensionGroup)
+                        .elasticY(true)
+                        .ordering(function (d) { return -d.value; })
+                        .x(d3.scale.ordinal())
+                        .xUnits(dc.units.ordinal)
+                        .yAxis()
+                        .ticks(3);
+
+                    var depthChart = dc.barChart('#depth-chart');
+                    depthChart
+                        .height(180)
+                        .margins({ top: 10, right: 50, bottom: 30, left: 40 })
+                        .dimension(depthDimension)
+                        .group(depthDimensionGroup)
+                        .ordering(function (d) { return -d.value; })
+                        .elasticY(true)
+                        .x(d3.scale.ordinal())
+                        .xUnits(dc.units.ordinal)
+                        .yAxis()
+                        .ticks(3);
+
+                    var dateChart = dc.lineChart('#date-chart');
+                    dateChart
+                        .renderArea(true)
+                        .height(180)
+                        .transitionDuration(1000)
+                        .margins({ top: 30, right: 50, bottom: 25, left: 40 })
+                        .dimension(dateDimension)
+                        .group(dateDimensionGroup)
+                        .elasticY(true)
+                        .x(d3.time.scale().domain([new Date(2016, 1, 1), new Date(2016, 12, 31)]))
+                        .xUnits(d3.time.days);
+
+                    var regiaoChart = dc.pieChart('#regiao-chart')
+                    regiaoChart
+                        .height(180)
+                        .dimension(regiaoDimension)
+                        .group(regiaoDimensionGroup)
+                        .innerRadius(40);
+
+                    var tempoChart = dc.pieChart('#tempo-chart')
+                    tempoChart
+                        .height(180)
+                        .dimension(tempoDimension)
+                        .group(tempoDimensionGroup);
+
+                    var earthquakeCount = dc.dataCount('.dc-data-count');
+                    earthquakeCount
+                        .dimension(filter)
+                        .group(all)
+                        .html({
+                            some: '<strong>%filter-count</strong> selecionados de um total de <strong>%total-count</strong> registros' +
+                                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a>',
+                            all: 'Todos registros selecionados. Selecione um gráfico ou interaja com o mapa para aplicar filtros.'
+                        });
+
+                    dc.renderAll();
+
+                    //chart listeners
+                    magChart.on('filtered', function (chart, filter) {
+                        updateMap()
+                    })
+                    depthChart.on('filtered', function (chart, filter) {
+                        updateMap()
+                    })
+                    dateChart.on('filtered', function (chart, filter) {
+                        updateMap()
+                    })
+                    regiaoChart.on('filtered', function (chart, filter) {
+                        updateMap()
+                    })
+                    tempoChart.on('filtered', function (chart, filter) {
+                        updateMap()
+                    })
+                    function updateMap() {
+                        // trying to update pie markers according the filters
+                        markers.clearLayers()
+                        markers.addData({
+                            type: 'FeatureCollection',
+                            features: everything.top(Infinity)
+                        });
+                        markerclusters.clearLayers();
+                        markerclusters.addLayer(markers);
+                        // updating blue markers
+                        // geoJsonLayer.clearLayers()
+                        // geoJsonLayer.addData({
+                        //     type: 'FeatureCollection',
+                        //     features: everything.top(Infinity)
+                        // });
+                    }
+
+                    //map listeners
+                    map.on('moveend', function () {
+                        updateMapFilter()
+                    })
+                    map.on('zoomend', function () {
+                        updateMapFilter()
+                    })
+                    function updateMapFilter() {
+                        var bounds = map.getBounds(),
+                            n = bounds._northEast.lat,
+                            e = bounds._northEast.lng,
+                            s = bounds._southWest.lat,
+                            w = bounds._southWest.lng;
+                        var boundsFeature = {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Polygon',
+                                coordinates: [
+                                    [[w, s],
                                     [w, n],
                                     [e, n],
                                     [e, s],
                                     [w, s]]
-                            ]
+                                ]
+                            }
                         }
+                        geomDimension.filter(function (d) {
+                            //make feature
+                            var point = {
+                                type: 'Feature',
+                                geometry: d
+                            }
+                            return turf.inside(point, boundsFeature)
+                        })
+                        dc.redrawAll();
                     }
-                    geomDimension.filter(function (d) {
-                        //make feature
-                        var point = {
-                            type: 'Feature',
-                            geometry: d
-                        }
-                        return turf.inside(point, boundsFeature)
-                    })
-                    dc.redrawAll();
+                } else {
+                    console.log('Could not load data...');
                 }
-            } else {
-                console.log('Could not load data...');
-            }
-        });
-    }
-
-    Array.prototype.contains = function (element) {
-        for (var i = 0; i < this.length; i++) {
-            if (this[i] == element) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function defineClusterIconAsBarChart(cluster) {
-        var children = cluster.getAllChildMarkers();
-        var n = children.length,
-            strokeWidth = 1;
-        var dataset = d3.nest() //Build a dataset for the pie chart
-            .key(function (d) {
-                return d.feature.properties[categoryField];
-            })
-            .entries(children, d3.map);
-        //console.log(dataset);
-        var r = 30 - 2 * 1 - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
-            origo = (r + 1), //Center coordinate
-            w = origo * 2, //width and height of the svg element
-            h = w,
-            iconDim = (r + 1) * 2;
-        var data2 = [
-            {"id": "1", "value": 1},
-            {"id": "2", "value": 2},
-            {"id": "3", "value": 4},
-            {"id": "4", "value": 3},
-            {"id": "5", "value": 8},
-            {"id": "6", "value": 3}
-        ];
-        var x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1);
-        var y = d3.scale.linear().range([h, 0]);
-        x.domain(dataset.map(function (d) {
-            return d.key;
-        }));
-        y.domain([0, d3.max(dataset, function (d) {
-            return d.values.length;
-        })]);
-        // create a svg element
-        var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
-        // update w according bars > 0
-        var vis = d3.select(svg)
-            .attr("width", w)
-            .attr("height", h)
-            .append('g')
-            .attr('transform', 'translate(' + (h / 200) + ',' + (w / 200) + ')'); //center g
-
-
-        var ABALROAMENTO = 0,
-            ATROPELAMENTO = 0,
-            CAPOTAGEM = 0,
-            CHOQUE = 0,
-            COLISAO = 0,
-            EVENTUAL = 0,
-            INCENDIO = 0,
-            QUEDA = 0,
-            TOMBAMENTO = 0;
-        dataset.forEach(function (entry) {
-            console.log('entry: ', entry);
-
-            if (entry.key == 'ABALROAMENTO') {
-                ABALROAMENTO += 1;
-            } else if (entry.key == 'ATROPELAMENTO'){
-                ATROPELAMENTO += 1;
-            } else if (entry.key == 'CAPOTAGEM'){
-                CAPOTAGEM += 1;
-            } else if (entry.key == 'CHOQUE'){
-                CHOQUE += 1;
-            } else if (entry.key == 'COLISAO'){
-                COLISAO += 1;
-            } else if (entry.key == 'EVENTUAL'){
-                EVENTUAL += 1;
-            } else if (entry.key == 'INCENDIO'){
-                INCENDIO += 1;
-            } else if (entry.key == 'QUEDA'){
-                QUEDA += 1;
-            } else if (entry.key == 'TOMBAMENTO'){
-                TOMBAMENTO += 1;
-            }
-        });
-
-
-
-        if(ABALROAMENTO == 0){
-            var item = [
-                {"key": "ABALROAMENTO", "values": []},
-            ];
-            dataset.push(item);
-        }
-
-
-        vis.selectAll(".bar")
-            .data(dataset)
-            .enter()
-            .append("rect")
-            .attr("class", "bar")
-            .attr('class', function (d) {
-                return "category-" + d.key;
-            })
-            .attr("x", function (d) {
-                return x(d.key);
-            })
-            .attr("y", function (d) {
-                return y(d.values.length);
-            })
-            // define the width of each bar
-            .attr("width", x.rangeBand())
-            .attr("text", function (d) {
-                return d.key;
-            })
-            //.on('mouseover', tip.show)
-            //.on('mouseout', tip.hide)
-            .attr("height", function (d) {
-                return h - y(d.values.length);
-            })
-            .append('svg:title')
-            .text(function (d) {
-                return metadata.fields[categoryField].lookup[d.key]
-                    + ' (' + d.values.length
-                    + ' acidente' + (d.values.length != 1 ? 's' : '') + ')';
             });
-        // add the x Axis
-        vis.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + h + ")")
-        //.attr("width", w/dataset.length)
-        ;//.call(d3.axisBottom(x));
-        // add the y Axis
-        vis.append("g")
-            .attr("class", "y axis")
-        ;//.call(d3.axisLeft(y));
-        vis.append('text')
-            .attr('x', origo)
-            .attr('y', origo)
-            .attr('class', 'marker-cluster-bar-label')
-            .attr('text-anchor', 'middle')
-            .attr('dy', '.3em')
-            .text(n);
-        var html = serializeXmlNode(svg);
-        var myIcon = new L.DivIcon({
-            html: html,
-            className: 'mycluster',
-            iconSize: new L.Point(iconDim, iconDim)
-        });
-        return myIcon;
-    }
-    function defineClusterIcon(cluster) {
-        var children = cluster.getAllChildMarkers(),
-            n = children.length, //Get number of markers in cluster
-            strokeWidth = 1, //Set clusterpie stroke width
-            r = rmax - 2 * strokeWidth - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
-            iconDim = (r + strokeWidth) * 2, //...and divIcon dimensions (leaflet really want to know the size)
-            data = d3.nest() //Build a dataset for the pie chart
+        }
+
+        Array.prototype.contains = function (element) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] == element) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function defineClusterIconAsBarChart(cluster) {
+            var children = cluster.getAllChildMarkers();
+            var n = children.length,
+                strokeWidth = 1;
+            var dataset = d3.nest() //Build a dataset for the pie chart
                 .key(function (d) {
                     return d.feature.properties[categoryField];
                 })
-                .entries(children, d3.map),
-            //bake some svg markup
-            html = bakeThePie({
-                data: data,
-                valueFunc: function (d) {
-                    return d.values.length;
-                },
-                strokeWidth: 1,
-                outerRadius: r,
-                innerRadius: r - 10,
-                pieClass: 'cluster-pie',
-                pieLabel: n,
-                pieLabelClass: 'marker-cluster-pie-label',
-                pathClassFunc: function (d) {
-                    return "category-" + d.data.key;
-                },
-                pathTitleFunc: function (d) {
-                    return metadata.fields[categoryField].lookup[d.data.key] + ' (' + d.data.values.length + ' acidente' + (d.data.values.length != 1 ? 's' : '') + ')';
+                .entries(children, d3.map);
+            var r = 30 - 2 * 1 - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
+                origo = (r + 1), //Center coordinate
+                w = origo * 2, //width and height of the svg element
+                h = w,
+                iconDim = (r + 1) * 2;
+            var data2 = [
+                { "id": "1", "value": 1 },
+                { "id": "2", "value": 2 },
+                { "id": "3", "value": 4 },
+                { "id": "4", "value": 3 },
+                { "id": "5", "value": 8 },
+                { "id": "6", "value": 3 }
+            ];
+
+            // create to populate all columns of bar charts
+            var ABALROAMENTO = 0,
+                ATROPELAMENTO = 0,
+                CAPOTAGEM = 0,
+                CHOQUE = 0,
+                COLISAO = 0,
+                EVENTUAL = 0,
+                INCENDIO = 0,
+                QUEDA = 0,
+                TOMBAMENTO = 0;
+            dataset.forEach(function (entry) {
+
+                if (entry.key == 'ABALROAMENTO') {
+                    ABALROAMENTO += 1;
+                } else if (entry.key == 'ATROPELAMENTO') {
+                    ATROPELAMENTO += 1;
+                } else if (entry.key == 'CAPOTAGEM') {
+                    CAPOTAGEM += 1;
+                } else if (entry.key == 'CHOQUE') {
+                    CHOQUE += 1;
+                } else if (entry.key == 'COLISAO') {
+                    COLISAO += 1;
+                } else if (entry.key == 'EVENTUAL') {
+                    EVENTUAL += 1;
+                } else if (entry.key == 'INCENDIO') {
+                    INCENDIO += 1;
+                } else if (entry.key == 'QUEDA') {
+                    QUEDA += 1;
+                } else if (entry.key == 'TOMBAMENTO') {
+                    TOMBAMENTO += 1;
                 }
-            }),
-            //Create a new divIcon and assign the svg markup to the html property
-            myIcon = new L.DivIcon({
+            });
+
+
+            if (ABALROAMENTO == 0) {
+                var item = { "key": "ABALROAMENTO", "values": new Array() };
+                dataset.push(item);
+            }
+            if (ATROPELAMENTO == 0) {
+                var item = { "key": "ATROPELAMENTO", "values": new Array() };
+                dataset.push(item);
+            }
+            if (CAPOTAGEM == 0) {
+                var item = { "key": "CAPOTAGEM", "values": new Array() };
+                dataset.push(item);
+            }
+            if (CHOQUE == 0) {
+                var item = { "key": "CHOQUE", "values": new Array() };
+                dataset.push(item);
+            }
+            if (COLISAO == 0) {
+                var item = { "key": "COLISAO", "values": new Array() };
+                dataset.push(item);
+            }
+            if (EVENTUAL == 0) {
+                var item = { "key": "EVENTUAL", "values": new Array() };
+                dataset.push(item);
+            }
+            if (INCENDIO == 0) {
+                var item = { "key": "INCENDIO", "values": new Array() };
+                dataset.push(item);
+            }
+            if (QUEDA == 0) {
+                var item = { "key": "QUEDA", "values": new Array() };
+                dataset.push(item);
+            }
+            if (TOMBAMENTO == 0) {
+                var item = { "key": "TOMBAMENTO", "values": new Array() };
+                dataset.push(item);
+            }
+
+            // order starts always from a to z
+            dataset.sort(function (a, b) { return (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0); });
+
+            var x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1);
+            var y = d3.scale.linear().range([h, 0]);
+            x.domain(dataset.map(function (d) {
+                return d.key;
+            }));
+            y.domain([0, d3.max(dataset, function (d) {
+                return d.values.length;
+            })]);
+            // create a svg element
+            var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
+            // update w according bars > 0
+            var vis = d3.select(svg)
+                .attr("width", w)
+                .attr("height", h)
+                .append('g')
+                .attr('transform', 'translate(' + (h / 200) + ',' + (w / 200) + ')'); //center g
+
+            vis.selectAll(".bar")
+                .data(dataset)
+                .enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr('class', function (d) {
+                    return "category-" + d.key;
+                })
+                .attr("x", function (d) {
+                    return x(d.key);
+                })
+                .attr("y", function (d) {
+                    return y(d.values.length);
+                })
+                // define the width of each bar
+                .attr("width", x.rangeBand())
+                .attr("text", function (d) {
+                    return d.key;
+                })
+                //.on('mouseover', tip.show)
+                //.on('mouseout', tip.hide)
+                .attr("height", function (d) {
+                    return h - y(d.values.length);
+                })
+                .append('svg:title')
+                .text(function (d) {
+                    return metadata.fields[categoryField].lookup[d.key]
+                        + ' (' + d.values.length
+                        + ' ACIDENTE' + (d.values.length != 1 ? 'S' : '') + ')';
+                });
+            // add the x Axis
+            vis.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + h + ")")
+                //.attr("width", w/dataset.length)
+                ;//.call(d3.axisBottom(x));
+            // add the y Axis
+            vis.append("g")
+                .attr("class", "y axis")
+                ;//.call(d3.axisLeft(y));
+            vis.append('text')
+                .attr('x', origo)
+                .attr('y', origo)
+                .attr('class', 'marker-cluster-bar-label')
+                .attr('text-anchor', 'middle')
+                .attr('dy', '.3em')
+                .text(n);
+            var html = serializeXmlNode(svg);
+            var myIcon = new L.DivIcon({
                 html: html,
-                className: 'marker-cluster',
+                className: 'mycluster',
                 iconSize: new L.Point(iconDim, iconDim)
             });
-        return myIcon;
-    }
-    function renderLegend() {
-        var data = d3.entries(metadata.fields[categoryField].lookup),
-            legenddiv = d3.select('body').append('div')
-                .attr('id', 'legend');
-        var heading = legenddiv.append('div')
-            .classed('legendheading', true)
-            .text(metadata.fields[categoryField].name);
-        var legenditems = legenddiv.selectAll('.legenditem')
-            .data(data);
-        legenditems
-            .enter()
-            .append('div')
-            .attr('class', function (d) {
-                return 'category-' + d.key;
-            })
-            .classed({'legenditem': true})
-            .text(function (d) {
-                return d.value;
+            return myIcon;
+        }
+        function defineClusterIcon(cluster) {
+            var children = cluster.getAllChildMarkers(),
+                n = children.length, //Get number of markers in cluster
+                strokeWidth = 1, //Set clusterpie stroke width
+                r = rmax - 2 * strokeWidth - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
+                iconDim = (r + strokeWidth) * 2, //...and divIcon dimensions (leaflet really want to know the size)
+                data = d3.nest() //Build a dataset for the pie chart
+                    .key(function (d) {
+                        return d.feature.properties[categoryField];
+                    })
+                    .entries(children, d3.map),
+                //bake some svg markup
+                html = bakeThePie({
+                    data: data,
+                    valueFunc: function (d) {
+                        return d.values.length;
+                    },
+                    strokeWidth: 1,
+                    outerRadius: r,
+                    innerRadius: r - 10,
+                    pieClass: 'cluster-pie',
+                    pieLabel: n,
+                    pieLabelClass: 'marker-cluster-pie-label',
+                    pathClassFunc: function (d) {
+                        return "category-" + d.data.key;
+                    },
+                    pathTitleFunc: function (d) {
+                        return metadata.fields[categoryField].lookup[d.data.key] + ' (' + d.data.values.length + ' acidente' + (d.data.values.length != 1 ? 's' : '') + ')';
+                    }
+                }),
+                //Create a new divIcon and assign the svg markup to the html property
+                myIcon = new L.DivIcon({
+                    html: html,
+                    className: 'marker-cluster',
+                    iconSize: new L.Point(iconDim, iconDim)
+                });
+            return myIcon;
+        }
+        function renderLegend() {
+            var data = d3.entries(metadata.fields[categoryField].lookup),
+                legenddiv = d3.select('body').append('div')
+                    .attr('id', 'legend');
+            var heading = legenddiv.append('div')
+                .classed('legendheading', true)
+                .text(metadata.fields[categoryField].name);
+            var legenditems = legenddiv.selectAll('.legenditem')
+                .data(data);
+            legenditems
+                .enter()
+                .append('div')
+                .attr('class', function (d) {
+                    return 'category-' + d.key;
+                })
+                .classed({ 'legenditem': true })
+                .text(function (d) {
+                    return d.value;
+                });
+        }
+        /*Helper function*/
+        function serializeXmlNode(xmlNode) {
+            if (typeof window.XMLSerializer != "undefined") {
+                return (new window.XMLSerializer()).serializeToString(xmlNode);
+            } else if (typeof xmlNode.xml != "undefined") {
+                return xmlNode.xml;
+            }
+            return "";
+        }
+        /*function that generates a svg markup for the pie chart*/
+        function bakeThePie(options) {
+            /*data and valueFunc are required*/
+            if (!options.data || !options.valueFunc) {
+                return '';
+            }
+            var data = options.data,
+                valueFunc = options.valueFunc,
+                r = options.outerRadius ? options.outerRadius : 8, //Default outer radius = 28px
+                rInner = options.innerRadius ? options.innerRadius : r - 10, //Default inner radius = r-10
+                strokeWidth = options.strokeWidth ? options.strokeWidth : 1, //Default stroke is 1
+                pathClassFunc = options.pathClassFunc ? options.pathClassFunc : function () {
+                    return '';
+                }, //Class for each path
+                pathTitleFunc = options.pathTitleFunc ? options.pathTitleFunc : function () {
+                    return '';
+                }, //Title for each path
+                pieClass = options.pieClass ? options.pieClass : 'marker-cluster-pie', //Class for the whole pie
+                pieLabel = options.pieLabel ? options.pieLabel : d3.sum(data, valueFunc), //Label for the whole pie
+                pieLabelClass = options.pieLabelClass ? options.pieLabelClass : 'marker-cluster-pie-label',//Class for the pie label
+                origo = (r + strokeWidth), //Center coordinate
+                w = origo * 2, //width and height of the svg element
+                h = w,
+                donut = d3.layout.pie(),
+                arc = d3.svg.arc().innerRadius(rInner).outerRadius(r);
+            //Create an svg element
+            var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
+            //Create the pie chart
+            var vis = d3.select(svg)
+                .data([data])
+                .attr('class', pieClass)
+                .attr('width', w)
+                .attr('height', h);
+            var arcs = vis.selectAll('g.arc')
+                .data(donut.value(valueFunc))
+                .enter().append('svg:g')
+                .attr('class', 'arc')
+                .attr('transform', 'translate(' + origo + ',' + origo + ')');
+            arcs.append('svg:path')
+                .attr('class', pathClassFunc)
+                .attr('stroke-width', strokeWidth)
+                .attr('d', arc)
+                .append('svg:title')
+                .text(pathTitleFunc);
+            vis.append('text')
+                .attr('x', origo)
+                .attr('y', origo)
+                .attr('class', pieLabelClass)
+                .attr('text-anchor', 'middle')
+                //.attr('dominant-baseline', 'central')
+                /*IE doesn't seem to support dominant-baseline, but setting dy to .3em does the trick*/
+                .attr('dy', '.3em')
+                .text(pieLabel);
+            //console.log(svg);
+            return serializeXmlNode(svg);
+        }
+        function defineFeature(feature, latlng) {
+            var categoryVal = feature.properties[categoryField],
+                iconVal = feature.properties[iconField];
+            // no icon val for now
+            //var myClass = 'marker category-' + categoryVal + ' icon-' + iconVal;
+            var myClass = 'marker category-' + categoryVal;
+            var myIcon = L.divIcon({
+                className: myClass,
+                iconSize: null
             });
-    }
-    /*Helper function*/
-    function serializeXmlNode(xmlNode) {
-        if (typeof window.XMLSerializer != "undefined") {
-            return (new window.XMLSerializer()).serializeToString(xmlNode);
-        } else if (typeof xmlNode.xml != "undefined") {
-            return xmlNode.xml;
+            return L.marker(latlng, { icon: myIcon });
         }
-        return "";
-    }
-    /*function that generates a svg markup for the pie chart*/
-    function bakeThePie(options) {
-        /*data and valueFunc are required*/
-        if (!options.data || !options.valueFunc) {
-            return '';
-        }
-        var data = options.data,
-            valueFunc = options.valueFunc,
-            r = options.outerRadius ? options.outerRadius : 8, //Default outer radius = 28px
-            rInner = options.innerRadius ? options.innerRadius : r - 10, //Default inner radius = r-10
-            strokeWidth = options.strokeWidth ? options.strokeWidth : 1, //Default stroke is 1
-            pathClassFunc = options.pathClassFunc ? options.pathClassFunc : function () {
-                return '';
-            }, //Class for each path
-            pathTitleFunc = options.pathTitleFunc ? options.pathTitleFunc : function () {
-                return '';
-            }, //Title for each path
-            pieClass = options.pieClass ? options.pieClass : 'marker-cluster-pie', //Class for the whole pie
-            pieLabel = options.pieLabel ? options.pieLabel : d3.sum(data, valueFunc), //Label for the whole pie
-            pieLabelClass = options.pieLabelClass ? options.pieLabelClass : 'marker-cluster-pie-label',//Class for the pie label
-            origo = (r + strokeWidth), //Center coordinate
-            w = origo * 2, //width and height of the svg element
-            h = w,
-            donut = d3.layout.pie(),
-            arc = d3.svg.arc().innerRadius(rInner).outerRadius(r);
-        //Create an svg element
-        var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
-        //Create the pie chart
-        var vis = d3.select(svg)
-            .data([data])
-            .attr('class', pieClass)
-            .attr('width', w)
-            .attr('height', h);
-        var arcs = vis.selectAll('g.arc')
-            .data(donut.value(valueFunc))
-            .enter().append('svg:g')
-            .attr('class', 'arc')
-            .attr('transform', 'translate(' + origo + ',' + origo + ')');
-        arcs.append('svg:path')
-            .attr('class', pathClassFunc)
-            .attr('stroke-width', strokeWidth)
-            .attr('d', arc)
-            .append('svg:title')
-            .text(pathTitleFunc);
-        vis.append('text')
-            .attr('x', origo)
-            .attr('y', origo)
-            .attr('class', pieLabelClass)
-            .attr('text-anchor', 'middle')
-            //.attr('dominant-baseline', 'central')
-            /*IE doesn't seem to support dominant-baseline, but setting dy to .3em does the trick*/
-            .attr('dy', '.3em')
-            .text(pieLabel);
-        //console.log(svg);
-        return serializeXmlNode(svg);
-    }
-    function defineFeature(feature, latlng) {
-        var categoryVal = feature.properties[categoryField],
-            iconVal = feature.properties[iconField];
-        // no icon val for now
-        //var myClass = 'marker category-' + categoryVal + ' icon-' + iconVal;
-        var myClass = 'marker category-' + categoryVal;
-        var myIcon = L.divIcon({
-            className: myClass,
-            iconSize: null
-        });
-        return L.marker(latlng, {icon: myIcon});
-    }
-    function defineFeaturePopup(feature, layer) {
-        var props = feature.properties,
-            fields = metadata.fields,
-            popupContent = '';
-        popupFields.map(function (key) {
-            if (props[key]) {
-                var val = props[key],
-                    label = fields[key].name;
-                if (fields[key].lookup) {
-                    val = fields[key].lookup[val];
+        function defineFeaturePopup(feature, layer) {
+            var props = feature.properties,
+                fields = metadata.fields,
+                popupContent = '';
+            popupFields.map(function (key) {
+                if (props[key]) {
+                    var val = props[key],
+                        label = fields[key].name;
+
+                    if (fields[key].lookup) {
+                        val = fields[key].lookup[val];
+                    }
                     if (typeof (val) != 'undefined') {
                         popupContent += '<span class="attribute"><span class="label" style="color: #000000">' + label + ':</span> ' + val + '</span>';
                     }
                 }
-            }
-        });
-        popupContent = '<div class="map-popup">' + popupContent + '</div>';
-        layer.bindPopup(popupContent, {offset: L.point(1, -2)});
-    }
-    function changeChart() {
-        markerclusters.clearLayers();
-        if (document.getElementById("buttonUpdateChart").innerText == 'Bar chart') {
-            document.getElementById("buttonUpdateChart").innerText = 'Pie chart';
-            init(defineClusterIconAsBarChart);
-        } else {
-            document.getElementById("buttonUpdateChart").innerText = 'Bar chart';
-            init(defineClusterIcon);
+            });
+            popupContent = '<div class="map-popup">' + popupContent + '</div>';
+            layer.bindPopup(popupContent, { offset: L.point(1, -2) });
         }
-    }
-</script>
+        function changeChart() {
+            markerclusters.clearLayers();
+            if (document.getElementById("buttonUpdateChart").innerText == 'Bar chart') {
+                document.getElementById("buttonUpdateChart").innerText = 'Pie chart';
+                init(defineClusterIconAsBarChart);
+            } else {
+                document.getElementById("buttonUpdateChart").innerText = 'Bar chart';
+                init(defineClusterIcon);
+            }
+        }
+    </script>
 
 </body>
 
