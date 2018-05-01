@@ -52,9 +52,9 @@
     <!-- <script src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script> -->
     <script src="crossfilter.js"></script>
     <!-- <script src="https://dc-js.github.io/dc.js/js/dc.js"></script> -->
-    <script src="dc.js" />
+    <script src="dc.js" ></script>
     <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.css" /> -->
-    
+
     <!-- <script src="dc.js"></script> -->
     <!--<script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>-->
     <!-- <script src="//api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js"></script> -->
@@ -434,6 +434,7 @@
 
         function defineClusterIconAsBarChart(cluster) {
             var children = cluster.getAllChildMarkers();
+            
             var n = children.length,
                 strokeWidth = 1;
             var dataset = d3.nest() //Build a dataset for the pie chart
@@ -441,6 +442,7 @@
                     return d.feature.properties[categoryField];
                 })
                 .entries(children, d3.map);
+
             var r = 30 - 2 * 1 - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
                 origo = (r + 1), //Center coordinate
                 w = origo * 2, //width and height of the svg element
@@ -466,6 +468,10 @@
                 QUEDA = 0,
                 TOMBAMENTO = 0;
             dataset.forEach(function (entry) {
+
+                // entry.values.forEach(function (object) {
+                //     console.log(object.feature.properties['TEMPO']);
+                // });
 
                 if (entry.key == 'ABALROAMENTO') {
                     ABALROAMENTO += 1;
