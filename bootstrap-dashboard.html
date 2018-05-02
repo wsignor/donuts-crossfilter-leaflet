@@ -52,7 +52,7 @@
     <!-- <script src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script> -->
     <script src="crossfilter.js"></script>
     <!-- <script src="https://dc-js.github.io/dc.js/js/dc.js"></script> -->
-    <script src="dc.js" ></script>
+    <script src="dc.js"></script>
     <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.css" /> -->
 
     <!-- <script src="dc.js"></script> -->
@@ -175,7 +175,7 @@
         //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', { foo: 'bar' }).addTo(map);
         L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', { foo: 'bar' }).addTo(map);
         //map.addLayer(markerclusters);
-        init(defineClusterIconAsBarChart);
+        init(defineClusterIconAsBarChartTestDiffVars);
         //    d3.json('earthquakes.geojson', function (data) {
         function init(chartType) {
             // console.log(chartType);
@@ -434,7 +434,7 @@
 
         function defineClusterIconAsBarChart(cluster) {
             var children = cluster.getAllChildMarkers();
-            
+
             var n = children.length,
                 strokeWidth = 1;
             var dataset = d3.nest() //Build a dataset for the pie chart
@@ -469,9 +469,9 @@
                 TOMBAMENTO = 0;
             dataset.forEach(function (entry) {
 
-                // entry.values.forEach(function (object) {
-                //     console.log(object.feature.properties['TEMPO']);
-                // });
+                entry.values.forEach(function (object) {
+                    console.log(object.feature.properties['TEMPO']);
+                });
 
                 if (entry.key == 'ABALROAMENTO') {
                     ABALROAMENTO += 1;
@@ -645,6 +645,172 @@
                 });
             return myIcon;
         }
+
+        function defineClusterIconAsBarChartTestDiffVars(cluster) {
+            var children = cluster.getAllChildMarkers();
+
+            var n = children.length,
+                strokeWidth = 1;
+            var dataset = d3.nest() //Build a dataset for the pie chart
+                .key(function (d) {
+                    return d.feature.properties[categoryField];
+                })
+                .entries(children, d3.map);
+
+            var r = 30 - 2 * 1 - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
+                origo = (r + 1), //Center coordinate
+                w = origo * 2, //width and height of the svg element
+                h = w,
+                iconDim = (r + 1) * 2;
+
+            var items = [];
+
+            // children.forEach(function (entry) {
+            //     console.log('children.length ' + children.length);
+            //     console.log('entry ' , entry);
+
+            //     if(entry.feature.properties['TEMPO'] == "BOM"){
+            //         tempo += 1;
+            //     }else if(entry.feature.properties['TEMPO'] == "CHUVOSO"){
+            //         tempo += 2;
+            //     }else{
+            //         tempo += 3;
+            //     }
+            //     feridos += parseFloat(entry.feature.properties['FERIDOS']);
+            //     hora += parseFloat(entry.feature.properties['HORA'].replace(":", "."));
+
+            // data2.push({ "id": "TEMPO", "value": tempo/children.length },
+            // { "id": "FERIDOS", "value": feridos/children.length },
+            // { "id": "HORA", "value": hora/children.length },
+            // { "id": "LENGTH", "value": children.length });
+
+            // console.log(data2);
+
+            // });
+            var clusterdataset = [];
+            var tempo = 0;
+            var feridos = 0;
+            var hora = 0;
+
+            dataset.forEach(function (cluster) {
+                // console.log(entry);
+
+                // for(var i = 0 ; i < entry.values){
+
+                // }
+                tempo = 0;
+                feridos = 0;
+                hora = 0;
+
+                // console.log(cluster.values);
+
+                cluster.values.forEach(function (entry) {
+
+                    if (entry.feature.properties['TEMPO'] == "BOM") {
+                        tempo += 1;
+                    } else if (entry.feature.properties['TEMPO'] == "CHUVOSO") {
+                        tempo += 2;
+                    } else {
+                        tempo += 3;
+                    }
+                    feridos += parseFloat(entry.feature.properties['FERIDOS']);
+                    hora += parseFloat(entry.feature.properties['HORA'].replace(":", "."));
+                });
+            });
+
+            clusterdataset.push({ "id": "TEMPO", "value": tempo / children.length },
+                { "id": "FERIDOS", "value": feridos / children.length },
+                { "id": "HORA", "value": hora / children.length },
+                { "id": "VALUES", "value": children.length });
+            console.log(clusterdataset);
+
+
+
+            // var data2 = [
+            //     { "id": "TEMPO", "value": tempo/children.length },
+            //     { "id": "FERIDOS", "value": feridos/children.length },
+            //     { "id": "HORA", "value": hora/children.length },
+            //     { "id": "LENGTH", "value": children.length }
+            // ];
+
+
+
+            // order starts always from a to z
+            //dataset.sort(function (a, b) { return (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0); });
+
+            var x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1);
+            var y = d3.scale.linear().range([h, 0]);
+            x.domain(clusterdataset.map(function (d) {
+                return d.id;
+            }));
+            y.domain([0, d3.max(clusterdataset, function (d) {
+                return d.id.values;
+            })]);
+            // create a svg element
+            var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
+            // update w according bars > 0
+            var vis = d3.select(svg)
+                .attr("width", w)
+                .attr("height", h)
+                .append('g')
+                .attr('transform', 'translate(' + (h / 200) + ',' + (w / 200) + ')'); //center g
+
+            vis.selectAll(".bar")
+                .data(clusterdataset)
+                .enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr('class', function (d) {
+                    return "category-" + d.id;
+                })
+                .attr("x", function (d) {
+                    return x(d.id);
+                })
+                .attr("y", function (d) {
+                    return y(d.id.values);
+                })
+                // define the width of each bar
+                .attr("width", x.rangeBand())
+                .attr("text", function (d) {
+                    return d.id;
+                })
+                //.on('mouseover', tip.show)
+                //.on('mouseout', tip.hide)
+                .attr("height", function (d) {
+                    return h - y(d.id.values);
+                })
+                .append('svg:title')
+                .text(function (d) {
+                    return metadata.fields[categoryField].lookup[d.id]
+                        + ' (' + d.id.values
+                        + ' ACIDENTE' + (d.id.values != 1 ? 'S' : '') + ')';
+                });
+            // add the x Axis
+            vis.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + h + ")")
+                //.attr("width", w/dataset.length)
+                ;//.call(d3.axisBottom(x));
+            // add the y Axis
+            vis.append("g")
+                .attr("class", "y axis")
+                ;//.call(d3.axisLeft(y));
+            vis.append('text')
+                .attr('x', origo)
+                .attr('y', origo)
+                .attr('class', 'marker-cluster-bar-label')
+                .attr('text-anchor', 'middle')
+                .attr('dy', '.3em')
+                .text(n);
+            var html = serializeXmlNode(svg);
+            var myIcon = new L.DivIcon({
+                html: html,
+                className: 'mycluster',
+                iconSize: new L.Point(iconDim, iconDim)
+            });
+            return myIcon;
+        }
+
         function renderLegend() {
             var data = d3.entries(metadata.fields[categoryField].lookup),
                 legenddiv = d3.select('body').append('div')
