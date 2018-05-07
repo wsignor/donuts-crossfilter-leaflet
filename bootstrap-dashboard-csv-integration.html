@@ -59,6 +59,7 @@
     <!--<script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>-->
     <!-- <script src="//api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js"></script> -->
     <script src="turf.min.js"></script>
+    <script src='csv2geojson.js'></script>
 
 </head>
 
@@ -156,7 +157,10 @@
         //"use strict"
         var geojson,
             metadata,
-            geojsonPath = 'acidentes-2016-less.geojson',
+            filePath = 'acidentes-2016.csv',
+            columns = [],
+            mapColumns = []
+            var mapColumnDistinct = [],
             // injuries
             categoryField = 'TIPO_ACID', //This is the fieldname for marker category (used in the pie and legend)
             // accident-type
@@ -179,17 +183,34 @@
         //    d3.json('earthquakes.geojson', function (data) {
         function init(chartType) {
             // console.log(chartType);
-            d3.json(geojsonPath, function (error, data) {
+            d3.csv(filePath, function (error, data) {
                 if (!error) {
                     // donut map
-                    geojson = data;
-                    metadata = data.properties;
+                    // geojson = data;
+
+                    makeGeoJSON(data);
+                    data = geojson;
+
+                    metadata = geojson.features[0].properties;
+
+                    for (var key in metadata) {
+                        columns.push(key);
+                    }
+
+                    mapColumns.push('TIPO_ACID');
+
+                    for (i = 0; i < geojson.features.length; i++) {
+                        if (mapColumnDistinct.indexOf(geojson.features[i].properties[mapColumns[0]]) === -1) {
+                            console.log(mapColumnDistinct.indexOf(geojson.features[i].properties[mapColumns[0]]));
+                            mapColumnDistinct.push(geojson.features[i].properties[mapColumns[0]]);
+                        }
+                    }
+
                     // var geoJsonLayer = L.geoJson({
                     //     type: 'FeatureCollection',
                     //     features: geomDimension.top(Infinity)
                     // }
                     //create crossfilter and dimensions
-                    // console.log(data.features);
                     var filter = crossfilter(data.features)
                     var all = filter.groupAll();
                     var everything = filter.dimension(function (d) {
@@ -424,6 +445,17 @@
             });
         }
 
+        function makeGeoJSON(csvData) {
+            csv2geojson.csv2geojson(csvData, {
+                latfield: 'LATITUDE',
+                lonfield: 'LONGITUDE',
+                delimiter: ','
+            }, function (err, data) {
+                // console.log(data);
+                geojson = data;
+            });
+        }
+
         Array.prototype.contains = function (element) {
             for (var i = 0; i < this.length; i++) {
                 if (this[i] == element) {
@@ -470,9 +502,9 @@
                 TOMBAMENTO = 0;
             dataset.forEach(function (entry) {
 
-                // entry.values.forEach(function (object) {
-                //     console.log(object.feature.properties['TEMPO']);
-                // });
+                entry.values.forEach(function (object) {
+                    console.log(object.feature.properties['TEMPO']);
+                });
 
                 if (entry.key == 'ABALROAMENTO') {
                     ABALROAMENTO += 1;
@@ -715,14 +747,14 @@
                         tempo += 3;
                     }
                     feridos += parseFloat(entry.feature.properties['FERIDOS']);
-                    hora += parseFloat(entry.feature.properties['HORA'].replace(":", "."));
+                    hora += parseFloat(entry.feature.properties['DATA_HORA'].replace(":", "."));
                 });
             });
 
             clusterdataset.push({ "id": "TEMPO", "value": tempo / children.length },
                 { "id": "FERIDOS", "value": feridos / children.length },
                 { "id": "HORA", "value": hora / children.length });
-                // { "id": "VALUES", "value": children.length });
+            // { "id": "VALUES", "value": children.length });
             // console.log(clusterdataset);
 
 
@@ -812,13 +844,18 @@
         }
 
         function renderLegend() {
-            console.log(metadata.fields[categoryField].lookup);
-            var data = d3.entries(metadata.fields[categoryField].lookup),
+            //TODO here
+            if (mapColumns.length == 1) {
+                // check if there are other columns
+                // if so the approach needs to change to numbers instead of strings
+            }
+
+            var data = d3.entries(mapColumnDistinct),
                 legenddiv = d3.select('body').append('div')
                     .attr('id', 'legend');
             var heading = legenddiv.append('div')
                 .classed('legendheading', true)
-                .text(metadata.fields[categoryField].name);
+                .text(columns);
             var legenditems = legenddiv.selectAll('.legenditem')
                 .data(data);
             legenditems
@@ -914,13 +951,15 @@
                 fields = metadata.fields,
                 popupContent = '';
             popupFields.map(function (key) {
+                // console.log(key);
                 if (props[key]) {
+                    // console.log(props[key]);
                     var val = props[key],
-                        label = fields[key].name;
+                        label = props[key];
 
-                    if (fields[key].lookup) {
-                        val = fields[key].lookup[val];
-                    }
+                    // if (fields[key].lookup) {
+                    //     val = fields[key].lookup[val];
+                    // }
                     if (typeof (val) != 'undefined') {
                         popupContent += '<span class="attribute"><span class="label" style="color: #000000">' + label + ':</span> ' + val + '</span>';
                     }
