@@ -60,6 +60,7 @@
     <!-- <script src="//api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js"></script> -->
     <script src="turf.min.js"></script>
     <script src='csv2geojson.js'></script>
+    <script src='underscore-min.js'></script>
 
 </head>
 
@@ -160,7 +161,7 @@
             filePath = 'acidentes-2016.csv',
             columns = [],
             mapColumns = []
-            var mapColumnDistinct = [],
+        var mapColumnDistinct = [],
             // injuries
             categoryField = 'TIPO_ACID', //This is the fieldname for marker category (used in the pie and legend)
             // accident-type
@@ -179,7 +180,7 @@
         //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', { foo: 'bar' }).addTo(map);
         L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', { foo: 'bar' }).addTo(map);
         //map.addLayer(markerclusters);
-        init(defineClusterIconAsBarChartTestDiffVars);
+        init(defineClusterIconAsBarChart);
         //    d3.json('earthquakes.geojson', function (data) {
         function init(chartType) {
             // console.log(chartType);
@@ -199,17 +200,34 @@
 
                     mapColumns.push('TIPO_ACID');
 
-                    for (i = 0; i < geojson.features.length; i++) {
-                        if (mapColumnDistinct.indexOf(geojson.features[i].properties[mapColumns[0]]) === -1) {
-                            console.log(mapColumnDistinct.indexOf(geojson.features[i].properties[mapColumns[0]]));
-                            mapColumnDistinct.push(geojson.features[i].properties[mapColumns[0]]);
-                        }
-                    }
+
+
+                    // for (i = 0; i < geojson.features.length; i++) {
+                    //     if (mapColumnDistinct.indexOf(geojson.features[i].properties[mapColumns[0]]) === -1) {
+                    //         mapColumnDistinct.push(geojson.features[i].properties[mapColumns[0]]);
+                    //     }
+                    // }
+
+                    // var nested_data = d3.nest()
+                    //     .key(function (d) { 
+                    //         console.log(d);
+                    //         return d.properties[mapColumns[0].value];
+                    //     })
+                    //     .entries(geojson.features);
+                    // console.log(nested_data);
 
                     // var geoJsonLayer = L.geoJson({
                     //     type: 'FeatureCollection',
                     //     features: geomDimension.top(Infinity)
                     // }
+
+                    mapColumnDistinct = _.keys(_.countBy(geojson.features, function(d) { 
+                        // console.log(d);
+                        return d.properties[mapColumns[0]]; 
+                    }));
+
+                    // console.log(mapColumnDistinct);
+
                     //create crossfilter and dimensions
                     var filter = crossfilter(data.features)
                     var all = filter.groupAll();
@@ -456,14 +474,14 @@
             });
         }
 
-        Array.prototype.contains = function (element) {
-            for (var i = 0; i < this.length; i++) {
-                if (this[i] == element) {
-                    return true;
-                }
-            }
-            return false;
-        }
+        // Array.prototype.contains = function (element) {
+        //     for (var i = 0; i < this.length; i++) {
+        //         if (this[i] == element) {
+        //             return true;
+        //         }
+        //     }
+        //     return false;
+        // }
 
         function defineClusterIconAsBarChart(cluster) {
             var children = cluster.getAllChildMarkers();
@@ -503,7 +521,7 @@
             dataset.forEach(function (entry) {
 
                 entry.values.forEach(function (object) {
-                    console.log(object.feature.properties['TEMPO']);
+                    // console.log(object.feature.properties['TEMPO']);
                 });
 
                 if (entry.key == 'ABALROAMENTO') {
@@ -611,7 +629,8 @@
                 })
                 .append('svg:title')
                 .text(function (d) {
-                    return metadata.fields[categoryField].lookup[d.key]
+                    // console.log(d);
+                    return d.key
                         + ' (' + d.values.length
                         + ' ACIDENTE' + (d.values.length != 1 ? 'S' : '') + ')';
                 });
@@ -850,14 +869,16 @@
                 // if so the approach needs to change to numbers instead of strings
             }
 
+            // console.log(d3.entries(mapColumnDistinct));
             var data = d3.entries(mapColumnDistinct),
                 legenddiv = d3.select('body').append('div')
                     .attr('id', 'legend');
             var heading = legenddiv.append('div')
                 .classed('legendheading', true)
-                .text(columns);
+                .text(mapColumns[0]);
             var legenditems = legenddiv.selectAll('.legenditem')
                 .data(data);
+
             legenditems
                 .enter()
                 .append('div')
