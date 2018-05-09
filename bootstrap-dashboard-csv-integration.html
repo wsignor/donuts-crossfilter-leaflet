@@ -184,13 +184,19 @@
         //    d3.json('earthquakes.geojson', function (data) {
         function init(chartType) {
             // console.log(chartType);
-            d3.csv(filePath, function (error, data) {
+            console.log(localStorage.getItem('file').substring(12, localStorage.getItem('file').length));
+            d3.csv(localStorage.getItem('file').substring(12, localStorage.getItem('file').length), function (error, data) {
                 if (!error) {
                     // donut map
                     // geojson = data;
 
                     makeGeoJSON(data);
                     data = geojson;
+
+                    console.log(localStorage.getItem('mapColumns'));
+                    var mapTypes = JSON.parse("[" + localStorage.getItem('mapColumns') + "]");
+
+                    console.log(mapTypes);
 
                     metadata = geojson.features[0].properties;
 
@@ -199,6 +205,8 @@
                     }
 
                     mapColumns.push('TIPO_ACID');
+
+                    localStorage.getItem('mapColumns');
 
 
 
@@ -221,9 +229,9 @@
                     //     features: geomDimension.top(Infinity)
                     // }
 
-                    mapColumnDistinct = _.keys(_.countBy(geojson.features, function(d) { 
+                    mapColumnDistinct = _.keys(_.countBy(geojson.features, function (d) {
                         // console.log(d);
-                        return d.properties[mapColumns[0]]; 
+                        return d.properties[mapColumns[0]];
                     }));
 
                     // console.log(mapColumnDistinct);

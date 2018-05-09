@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
     <style>
         * {
             box-sizing: border-box;
@@ -77,10 +78,6 @@
 
 <body>
 
-    <h2>Responsive Form</h2>
-    <p>Resize the browser window to see the effect. When the screen is less than 600px wide, make the two columns stack on top
-        of each other instead of next to each other.</p>
-
     <div id="select_file">
         <input type="file" id="file">
     </div>
@@ -91,6 +88,8 @@
 
     <script>
         var array = ["", "Barra", "Pizza", "Donut", "Mapa"];
+        var items;
+        var csvFile;
 
         document.getElementById('file').onchange = function () {
             var file = this.files[0];
@@ -123,11 +122,53 @@
                 }
             }
             reader.readAsText(file);
+
+            // reader.onloadend = function (evt) {
+            //     var dataUrl = evt.target.result;
+            //     console.log(dataUrl);
+            //     previewCsvUrl(dataUrl);
+            // };
+
+            // reader.onloadend = function (evt) {
+            //     csvFile = d3.csv.parse(reader.result, function (d) {
+            //         return d;
+            //     });
+            // };
+
+        }
+
+
+
+
+        function movePages() {
+
+            items = document.getElementById("csv_form").childNodes;
+            var chartItems = [];
+
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type == 'checkbox') {
+                    if (items[i].checked === true) {
+                        // console.log(items[i+1].textContent + items[i+2].value);
+                        chartItems.push('{key:' + items[i + 1].textContent,
+                            'value:' + items[i + 2].value+"};");
+                    }
+                }
+                i + 2;
+            }
+
+
+            localStorage.setItem('mapColumns', chartItems);
+            console.log(localStorage.getItem('mapColumns'));
+
+            localStorage.setItem('file', document.getElementById("file").value)
+
+            location.href = 'bootstrap-dashboard-csv-integration.html';
         }
     </script>
+    <script src="d3.v3.min.js" charset="utf-8"></script>
 
     <div class="row">
-        <input type="submit" value="Submit" href="bootstrap-dashboard.html" />
+        <input type="submit" value="Submit" onclick="movePages()" />
     </div>
 </body>
 
