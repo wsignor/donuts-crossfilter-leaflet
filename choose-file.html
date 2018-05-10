@@ -149,8 +149,8 @@
                 if (items[i].type == 'checkbox') {
                     if (items[i].checked === true) {
                         // console.log(items[i+1].textContent + items[i+2].value);
-                        chartItems.push('{key:' + items[i + 1].textContent,
-                            'value:' + items[i + 2].value+"};");
+                        chartItems.push('{"key":"' + items[i + 1].textContent + '"',
+                            '"value":"' + items[i + 2].value+'"}');
                     }
                 }
                 i + 2;

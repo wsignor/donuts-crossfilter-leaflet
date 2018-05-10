@@ -139,20 +139,6 @@
         </div>
     </div>
 
-
-    <!-- <script src="assets/js/vendor/jquery-2.1.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/main.js"></script> -->
-
-
-    <!-- <script src="assets/js/lib/chart-js/Chart.bundle.js"></script> -->
-    <!-- <script src="assets/js/dashboard.js"></script> -->
-    <!-- <script src="assets/js/widgets.js"></script> -->
-    <!-- <script src="assets/js/lib/vector-map/jquery.vmap.js"></script>
-    <script src="assets/js/lib/vector-map/jquery.vmap.min.js"></script>
-    <script src="assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
-    <script src="assets/js/lib/vector-map/country/jquery.vmap.world.js"></script> -->
     <script>
 
         //"use strict"
@@ -171,66 +157,55 @@
             tileServer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             tileAttribution = 'Map data: <a href="http://openstreetmap.org">OSM</a>',
             rmax = 30, //Maximum radius for cluster pies
-            // markerclusters = L.markerClusterGroup({
-            //     maxClusterRadius: 2 * rmax,
-            //     //iconCreateFunction: defineClusterIcon //this is where the magic happens
-            //     iconCreateFunction: defineClusterIconAsBarChart
-            // }),
             map = L.map('map').setView([59.95, 10.78], 8);
+
         //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', { foo: 'bar' }).addTo(map);
         L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', { foo: 'bar' }).addTo(map);
         //map.addLayer(markerclusters);
-        init(defineClusterIconAsBarChart);
+
+
+        // load map properties selected in the previous html
+        var mapTypes = JSON.parse('[' + localStorage.getItem('mapColumns') + ']');
+        mapTypes.forEach(function (element) {
+            if (element.value == 'Mapa') {
+                mapColumns.push(element.key);
+            }
+        });
+
+        if(mapColumns.length == 1){
+            init(defineClusterIconAsBarChart);
+        } else {
+            init(defineClusterIconAsBarChartTestDiffVars);
+        }
+
+        console.log(mapColumns);
+
+        
         //    d3.json('earthquakes.geojson', function (data) {
         function init(chartType) {
             // console.log(chartType);
             console.log(localStorage.getItem('file').substring(12, localStorage.getItem('file').length));
             d3.csv(localStorage.getItem('file').substring(12, localStorage.getItem('file').length), function (error, data) {
                 if (!error) {
-                    // donut map
                     // geojson = data;
 
                     makeGeoJSON(data);
                     data = geojson;
 
-                    console.log(localStorage.getItem('mapColumns'));
-                    var mapTypes = JSON.parse("[" + localStorage.getItem('mapColumns') + "]");
 
-                    console.log(mapTypes);
 
+
+
+                    // load all possible columns
                     metadata = geojson.features[0].properties;
-
                     for (var key in metadata) {
                         columns.push(key);
                     }
 
-                    mapColumns.push('TIPO_ACID');
-
-                    localStorage.getItem('mapColumns');
 
 
-
-                    // for (i = 0; i < geojson.features.length; i++) {
-                    //     if (mapColumnDistinct.indexOf(geojson.features[i].properties[mapColumns[0]]) === -1) {
-                    //         mapColumnDistinct.push(geojson.features[i].properties[mapColumns[0]]);
-                    //     }
-                    // }
-
-                    // var nested_data = d3.nest()
-                    //     .key(function (d) { 
-                    //         console.log(d);
-                    //         return d.properties[mapColumns[0].value];
-                    //     })
-                    //     .entries(geojson.features);
-                    // console.log(nested_data);
-
-                    // var geoJsonLayer = L.geoJson({
-                    //     type: 'FeatureCollection',
-                    //     features: geomDimension.top(Infinity)
-                    // }
-
+                    // get distinct of values for the column selected for map
                     mapColumnDistinct = _.keys(_.countBy(geojson.features, function (d) {
-                        // console.log(d);
                         return d.properties[mapColumns[0]];
                     }));
 
@@ -482,15 +457,6 @@
             });
         }
 
-        // Array.prototype.contains = function (element) {
-        //     for (var i = 0; i < this.length; i++) {
-        //         if (this[i] == element) {
-        //             return true;
-        //         }
-        //     }
-        //     return false;
-        // }
-
         function defineClusterIconAsBarChart(cluster) {
             var children = cluster.getAllChildMarkers();
 
@@ -498,7 +464,7 @@
                 strokeWidth = 1;
             var dataset = d3.nest() //Build a dataset for the pie chart
                 .key(function (d) {
-                    return d.feature.properties[categoryField];
+                    return d.feature.properties[mapColumns[0]];
                 })
                 .entries(children, d3.map);
 
@@ -507,89 +473,76 @@
                 w = origo * 2, //width and height of the svg element
                 h = w,
                 iconDim = (r + 1) * 2;
-            var data2 = [
-                { "id": "1", "value": 1 },
-                { "id": "2", "value": 2 },
-                { "id": "3", "value": 4 },
-                { "id": "4", "value": 3 },
-                { "id": "5", "value": 8 },
-                { "id": "6", "value": 3 }
-            ];
 
             // create to populate all columns of bar charts
-            var ABALROAMENTO = 0,
-                ATROPELAMENTO = 0,
-                CAPOTAGEM = 0,
-                CHOQUE = 0,
-                COLISAO = 0,
-                EVENTUAL = 0,
-                INCENDIO = 0,
-                QUEDA = 0,
-                TOMBAMENTO = 0;
-            dataset.forEach(function (entry) {
-
-                entry.values.forEach(function (object) {
-                    // console.log(object.feature.properties['TEMPO']);
-                });
-
-                if (entry.key == 'ABALROAMENTO') {
-                    ABALROAMENTO += 1;
-                } else if (entry.key == 'ATROPELAMENTO') {
-                    ATROPELAMENTO += 1;
-                } else if (entry.key == 'CAPOTAGEM') {
-                    CAPOTAGEM += 1;
-                } else if (entry.key == 'CHOQUE') {
-                    CHOQUE += 1;
-                } else if (entry.key == 'COLISAO') {
-                    COLISAO += 1;
-                } else if (entry.key == 'EVENTUAL') {
-                    EVENTUAL += 1;
-                } else if (entry.key == 'INCENDIO') {
-                    INCENDIO += 1;
-                } else if (entry.key == 'QUEDA') {
-                    QUEDA += 1;
-                } else if (entry.key == 'TOMBAMENTO') {
-                    TOMBAMENTO += 1;
-                }
-            });
+            // var ABALROAMENTO = 0,
+            //     ATROPELAMENTO = 0,
+            //     CAPOTAGEM = 0,
+            //     CHOQUE = 0,
+            //     COLISAO = 0,
+            //     EVENTUAL = 0,
+            //     INCENDIO = 0,
+            //     QUEDA = 0,
+            //     TOMBAMENTO = 0;
+            // dataset.forEach(function (entry) {
+            //     if (entry.key == 'ABALROAMENTO') {
+            //         ABALROAMENTO += 1;
+            //     } else if (entry.key == 'ATROPELAMENTO') {
+            //         ATROPELAMENTO += 1;
+            //     } else if (entry.key == 'CAPOTAGEM') {
+            //         CAPOTAGEM += 1;
+            //     } else if (entry.key == 'CHOQUE') {
+            //         CHOQUE += 1;
+            //     } else if (entry.key == 'COLISAO') {
+            //         COLISAO += 1;
+            //     } else if (entry.key == 'EVENTUAL') {
+            //         EVENTUAL += 1;
+            //     } else if (entry.key == 'INCENDIO') {
+            //         INCENDIO += 1;
+            //     } else if (entry.key == 'QUEDA') {
+            //         QUEDA += 1;
+            //     } else if (entry.key == 'TOMBAMENTO') {
+            //         TOMBAMENTO += 1;
+            //     }
+            // });
 
 
-            if (ABALROAMENTO == 0) {
-                var item = { "key": "ABALROAMENTO", "values": new Array() };
-                dataset.push(item);
-            }
-            if (ATROPELAMENTO == 0) {
-                var item = { "key": "ATROPELAMENTO", "values": new Array() };
-                dataset.push(item);
-            }
-            if (CAPOTAGEM == 0) {
-                var item = { "key": "CAPOTAGEM", "values": new Array() };
-                dataset.push(item);
-            }
-            if (CHOQUE == 0) {
-                var item = { "key": "CHOQUE", "values": new Array() };
-                dataset.push(item);
-            }
-            if (COLISAO == 0) {
-                var item = { "key": "COLISAO", "values": new Array() };
-                dataset.push(item);
-            }
-            if (EVENTUAL == 0) {
-                var item = { "key": "EVENTUAL", "values": new Array() };
-                dataset.push(item);
-            }
-            if (INCENDIO == 0) {
-                var item = { "key": "INCENDIO", "values": new Array() };
-                dataset.push(item);
-            }
-            if (QUEDA == 0) {
-                var item = { "key": "QUEDA", "values": new Array() };
-                dataset.push(item);
-            }
-            if (TOMBAMENTO == 0) {
-                var item = { "key": "TOMBAMENTO", "values": new Array() };
-                dataset.push(item);
-            }
+            // if (ABALROAMENTO == 0) {
+            //     var item = { "key": "ABALROAMENTO", "values": new Array() };
+            //     dataset.push(item);
+            // }
+            // if (ATROPELAMENTO == 0) {
+            //     var item = { "key": "ATROPELAMENTO", "values": new Array() };
+            //     dataset.push(item);
+            // }
+            // if (CAPOTAGEM == 0) {
+            //     var item = { "key": "CAPOTAGEM", "values": new Array() };
+            //     dataset.push(item);
+            // }
+            // if (CHOQUE == 0) {
+            //     var item = { "key": "CHOQUE", "values": new Array() };
+            //     dataset.push(item);
+            // }
+            // if (COLISAO == 0) {
+            //     var item = { "key": "COLISAO", "values": new Array() };
+            //     dataset.push(item);
+            // }
+            // if (EVENTUAL == 0) {
+            //     var item = { "key": "EVENTUAL", "values": new Array() };
+            //     dataset.push(item);
+            // }
+            // if (INCENDIO == 0) {
+            //     var item = { "key": "INCENDIO", "values": new Array() };
+            //     dataset.push(item);
+            // }
+            // if (QUEDA == 0) {
+            //     var item = { "key": "QUEDA", "values": new Array() };
+            //     dataset.push(item);
+            // }
+            // if (TOMBAMENTO == 0) {
+            //     var item = { "key": "TOMBAMENTO", "values": new Array() };
+            //     dataset.push(item);
+            // }
 
             // order starts always from a to z
             dataset.sort(function (a, b) { return (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0); });
@@ -667,6 +620,7 @@
             });
             return myIcon;
         }
+
         function defineClusterIcon(cluster) {
             var children = cluster.getAllChildMarkers(),
                 n = children.length, //Get number of markers in cluster
@@ -717,6 +671,7 @@
                 })
                 .entries(children, d3.map);
 
+            // TODO start getting map variables
             var r = 30 - 2 * 1 - (n < 10 ? 12 : n < 100 ? 8 : n < 1000 ? 4 : 0), //Calculate clusterpie radius...
                 origo = (r + 1), //Center coordinate
                 w = origo * 2, //width and height of the svg element
@@ -725,39 +680,12 @@
 
             var items = [];
 
-            // children.forEach(function (entry) {
-            //     console.log('children.length ' + children.length);
-            //     console.log('entry ' , entry);
-
-            //     if(entry.feature.properties['TEMPO'] == "BOM"){
-            //         tempo += 1;
-            //     }else if(entry.feature.properties['TEMPO'] == "CHUVOSO"){
-            //         tempo += 2;
-            //     }else{
-            //         tempo += 3;
-            //     }
-            //     feridos += parseFloat(entry.feature.properties['FERIDOS']);
-            //     hora += parseFloat(entry.feature.properties['HORA'].replace(":", "."));
-
-            // data2.push({ "id": "TEMPO", "value": tempo/children.length },
-            // { "id": "FERIDOS", "value": feridos/children.length },
-            // { "id": "HORA", "value": hora/children.length },
-            // { "id": "LENGTH", "value": children.length });
-
-            // console.log(data2);
-
-            // });
             var clusterdataset = [];
             var tempo = 0;
             var feridos = 0;
             var hora = 0;
 
             dataset.forEach(function (cluster) {
-                // console.log(entry);
-
-                // for(var i = 0 ; i < entry.values){
-
-                // }
                 tempo = 0;
                 feridos = 0;
                 hora = 0;
@@ -778,25 +706,11 @@
                 });
             });
 
-            clusterdataset.push({ "id": "TEMPO", "value": tempo / children.length },
+            clusterdataset.push({ "id": "TEMPO", "value": (tempo / children.length) * 1000 },
                 { "id": "FERIDOS", "value": feridos / children.length },
                 { "id": "HORA", "value": hora / children.length });
-            // { "id": "VALUES", "value": children.length });
-            // console.log(clusterdataset);
 
-
-
-            // var data2 = [
-            //     { "id": "TEMPO", "value": tempo/children.length },
-            //     { "id": "FERIDOS", "value": feridos/children.length },
-            //     { "id": "HORA", "value": hora/children.length },
-            //     { "id": "LENGTH", "value": children.length }
-            // ];
-
-
-
-            // order starts always from a to z
-            //dataset.sort(function (a, b) { return (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0); });
+            console.log(clusterdataset);
 
             var x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1);
             var y = d3.scale.linear().range([h, 0]);
