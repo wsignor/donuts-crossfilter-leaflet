@@ -11,7 +11,7 @@
         input[type=text],
         select,
         textarea {
-            width: 30%;
+            width: 15%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -30,7 +30,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            float: right;
+            float: left;
         }
 
         input[type=submit]:hover {
@@ -117,6 +117,8 @@
                         option.text = array[j];
                         select.appendChild(option);
                     }
+                    console.log(container);
+                    console.log(select);
                     container.appendChild(select);
                     container.appendChild(document.createElement("br"));
                 }
