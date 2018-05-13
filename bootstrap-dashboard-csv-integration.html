@@ -177,9 +177,10 @@
             init(defineClusterIconAsBarChart);
         } else {
             init(defineClusterIconAsBarChartTestDiffVars);
+            document.getElementById("buttonUpdateChart").parentNode.removeChild(document.getElementById("buttonUpdateChart"));
         }
 
-        console.log(mapColumns);
+        // console.log(mapColumns);
 
 
         //    d3.json('earthquakes.geojson', function (data) {
@@ -565,7 +566,7 @@
                 .append("rect")
                 .attr("class", "bar")
                 .attr('class', function (d) {
-                    return "category-" + d.key;
+                    return "category-" + parseFloat(mapColumnDistinct.indexOf(d.key) + 1);
                 })
                 .attr("x", function (d) {
                     return x(d.key);
@@ -586,9 +587,8 @@
                 .append('svg:title')
                 .text(function (d) {
                     // console.log(d);
-                    return d.key
-                        + ' (' + d.values.length
-                        + ' ACIDENTE' + (d.values.length != 1 ? 'S' : '') + ')';
+                    return d.key + ' (' + d.values.length + ' registro' + (d.values.length != 1 ? 's' : '') + ')';
+                    // return d.key + ' (' + d.values.length + ' ACIDENTE' + (d.values.length != 1 ? 'S' : '') + ')';
                 });
             // add the x Axis
             vis.append("g")
@@ -624,7 +624,7 @@
                 iconDim = (r + strokeWidth) * 2, //...and divIcon dimensions (leaflet really want to know the size)
                 data = d3.nest() //Build a dataset for the pie chart
                     .key(function (d) {
-                        return d.feature.properties[categoryField];
+                        return d.feature.properties[mapColumns[0]];
                     })
                     .entries(children, d3.map),
                 //bake some svg markup
@@ -640,10 +640,14 @@
                     pieLabel: n,
                     pieLabelClass: 'marker-cluster-pie-label',
                     pathClassFunc: function (d) {
-                        return "category-" + d.data.key;
+                        return "category-" + parseFloat(mapColumnDistinct.indexOf(d.data.key) + 1);
                     },
                     pathTitleFunc: function (d) {
-                        return metadata.fields[categoryField].lookup[d.data.key] + ' (' + d.data.values.length + ' acidente' + (d.data.values.length != 1 ? 's' : '') + ')';
+                        // return 'Soma de ' + (isNaN(d.id) ? d.id.toLowerCase() : d.id) + ': ' + d.value + ' (' + children.length
+                        // + ' registro' + (children.length != 1 ? 's' : '') + ')';
+                        // console.log(d.data);
+                        // return mapColumns[0] + ' (' + d.data.values.length + ' registro' + (d.data.values.length != 1 ? 's' : '') + ')';
+                        return d.data.key + ' (' + d.data.values.length + ' registro' + (d.data.values.length != 1 ? 's' : '') + ')';
                     }
                 }),
                 //Create a new divIcon and assign the svg markup to the html property
@@ -680,13 +684,13 @@
             var feridos = 0;
             var hora = 0;
 
-            
-            for(var i = 0 ; i < mapColumns.length ; i++){
+
+            for (var i = 0; i < mapColumns.length; i++) {
                 //field_ + i = mapColumns[i];
                 //objects[i] = { "id":mapColumns[i], "value":0};
-                objects.push({ "id":mapColumns[i], "value":0});
+                objects.push({ "id": mapColumns[i], "value": 0 });
             }
-            console.log('objects ' , objects);
+            // console.log('objects ', objects);
 
             // mapColumns.forEach(function (element) {
             //     console.log(element);
@@ -708,11 +712,11 @@
 
                     if (element != 'LATITUDE' && element != 'LONGITUDE') {
 
-                        objects.forEach(function (obj){
-                            console.log('obj ' , obj);
+                        objects.forEach(function (obj) {
+                            // console.log('obj ' , obj);
 
-                            if(obj.id == element){
-                                obj.value += cluster.feature.properties[element];
+                            if (obj.id == element) {
+                                obj.value = parseFloat(obj.value) + parseFloat(cluster.feature.properties[element]);
                             }
                         });
                         // for(var i = 0 ; i < objects.length ; i++){
@@ -729,24 +733,24 @@
                     //console.log('cluster', element, cluster.feature.properties[element]);
                 });
             });
-            console.log('objects again' , objects);
+            // console.log('objects again', objects);
 
 
-                // cluster.values.forEach(function (entry) {
+            // cluster.values.forEach(function (entry) {
 
 
-                //     console.log('entry: ' , entry);
+            //     console.log('entry: ' , entry);
 
-                //     if (entry.feature.properties['TEMPO'] == "BOM") {
-                //         tempo += 1;
-                //     } else if (entry.feature.properties['TEMPO'] == "CHUVOSO") {
-                //         tempo += 2;
-                //     } else {
-                //         tempo += 3;
-                //     }
-                //     feridos += parseFloat(entry.feature.properties['FERIDOS']);
-                //     hora += parseFloat(entry.feature.properties['DATA_HORA'].replace(":", "."));
-                // });
+            //     if (entry.feature.properties['TEMPO'] == "BOM") {
+            //         tempo += 1;
+            //     } else if (entry.feature.properties['TEMPO'] == "CHUVOSO") {
+            //         tempo += 2;
+            //     } else {
+            //         tempo += 3;
+            //     }
+            //     feridos += parseFloat(entry.feature.properties['FERIDOS']);
+            //     hora += parseFloat(entry.feature.properties['DATA_HORA'].replace(":", "."));
+            // });
             // });
             // push sum to here
             //clusterdataset.push
@@ -776,14 +780,14 @@
             //     { "id": "FERIDOS", "value": feridos / children.length },
             //     { "id": "HORA", "value": hora / children.length });
 
-            console.log(clusterdataset);
+            // console.log(clusterdataset);
 
             var x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1);
             var y = d3.scale.linear().range([h, 0]);
-            x.domain(clusterdataset.map(function (d) {
+            x.domain(objects.map(function (d) {
                 return d.id;
             }));
-            y.domain([0, d3.max(clusterdataset, function (d) {
+            y.domain([0, d3.max(objects, function (d) {
                 return d.value;
             })]);
             // create a svg element
@@ -796,12 +800,15 @@
                 .attr('transform', 'translate(' + (h / 200) + ',' + (w / 200) + ')'); //center g
 
             vis.selectAll(".bar")
-                .data(clusterdataset)
+                .data(objects)
                 .enter()
                 .append("rect")
                 .attr("class", "bar")
                 .attr('class', function (d) {
-                    return "category-" + d.id;
+                    // console.log(d.id + ' - ' + parseFloat(mapColumns.indexOf(d.id) + 1));
+                    console.log("category-" + parseFloat(mapColumns.indexOf(d.id) + 1));
+                    return "category-" + parseFloat(mapColumns.indexOf(d.id) + 1);
+                    //return "category-" + d.id;
                 })
                 .attr("x", function (d) {
                     return x(d.id);
@@ -821,8 +828,8 @@
                 })
                 .append('svg:title')
                 .text(function (d) {
-                    return d.id + ' (' + d.value
-                        + ' ACIDENTE' + (d.value != 1 ? 'S' : '') + ')';
+                    return 'Soma de ' + (isNaN(d.id) ? d.id.toLowerCase() : d.id) + ': ' + d.value + ' (' + children.length
+                        + ' registro' + (children.length != 1 ? 's' : '') + ')';
                 });
             // add the x Axis
             vis.append("g")
@@ -852,18 +859,25 @@
 
         function renderLegend() {
             //TODO here
+            var legendValues = [];
+            var legendTitle;
             if (mapColumns.length == 1) {
                 // check if there are other columns
                 // if so the approach needs to change to numbers instead of strings
+                legendValues = mapColumnDistinct;
+                legendTitle = mapColumns[0];
+            } else {
+                legendValues = mapColumns;
+                legendTitle = 'Legenda';
             }
 
             // console.log(d3.entries(mapColumnDistinct));
-            var data = d3.entries(mapColumnDistinct),
+            var data = d3.entries(legendValues),
                 legenddiv = d3.select('body').append('div')
                     .attr('id', 'legend');
             var heading = legenddiv.append('div')
                 .classed('legendheading', true)
-                .text(mapColumns[0]);
+                .text(legendTitle);
             var legenditems = legenddiv.selectAll('.legenditem')
                 .data(data);
 
@@ -871,7 +885,12 @@
                 .enter()
                 .append('div')
                 .attr('class', function (d) {
-                    return 'category-' + d.key;
+                    if (mapColumns.length > 1) {
+                        return "category-" + parseFloat(mapColumns.indexOf(d.value) + 1);
+                    } else {
+                        var numb = parseFloat(d.key) + 1;
+                        return 'category-' + numb;
+                    }
                 })
                 .classed({ 'legenditem': true })
                 .text(function (d) {
@@ -946,6 +965,9 @@
         function defineFeature(feature, latlng) {
             var categoryVal = feature.properties[categoryField],
                 iconVal = feature.properties[iconField];
+            //iconVal = mapColumns[0];
+
+
             // no icon val for now
             //var myClass = 'marker category-' + categoryVal + ' icon-' + iconVal;
             var myClass = 'marker category-' + categoryVal;
@@ -960,7 +982,6 @@
                 fields = metadata.fields,
                 popupContent = '';
             popupFields.map(function (key) {
-                // console.log(key);
                 if (props[key]) {
                     // console.log(props[key]);
                     var val = props[key],
@@ -970,7 +991,7 @@
                     //     val = fields[key].lookup[val];
                     // }
                     if (typeof (val) != 'undefined') {
-                        popupContent += '<span class="attribute"><span class="label" style="color: #000000">' + label + ':</span> ' + val + '</span>';
+                        popupContent += '<span class="attribute"><span class="label" style="color: #000000">' + key + ':</span> ' + val + '</span>';
                     }
                 }
             });

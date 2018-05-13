@@ -88,45 +88,66 @@
 
 /*marker categories*/
 .category-1 {
-    fill: #F88;
-    stroke: #800;
-    background: #F88;
-    border-color: #800;
+    fill: #1f77b4;
+    stroke: #1b487d;
+    background: #1f77b4;
+    border-color: #1b487d;
 }
 
 .category-2 {
-    fill: #FA0;
-    stroke: #B60;
-    background: #FA0;
-    border-color: #B60;
+    fill: #3584bb;
+    stroke: #34598f;
+    background: #3584bb;
+    border-color: #34598f;
 }
 
 .category-3 {
-    fill: #FF3;
-    stroke: #D80;
-    background: #FF3;
-    border-color: #D80;
+    fill: #4b92c3;
+    stroke: #3e6c93;
+    background: #4b92c3;
+    border-color: #3e6c93;
 }
 
 .category-4 {
-    fill: #BFB;
-    stroke: #070;
-    background: #BFB;
-    border-color: #070;
+    fill: #629fca;
+    stroke: #4d739a;
+    background: #629fca;
+    border-color: #4d739a;
 }
 
 .category-5 {
-    fill: #9DF;
-    stroke: #007;
-    background: #9DF;
-    border-color: #007;
+    fill: #78add2;
+    stroke: #4f7c9e;
+    background: #78add2;
+    border-color: #4f7c9e;
 }
 
 .category-6 {
-    fill: #CCC;
-    stroke: #444;
-    background: #CCC;
-    border-color: #444;
+    fill: #8fbbd9;
+    stroke: #708fac;
+    background: #8fbbd9;
+    border-color: #708fac;
+}
+
+.category-7 {
+    fill: #a5c8e1;
+    stroke: #819cb4;
+    background: #a5c8e1;
+    border-color: #819cb4;
+}
+
+.category-8 {
+    fill: #bbd6e8;
+    stroke: #7f95a7;
+    background: #bbd6e8;
+    border-color: #7f95a7;
+}
+
+.category-9 {
+    fill: #d2e3f0;
+    stroke: #8d98a5;
+    background: #d2e3f0;
+    border-color: #8d98a5;
 }
 
 /*marker categories*/
