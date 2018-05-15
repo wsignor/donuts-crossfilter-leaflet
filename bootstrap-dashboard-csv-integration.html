@@ -168,6 +168,7 @@
 
         // load map properties selected in the previous html
         var mapTypes = JSON.parse('[' + localStorage.getItem('mapColumns') + ']');
+        var sideCharts = [];
         mapTypes.forEach(function (element) {
             if (element.value == 'Mapa') {
                 mapColumns.push(element.key);
@@ -189,8 +190,10 @@
         //    d3.json('earthquakes.geojson', function (data) {
         function init(chartType) {
             // console.log(chartType);
-            console.log('File being loaded: ' + localStorage.getItem('file').substring(12, localStorage.getItem('file').length));
+            // console.log('File being loaded: ' + localStorage.getItem('file'));
             d3.csv(localStorage.getItem('file').substring(12, localStorage.getItem('file').length), function (error, data) {
+            //d3.csv(localStorage.getItem('file'), function (error, data) {
+                // d3.csv(localStorage.getItem('file').substring(12, localStorage.getItem('file').length), function (error, data) {
                 if (!error) {
                     // geojson = data;
 
@@ -234,7 +237,7 @@
                                     opacity: 1,
                                     fillOpacity: 0.8
                                 })
-                                    .bindPopup(feature.properties['FERIDOS'].toString());
+                                    .bindPopup(feature.properties['FERIDOS'].toString()); //TODO
                             }
                         });
                     markerclusters = L.markerClusterGroup({
@@ -475,88 +478,8 @@
                 h = w,
                 iconDim = (r + 1) * 2;
 
-            // create to populate all columns of bar charts
-            // var ABALROAMENTO = 0,
-            //     ATROPELAMENTO = 0,
-            //     CAPOTAGEM = 0,
-            //     CHOQUE = 0,
-            //     COLISAO = 0,
-            //     EVENTUAL = 0,
-            //     INCENDIO = 0,
-            //     QUEDA = 0,
-            //     TOMBAMENTO = 0;
-            // dataset.forEach(function (entry) {
-            //     if (entry.key == 'ABALROAMENTO') {
-            //         ABALROAMENTO += 1;
-            //     } else if (entry.key == 'ATROPELAMENTO') {
-            //         ATROPELAMENTO += 1;
-            //     } else if (entry.key == 'CAPOTAGEM') {
-            //         CAPOTAGEM += 1;
-            //     } else if (entry.key == 'CHOQUE') {
-            //         CHOQUE += 1;
-            //     } else if (entry.key == 'COLISAO') {
-            //         COLISAO += 1;
-            //     } else if (entry.key == 'EVENTUAL') {
-            //         EVENTUAL += 1;
-            //     } else if (entry.key == 'INCENDIO') {
-            //         INCENDIO += 1;
-            //     } else if (entry.key == 'QUEDA') {
-            //         QUEDA += 1;
-            //     } else if (entry.key == 'TOMBAMENTO') {
-            //         TOMBAMENTO += 1;
-            //     }
-            // });
-
-
-            // if (ABALROAMENTO == 0) {
-            //     var item = { "key": "ABALROAMENTO", "values": new Array() };
-            //     dataset.push(item);
-            // }
-            // if (ATROPELAMENTO == 0) {
-            //     var item = { "key": "ATROPELAMENTO", "values": new Array() };
-            //     dataset.push(item);
-            // }
-            // if (CAPOTAGEM == 0) {
-            //     var item = { "key": "CAPOTAGEM", "values": new Array() };
-            //     dataset.push(item);
-            // }
-            // if (CHOQUE == 0) {
-            //     var item = { "key": "CHOQUE", "values": new Array() };
-            //     dataset.push(item);
-            // }
-            // if (COLISAO == 0) {
-            //     var item = { "key": "COLISAO", "values": new Array() };
-            //     dataset.push(item);
-            // }
-            // if (EVENTUAL == 0) {
-            //     var item = { "key": "EVENTUAL", "values": new Array() };
-            //     dataset.push(item);
-            // }
-            // if (INCENDIO == 0) {
-            //     var item = { "key": "INCENDIO", "values": new Array() };
-            //     dataset.push(item);
-            // }
-            // if (QUEDA == 0) {
-            //     var item = { "key": "QUEDA", "values": new Array() };
-            //     dataset.push(item);
-            // }
-            // if (TOMBAMENTO == 0) {
-            //     var item = { "key": "TOMBAMENTO", "values": new Array() };
-            //     dataset.push(item);
-            // }
-
-
             mapColumnDistinct.forEach(function (entry) {
-                // if(dataset.indexOf(entry) == -1){
-                // TODO fix comparison
-                // console.log('entry: ' , entry);
-                // console.log('dataset: ' , dataset);
-                // console.log('calc result: ' + dataset.indexOf(entry));
-                // dataset.push("{key:" + entry + ",values:" }");
-                //dataset.push('{key:"' + entry + '"',
-                //        'values:[]}');
                 dataset.push({ "key": entry, "values": [] });
-                // }
             });
 
             // order starts always from a to z
@@ -709,7 +632,10 @@
             for (var i = 0; i < mapColumns.length; i++) {
                 //field_ + i = mapColumns[i];
                 //objects[i] = { "id":mapColumns[i], "value":0};
-                objects.push({ "id": mapColumns[i], "value": 0 });
+                // objects.push({ "id": mapColumns[i], "value": 0 });
+                if (objects.length != mapColumns.length) {
+                    objects.push({ "id": mapColumns[i], "value": 0 });
+                }
             }
             // console.log('objects ', objects);
 
@@ -1000,7 +926,7 @@
 
             // no icon val for now
             //var myClass = 'marker category-' + categoryVal + ' icon-' + iconVal;
-            var myClass = 'marker category-' + parseFloat(categoryVal+1);
+            var myClass = 'marker category-' + parseFloat(categoryVal + 1);
             var myIcon = L.divIcon({
                 className: myClass,
                 iconSize: null
@@ -1011,7 +937,10 @@
             var props = feature.properties,
                 fields = metadata.fields,
                 popupContent = '';
-            popupFields.map(function (key) {
+
+            console.log(columns);
+            // popupFields.map(function (key) {
+            columns.map(function(key) {
                 if (props[key]) {
                     // console.log(props[key]);
                     var val = props[key],
