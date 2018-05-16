@@ -112,7 +112,7 @@
     </div>
 
     <script>
-        var array = ["", "Barra", "Pizza", "Donut", "Linha", "Mapa"];
+        var array = ["", "Mapa", "Pizza", "Barra", "Pie", "Linha"];
         var position = ["", "Mapa", "Gráfico 1", "Gráfico 2", "Gráfico 3", "Gráfico 4", "Gráfico 5"];
         var items;
         var csvFile;
@@ -161,23 +161,7 @@
                 }
             }
             reader.readAsText(file);
-
-            // reader.onloadend = function (evt) {
-            //     var dataUrl = evt.target.result;
-            //     console.log(dataUrl);
-            //     previewCsvUrl(dataUrl);
-            // };
-
-            // reader.onloadend = function (evt) {
-            //     csvFile = d3.csv.parse(reader.result, function (d) {
-            //         return d;
-            //     });
-            // };
-
         }
-
-
-
 
         function movePages() {
 

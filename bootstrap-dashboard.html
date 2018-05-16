@@ -214,6 +214,7 @@
                                     .bindPopup(feature.properties['FERIDOS'].toString());
                             }
                         });
+                    console.log(chartType);
                     markerclusters = L.markerClusterGroup({
                         maxClusterRadius: 2 * rmax,
                         iconCreateFunction: chartType

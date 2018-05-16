@@ -77,7 +77,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Acidentes de Trânsito em Porto Alegre - 2016</h1>
+                        <h1>Modelo de representação de dados mulivariados</h1>
                     </div>
                 </div>
             </div>
@@ -109,30 +109,31 @@
 
 
             <div class="col-sm-6 col-lg-3">
-
-                <h4>Dia da Semana</h4>
-                <div id="mag-chart"></div>
+                <h4 id="chart-1-title">Dia da Semana</h4>
+                <div id="chart-1"></div>
             </div>
 
             <div class="col-sm-6 col-lg-3">
 
-                <h4>Meio de Transporte</h4>
-                <div id="depth-chart"></div>
+                <h4 id="chart-2-title">Meio de Transporte</h4>
+                <div id="chart-2"></div>
             </div>
 
             <div class="col-sm-6 col-lg-3">
-                <h4>Dia do Ano</h4>
-                <div id="date-chart"></div>
+                <h4 id="chart-3-title">Dia do Ano</h4>
+                <div id="chart-3"></div>
             </div>
 
             <div class="col-sm-6 col-lg-3">
-                <h4>Região da cidade</h4>
-                <div id="regiao-chart" style="padding-top:20px;padding-left:50px"></div>
+                <h4 id="chart-4-title">Região da cidade</h4>
+                <div id="chart-4"></div>
+                <!-- style="padding-top:20px;padding-left:50px" -->
             </div>
 
             <div class="col-sm-6 col-lg-3">
-                <h4>Condições climáticas</h4>
-                <div id="tempo-chart" style="padding-top:20px;padding-left:50px"></div>
+                <h4 id="chart-5-title">Condições climáticas</h4>
+                <div id="chart-5"></div>
+                <!-- style="padding-top:20px;padding-left:50px" -->
             </div>
 
 
@@ -172,8 +173,12 @@
         mapTypes.forEach(function (element) {
             if (element.value == 'Mapa') {
                 mapColumns.push(element.key);
+            } else {
+                sideCharts.push(element);
             }
         });
+
+        sideCharts.sort(function (a, b) { return (a.option > b.option) ? 1 : ((b.option > a.option) ? -1 : 0); });
 
         if (mapColumns.length == 1) {
             multiMap = false;
@@ -197,6 +202,14 @@
                 // d3.csv(localStorage.getItem('file').substring(12, localStorage.getItem('file').length), function (error, data) {
                 if (!error) {
                     // geojson = data;
+
+                    if (typeof chartType == 'undefined') {
+                        if (mapColumns.length == 1) {
+                            chartType = defineClusterIconAsBarChart;
+                        } else {
+                            chartType = defineClusterIconAsBarChartTestDiffVars;
+                        }
+                    }
 
                     makeGeoJSON(data);
                     data = geojson;
@@ -241,6 +254,7 @@
                                     .bindPopup(feature.properties['FERIDOS'].toString()); //TODO
                             }
                         });
+                    console.log(chartType);
                     markerclusters = L.markerClusterGroup({
                         maxClusterRadius: 2 * rmax,
                         iconCreateFunction: chartType
@@ -253,100 +267,22 @@
 
 
                     // chart 1
-                    createBarChart('DIA_SEM', filter, markers, markerclusters, '#mag-chart');
 
+                    for (var i = 0; i < sideCharts.length; i++) {
+                        var chartType = sideCharts[i].value;
+                        var divPosition = '#chart-' + parseFloat(i + 1);
+                        document.getElementById(divPosition.replace("#","") + '-title').innerHTML = sideCharts[i].key;
+                        if (chartType == 'Barra') {
+                            createBarChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
+                        } else if (chartType == 'Linha') {
+                            createLineChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
+                        } else if (chartType == 'Pizza') {
+                            createPizzaChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
+                        } else if (chartType == 'Pie') {
+                            createPieChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
+                        }
 
-                    // chart 2
-                    var depthDimension = filter.dimension(function (d) {
-                        var depth = d.properties['TIPO_ACID'];
-
-                        var AUTO = d.properties['AUTO'],
-                            TAXI = d.properties['TAXI'],
-                            LOTACAO = d.properties['LOTACAO'],
-                            ONIBUS_URB = d.properties['ONIBUS_URB'],
-                            ONIBUS_MET = d.properties['ONIBUS_MET'],
-                            ONIBUS_INT = d.properties['ONIBUS_INT'],
-                            CAMINHAO = d.properties['CAMINHAO'],
-                            MOTO = d.properties['MOTO'],
-                            CARROCA = d.properties['CARROCA'],
-                            BICICLETA = d.properties['BICICLETA'];
-
-                        return (AUTO > 0) ? 'AUTO' :
-                            (MOTO > 0) ? 'MOTO' :
-                                (TAXI > 0) ? 'TAXI' :
-                                    (LOTACAO > 0) ? 'LOTACAO' :
-                                        (ONIBUS_URB > 0) ? 'ONIBUS_URB' :
-                                            (ONIBUS_MET > 0) ? 'ONIBUS_MET' :
-                                                (ONIBUS_INT > 0) ? 'ONIBUS_INT' :
-                                                    (CAMINHAO > 0) ? 'CAMINHAO' :
-                                                        (CARROCA > 0) ? 'CARROCA' :
-                                                            (BICICLETA > 0) ? 'BICICLETA' : ''
-                    });
-
-                    var depthDimensionGroup = depthDimension.group();
-
-                    var depthChart = dc.barChart('#depth-chart');
-                    depthChart
-                        .height(180)
-                        .margins({ top: 10, right: 50, bottom: 30, left: 40 })
-                        .dimension(depthDimension)
-                        .group(depthDimensionGroup)
-                        .ordering(function (d) { return -d.value; })
-                        .elasticY(true)
-                        .x(d3.scale.ordinal())
-                        .xUnits(dc.units.ordinal)
-                        .yAxis()
-                        .ticks(3);
-
-                    // chart 3
-                    var regiaoDimension = filter.dimension(function (d) {
-                        var reg = d.properties['REGIAO']
-                        return reg == 'NORTE' ? 'NORTE' :
-                            reg == 'SUL' ? 'SUL' :
-                                reg == 'LESTE' ? 'LESTE' :
-                                    reg == 'CENTRO' ? 'CENTRO' : ''
-                    });
-                    var regiaoDimensionGroup = regiaoDimension.group();
-
-                    var regiaoChart = dc.pieChart('#regiao-chart')
-                    regiaoChart
-                        .height(180)
-                        .dimension(regiaoDimension)
-                        .group(regiaoDimensionGroup)
-                        .innerRadius(40);
-
-                    // chart 4
-                    var tempoDimension = filter.dimension(function (d) {
-                        var reg = d.properties['TEMPO']
-                        return reg == 'NUBLADO' ? 'NUBLADO' :
-                            reg == 'BOM' ? 'BOM' :
-                                reg == 'CHUVOSO' ? 'CHUVOSO' : ''
-                    });
-                    var tempoDimensionGroup = tempoDimension.group();
-
-                    var tempoChart = dc.pieChart('#tempo-chart')
-                    tempoChart
-                        .height(180)
-                        .dimension(tempoDimension)
-                        .group(tempoDimensionGroup);
-
-                    // chart 5
-                    var dateDimension = filter.dimension(function (d) {
-                        return d3.time.day(new Date(d.properties['DATE']))
-                    });
-                    var dateDimensionGroup = dateDimension.group();
-
-                    var dateChart = dc.lineChart('#date-chart');
-                    dateChart
-                        .renderArea(true)
-                        .height(180)
-                        .transitionDuration(1000)
-                        .margins({ top: 30, right: 50, bottom: 25, left: 40 })
-                        .dimension(dateDimension)
-                        .group(dateDimensionGroup)
-                        .elasticY(true)
-                        .x(d3.time.scale().domain([new Date(2016, 1, 1), new Date(2016, 12, 31)]))
-                        .xUnits(d3.time.days);
+                    }
 
                     var earthquakeCount = dc.dataCount('.dc-data-count')
                     earthquakeCount
@@ -361,27 +297,27 @@
                     dc.renderAll();
 
                     //chart listeners
-                    depthChart.on('filtered', function (chart, filter) {
-                        updateMap()
-                    });
-                    dateChart.on('filtered', function (chart, filter) {
-                        updateMap()
-                    });
-                    regiaoChart.on('filtered', function (chart, filter) {
-                        updateMap()
-                    });
-                    tempoChart.on('filtered', function (chart, filter) {
-                        updateMap()
-                    });
-                    function updateMap() {
-                        markers.clearLayers()
-                        markers.addData({
-                            type: 'FeatureCollection',
-                            features: everything.top(Infinity)
-                        });
-                        markerclusters.clearLayers();
-                        markerclusters.addLayer(markers);
-                    }
+                    // depthChart.on('filtered', function (chart, filter) {
+                    //     updateMap()
+                    // });
+                    // dateChart.on('filtered', function (chart, filter) {
+                    //     updateMap()
+                    // });
+                    // regiaoChart.on('filtered', function (chart, filter) {
+                    //     updateMap()
+                    // });
+                    // tempoChart.on('filtered', function (chart, filter) {
+                    //     updateMap()
+                    // });
+                    // function updateMap() {
+                    //     markers.clearLayers()
+                    //     markers.addData({
+                    //         type: 'FeatureCollection',
+                    //         features: everything.top(Infinity)
+                    //     });
+                    //     markerclusters.clearLayers();
+                    //     markerclusters.addLayer(markers);
+                    // }
 
                     //map listeners
                     map.on('moveend', function () {
@@ -442,7 +378,6 @@
                 return d.properties[columnName]
             });
 
-            console.log(magDimension);
             var magDimensionGroup = magDimension.group();
 
             var magChart = dc.barChart(location);
@@ -474,19 +409,100 @@
 
         }
 
-        function createLineChart(columnName) {
+        function createLineChart(columnName, filter, markers, markerclusters, location) {
+            console.log(columnName);
+
+            var dateDimension = filter.dimension(function (d) {
+                return d3.time.day(new Date(d.properties[columnName]))
+            });
+            var dateDimensionGroup = dateDimension.group();
+
+            var dateChart = dc.lineChart(location);
+            dateChart
+                .renderArea(true)
+                .height(180)
+                .transitionDuration(1000)
+                .margins({ top: 30, right: 50, bottom: 25, left: 40 })
+                .dimension(dateDimension)
+                .group(dateDimensionGroup)
+                .elasticY(true)
+                .x(d3.time.scale().domain([new Date(2016, 1, 1), new Date(2016, 12, 31)]))
+                .xUnits(d3.time.days);
+
+            dateChart.on('filtered', function (chart, filter) {
+                updateMap()
+            });
+
+            function updateMap() {
+                markers.clearLayers()
+                markers.addData({
+                    type: 'FeatureCollection',
+                    features: everything.top(Infinity)
+                });
+                markerclusters.clearLayers();
+                markerclusters.addLayer(markers);
+            }
+        }
+
+        function createPizzaChart(columnName, filter, markers, markerclusters, location) {
+            var tempoDimension = filter.dimension(function (d) {
+                return d.properties[columnName];
+            });
+            var tempoDimensionGroup = tempoDimension.group();
+
+            var tempoChart = dc.pieChart(location)
+            tempoChart
+                .height(180)
+                .dimension(tempoDimension)
+                .group(tempoDimensionGroup);
+
+            tempoChart.on('filtered', function (chart, filter) {
+                updateMap()
+            });
+
+            function updateMap() {
+                markers.clearLayers()
+                markers.addData({
+                    type: 'FeatureCollection',
+                    features: everything.top(Infinity)
+                });
+                markerclusters.clearLayers();
+                markerclusters.addLayer(markers);
+            }
 
         }
 
-        function createPieChart(columnName) {
+        function createPieChart(columnName, filter, markers, markerclusters, location) {
+            var regiaoDimension = filter.dimension(function (d) {
+                return d.properties[columnName];
+            });
+            var regiaoDimensionGroup = regiaoDimension.group();
 
-        }
+            var regiaoChart = dc.pieChart(location)
+            regiaoChart
+                .height(180)
+                .dimension(regiaoDimension)
+                .group(regiaoDimensionGroup)
+                .innerRadius(40);
 
-        function createPizzaChart(columnName) {
+            regiaoChart.on('filtered', function (chart, filter) {
+                updateMap()
+            });
 
+            function updateMap() {
+                markers.clearLayers()
+                markers.addData({
+                    type: 'FeatureCollection',
+                    features: everything.top(Infinity)
+                });
+                markerclusters.clearLayers();
+                markerclusters.addLayer(markers);
+            }
         }
 
         function defineClusterIconAsBarChart(cluster) {
+
+            console.log('defineClusterIconAsBarChart');
             var children = cluster.getAllChildMarkers();
 
             var n = children.length,
@@ -586,6 +602,7 @@
         }
 
         function defineClusterIcon(cluster) {
+            console.log('defineClusterIcon');
             var children = cluster.getAllChildMarkers(),
                 n = children.length, //Get number of markers in cluster
                 strokeWidth = 1, //Set clusterpie stroke width
@@ -631,6 +648,8 @@
         function defineClusterIconAsBarChartTestDiffVars(cluster) {
             var children = cluster.getAllChildMarkers();
 
+            console.log('defineClusterIconAsBarChartTestDiffVars');
+
             var n = children.length,
                 strokeWidth = 1;
             var dataset = d3.nest() //Build a dataset for the pie chart
@@ -675,6 +694,7 @@
             // });
 
 
+            console.log('defineClusterIconAsBarChartTestDiffVars');
             children.forEach(function (cluster) {
                 tempo = 0;
                 feridos = 0;
@@ -963,7 +983,7 @@
                 fields = metadata.fields,
                 popupContent = '';
 
-            console.log(columns);
+            //console.log(columns);
             // popupFields.map(function (key) {
             columns.map(function (key) {
                 if (props[key]) {
