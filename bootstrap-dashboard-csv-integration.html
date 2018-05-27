@@ -161,6 +161,7 @@
             map = L.map('map').setView([59.95, 10.78], 8);
         var objects = [];
         var multiMap = false;
+        var chartType;
 
         //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', { foo: 'bar' }).addTo(map);
         L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', { foo: 'bar' }).addTo(map);
@@ -194,7 +195,7 @@
 
 
         //    d3.json('earthquakes.geojson', function (data) {
-        function init(chartType) {
+        function init(kkk) {
             // console.log(chartType);
             // console.log('File being loaded: ' + localStorage.getItem('file'));
             console.log( localStorage.getItem('file').substring(12, localStorage.getItem('file').length));
@@ -206,6 +207,7 @@
 
                     console.log('chartType: ' + chartType);
                     if (typeof chartType == 'undefined') {
+                        console.log('mapColumns.length: ' + mapColumns.length);
                         if (mapColumns.length == 1) {
                             chartType = defineClusterIconAsBarChart;
                         } else {
@@ -272,7 +274,7 @@
                     // chart 1
 
                     for (var i = 0; i < sideCharts.length; i++) {
-                        var chartType = sideCharts[i].value;
+                        chartType = sideCharts[i].value;
                         var divPosition = '#chart-' + parseFloat(i + 1);
                         document.getElementById(divPosition.replace("#","") + '-title').innerHTML = sideCharts[i].key;
                         if (chartType == 'Barra') {
@@ -1009,9 +1011,11 @@
             markerclusters.clearLayers();
             if (document.getElementById("buttonUpdateChart").innerText == 'Bar chart') {
                 document.getElementById("buttonUpdateChart").innerText = 'Pie chart';
+                chartType = defineClusterIconAsBarChart;
                 init(defineClusterIconAsBarChart);
             } else {
                 document.getElementById("buttonUpdateChart").innerText = 'Bar chart';
+                chartType = defineClusterIcon;
                 init(defineClusterIcon);
             }
         }
