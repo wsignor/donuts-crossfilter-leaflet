@@ -880,7 +880,7 @@
                 legendTitle = mapColumns[0];
             } else {
                 legendValues = mapColumns;
-                legendTitle = 'Legenda';
+                legendTitle = 'Caption';
             }
 
             legendValues.sort(function (a, b) { return (a > b) ? 1 : ((b > a) ? -1 : 0); });
@@ -1014,9 +1014,16 @@
                     // if (fields[key].lookup) {
                     //     val = fields[key].lookup[val];
                     // }
-                    if (typeof (val) != 'undefined') {
-                        popupContent += '<span class="attribute"><span class="label" style="color: #000000">' + key + ':</span> ' + val + '</span>';
-                    }
+
+                    mapTypes.forEach(function (element) {
+                        if (element.key == key) {
+                            if (typeof (val) != 'undefined') {
+                                popupContent += '<span class="attribute"><span class="label" style="color: #000000">' + key + ':</span> ' + val + '</span>';
+                            }
+                        }
+                    });
+
+
                 }
             });
             popupContent = '<div class="map-popup">' + popupContent + '</div>';
