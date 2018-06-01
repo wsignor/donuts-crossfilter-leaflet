@@ -1,4 +1,4 @@
-LATITUDE,LONGITUDE,ID,Mun,CodIBGE,Populacao,Delitos Relacionados à Armas e Munições,Delitos relacionados à Corrupção,Estelionato,Extorsão,Extorsão Mediante Sequestro,Furto,Furto de Veículos,Homicídio Doloso,Latrocínio,Posse de Entorpecentes,Roubo,Roubo de Veículos,Tráfico de Entorpecentes
+LATITUDE,LONGITUDE,ID,Mun,CodIBGE,Populacao,Delitos Relacionados à Armas e Munições,Delitos relacionados à Corrupção,Estelionato,Extorsão,Extorsão Mediante Sequestro,Furto,Furto de Veículos,Homicídio Doloso,Latrocínio,Posse de Entorpecentes,Roubo,Roubo de Veículos,Tráfico de Entorpecentes,
 -31.866483,-54.161467,1, Aceguá, 4300034, 4595, 2, 0, 1, 0, 0, 60, 3, , 0, 0, 1, 0, 0
 -28.167228,-52.031004,2, Água Santa, 4300059, 3939, 2, 0, 6, 0, 0, 41, 7, , 0, 0, 2, 2, 0
 -29.644743,-53.251458,3, Agudo, 4300109, 16730, 4, 0, 12, 0, 0, 172, 3, , 0, 7, 5, 1, 2
