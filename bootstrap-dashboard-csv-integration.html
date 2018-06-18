@@ -175,7 +175,7 @@
         var mapTypes = JSON.parse('[' + mapTypes + ']');
         var sideCharts = [];
         mapTypes.forEach(function (element) {
-            if (element.value == 'Mapa') {
+            if (element.value == 'Map') {
                 mapColumns.push(element.key);
             } else {
                 sideCharts.push(element);
@@ -280,13 +280,13 @@
                         chartType = sideCharts[i].value;
                         var divPosition = '#chart-' + parseFloat(i + 1);
                         document.getElementById(divPosition.replace("#", "") + '-title').innerHTML = sideCharts[i].key;
-                        if (chartType == 'Barra') {
+                        if (chartType == 'Bar') {
                             createBarChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
-                        } else if (chartType == 'Linha') {
+                        } else if (chartType == 'Line') {
                             createLineChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
                         } else if (chartType == 'Pizza') {
                             createPizzaChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
-                        } else if (chartType == 'Pie') {
+                        } else if (chartType == 'Donut') {
                             createPieChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
                         }
 
@@ -668,7 +668,7 @@
         function defineClusterIconAsBarChartTestDiffVars(cluster) {
             var children = cluster.getAllChildMarkers();
 
-            console.log('defineClusterIconAsBarChartTestDiffVars');
+            //console.log('defineClusterIconAsBarChartTestDiffVars');
 
             var n = children.length,
                 strokeWidth = 1;
@@ -701,20 +701,8 @@
                     objects.push({ "id": mapColumns[i], "value": 0 });
                 }
             }
-            // console.log('objects ', objects);
 
-            // mapColumns.forEach(function (element) {
-            //     console.log(element);
-            //     if (element != 'LATITUDE' && element != 'LONGITUDE') {
-
-            //     } else {
-            //         console.log('Field no accepted: ' + element);
-            //     }
-            //     console.log('cluster', element, cluster.feature.properties[element]);
-            // });
-
-
-            console.log('defineClusterIconAsBarChartTestDiffVars');
+            //console.log('defineClusterIconAsBarChartTestDiffVars');
             children.forEach(function (cluster) {
                 tempo = 0;
                 feridos = 0;
@@ -723,77 +711,15 @@
                 mapColumns.forEach(function (element) {
 
                     if (element != 'LATITUDE' && element != 'LONGITUDE') {
-
                         objects.forEach(function (obj) {
-                            // console.log('obj ' , obj);
-
                             if (obj.id == element) {
                                 obj.value = parseFloat(obj.value) + parseFloat(cluster.feature.properties[element]);
                             }
                         });
-                        // for(var i = 0 ; i < objects.length ; i++){
-                        //     console.log('objects[i].id: ' , objects[i].id);
-                        //     console.log('element: ' , element);
-                        //     if(objects[i].id == element){
-                        //         objects[i].value = cluster.feature.properties[element];
-                        //     }
-                        // }
-                    } else {
-                        //console.log('Field no accepted: ' + element);
                     }
-
-                    //console.log('cluster', element, cluster.feature.properties[element]);
                 });
             });
-            // console.log('objects again', objects);
-
-
-            // cluster.values.forEach(function (entry) {
-
-
-            //     console.log('entry: ' , entry);
-
-            //     if (entry.feature.properties['TEMPO'] == "BOM") {
-            //         tempo += 1;
-            //     } else if (entry.feature.properties['TEMPO'] == "CHUVOSO") {
-            //         tempo += 2;
-            //     } else {
-            //         tempo += 3;
-            //     }
-            //     feridos += parseFloat(entry.feature.properties['FERIDOS']);
-            //     hora += parseFloat(entry.feature.properties['DATA_HORA'].replace(":", "."));
-            // });
-            // });
-            // push sum to here
-            //clusterdataset.push
-
-            // dataset.forEach(function (cluster) {
-            //     tempo = 0;
-            //     feridos = 0;
-            //     hora = 0;
-
-            //     console.log(cluster.values);
-
-            //     cluster.values.forEach(function (entry) {
-
-            //         if (entry.feature.properties['TEMPO'] == "BOM") {
-            //             tempo += 1;
-            //         } else if (entry.feature.properties['TEMPO'] == "CHUVOSO") {
-            //             tempo += 2;
-            //         } else {
-            //             tempo += 3;
-            //         }
-            //         feridos += parseFloat(entry.feature.properties['FERIDOS']);
-            //         hora += parseFloat(entry.feature.properties['DATA_HORA'].replace(":", "."));
-            //     });
-            // });
-
-            // clusterdataset.push({ "id": "TEMPO", "value": (tempo / children.length) * 1000 },
-            //     { "id": "FERIDOS", "value": feridos / children.length },
-            //     { "id": "HORA", "value": hora / children.length });
-
-            // console.log(clusterdataset);
-
+            
             var x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1);
             var y = d3.scale.linear().range([h, 0]);
             x.domain(objects.map(function (d) {
@@ -811,16 +737,15 @@
                 .append('g')
                 .attr('transform', 'translate(' + (h / 200) + ',' + (w / 200) + ')'); //center g
 
+            //console.log('objects: ' , objects);
+
             vis.selectAll(".bar")
                 .data(objects)
                 .enter()
                 .append("rect")
                 .attr("class", "bar")
                 .attr('class', function (d) {
-                    // console.log(d.id + ' - ' + parseFloat(mapColumns.indexOf(d.id) + 1));
-                    // console.log("category-" + parseFloat(mapColumns.indexOf(d.id) + 1));
                     return "category-" + parseFloat(mapColumns.indexOf(d.id) + 1);
-                    //return "category-" + d.id;
                 })
                 .attr("x", function (d) {
                     return x(d.id);
@@ -878,13 +803,14 @@
                 // if so the approach needs to change to numbers instead of strings
                 legendValues = mapColumnDistinct;
                 legendTitle = mapColumns[0];
+                
+                legendValues.sort(function (a, b) { return (a > b) ? 1 : ((b > a) ? -1 : 0); });
             } else {
                 legendValues = mapColumns;
                 legendTitle = 'Attribs by bars';
             }
 
-            legendValues.sort(function (a, b) { return (a > b) ? 1 : ((b > a) ? -1 : 0); });
-
+            //console.log(legendValues);
 
             // console.log(d3.entries(mapColumnDistinct));
             var data = d3.entries(legendValues),
