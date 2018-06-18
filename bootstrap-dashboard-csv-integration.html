@@ -104,7 +104,7 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="dc-data-count">
                 </div>
-                <button onclick="changeChart()" class="button" id="buttonUpdateChart">Pie chart</button>
+                <button onclick="changeChart()" class="button" id="buttonUpdateChart">Donut chart</button>
             </div>
 
 
@@ -190,7 +190,7 @@
         } else {
             multiMap = true;
             init(defineClusterIconAsBarChartTestDiffVars);
-            document.getElementById("buttonUpdateChart").parentNode.removeChild(document.getElementById("buttonUpdateChart"));
+            //document.getElementById("buttonUpdateChart").parentNode.removeChild(document.getElementById("buttonUpdateChart"));
         }
         var everything;
 
@@ -880,7 +880,7 @@
                 legendTitle = mapColumns[0];
             } else {
                 legendValues = mapColumns;
-                legendTitle = 'Caption';
+                legendTitle = 'Attribs by bars';
             }
 
             legendValues.sort(function (a, b) { return (a > b) ? 1 : ((b > a) ? -1 : 0); });
@@ -1032,7 +1032,7 @@
         function changeChart() {
             markerclusters.clearLayers();
             if (document.getElementById("buttonUpdateChart").innerText == 'Bar chart') {
-                document.getElementById("buttonUpdateChart").innerText = 'Pie chart';
+                document.getElementById("buttonUpdateChart").innerText = 'Donut chart';
                 chartType = defineClusterIconAsBarChart;
                 init(defineClusterIconAsBarChart);
             } else {
