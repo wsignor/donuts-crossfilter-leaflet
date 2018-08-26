@@ -176,7 +176,7 @@
         var mapTypes = JSON.parse('[' + mapTypes + ']');
         var sideCharts = [];
         mapTypes.forEach(function (element) {
-            if (element.value == 'Map') {
+            if (element.value == 'Mapa') {
                 mapColumns.push(element.key);
             } else {
                 sideCharts.push(element);
@@ -282,9 +282,9 @@
                         chartType = sideCharts[i].value;
                         var divPosition = '#chart-' + parseFloat(i + 1);
                         document.getElementById(divPosition.replace("#", "") + '-title').innerHTML = sideCharts[i].key;
-                        if (chartType == 'Bar') {
+                        if (chartType == 'Barra') {
                             createBarChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
-                        } else if (chartType == 'Line') {
+                        } else if (chartType == 'Linha') {
                             createLineChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
                         } else if (chartType == 'Pizza') {
                             createPizzaChart(sideCharts[i].key, filter, markers, markerclusters, divPosition);
