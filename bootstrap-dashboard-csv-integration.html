@@ -77,7 +77,8 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Multivariate data representation model</h1>
+                        <!-- <h1>Multivariate data representation model</h1> -->
+                        <h1>Modelo para representação de dados multivariados</h1>
                     </div>
                 </div>
             </div>
@@ -208,7 +209,7 @@
                 if (!error) {
                     // geojson = data;
 
-                    console.log('chartType: ' + chartType);
+                    
                     if (typeof chartType == 'undefined') {
                         console.log('mapColumns.length: ' + mapColumns.length);
                         if (mapColumns.length == 1) {
@@ -217,6 +218,7 @@
                             chartType = defineClusterIconAsBarChartTestDiffVars;
                         }
                     }
+                    //console.log('chartType: ' + chartType);
 
                     makeGeoJSON(data);
                     data = geojson;
@@ -297,10 +299,12 @@
                         .dimension(filter)
                         .group(all)
                         .html({
-                            some: '<strong>%filter-count</strong> records selected from a total of <strong>%total-count</strong>' +
-                                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a>',
-                            //all: 'Todos registros selecionados. Selecione um gráfico ou interaja com o mapa para aplicar filtros.'
-                            all: 'All records selected. Select a chart or interact with the map to apply filters.'
+                            //some: '<strong>%filter-count</strong> records selected from a total of <strong>%total-count</strong>' +
+                            //    ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Reset All</a>',
+                            some: '<strong>%filter-count</strong> registros selecionados de um total de <strong>%total-count</strong>' +
+                                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>Resetar</a>',
+                            all: 'Todos registros selecionados. Selecione um gráfico ou interaja com o mapa para aplicar filtros.'
+                            //all: 'All records selected. Select a chart or interact with the map to apply filters.'
                         });
 
                     dc.renderAll();
@@ -371,6 +375,7 @@
         }
 
         function makeGeoJSON(csvData) {
+            console.log(csvData);
             csv2geojson.csv2geojson(csvData, {
                 latfield: 'LATITUDE',
                 lonfield: 'LONGITUDE',
@@ -592,7 +597,8 @@
                 .append('svg:title')
                 .text(function (d) {
                     // console.log(d);
-                    return d.key + ' (' + d.values.length + ' record' + (d.values.length != 1 ? 's' : '') + ')';
+                    //return d.key + ' (' + d.values.length + ' record' + (d.values.length != 1 ? 's' : '') + ')';
+                    return d.key + ' (' + d.values.length + ' registro' + (d.values.length != 1 ? 's' : '') + ')';
                     // return d.key + ' (' + d.values.length + ' ACIDENTE' + (d.values.length != 1 ? 'S' : '') + ')';
                 });
             // add the x Axis
@@ -653,7 +659,8 @@
                         // + ' registro' + (children.length != 1 ? 's' : '') + ')';
                         // console.log(d.data);
                         // return mapColumns[0] + ' (' + d.data.values.length + ' registro' + (d.data.values.length != 1 ? 's' : '') + ')';
-                        return d.data.key + ' (' + d.data.values.length + ' record' + (d.data.values.length != 1 ? 's' : '') + ')';
+                        //return d.data.key + ' (' + d.data.values.length + ' record' + (d.data.values.length != 1 ? 's' : '') + ')';
+                        return d.data.key + ' (' + d.data.values.length + ' registro' + (d.data.values.length != 1 ? 's' : '') + ')';
                     }
                 }),
                 //Create a new divIcon and assign the svg markup to the html property
@@ -765,8 +772,11 @@
                 })
                 .append('svg:title')
                 .text(function (d) {
-                    return 'Sum of ' + (isNaN(d.id) ? d.id.toLowerCase() : d.id) + ': ' + d.value + ' (' + children.length
-                        + ' record' + (children.length != 1 ? 's' : '') + ')';
+                    //return 'Sum of ' + (isNaN(d.id) ? d.id.toLowerCase() : d.id) + ': ' + d.value + ' (' + children.length
+                    //    + ' record' + (children.length != 1 ? 's' : '') + ')';
+
+                    return 'Soma de ' + (isNaN(d.id) ? d.id.toLowerCase() : d.id) + ': ' + d.value + ' (' + children.length
+                    + ' registro' + (children.length != 1 ? 's' : '') + ')';
                 });
             // add the x Axis
             vis.append("g")
@@ -807,7 +817,7 @@
                 legendValues.sort(function (a, b) { return (a > b) ? 1 : ((b > a) ? -1 : 0); });
             } else {
                 legendValues = mapColumns;
-                legendTitle = 'Attribs by bars';
+                legendTitle = 'Atrib. por barra';
             }
 
             //console.log(legendValues);

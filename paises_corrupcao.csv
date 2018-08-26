@@ -1,0 +1,177 @@
+LATITUDE,LONGITUDE,Country,Geographic region of the world,Country development level (UN),Country regime,Economic block,Human Development Index (HDI),Global - Open data index,GINI coefficient (equality/inequality),Perceptions of government actions to fight corruption,Bribery payers percentage to access basic services – individuals,Doing Business – Level of bureaucratization index,Democracy Index,Institutional Quality Index (IQI 2014),Institutional Quality Index (IQI 2015),Institutional Quality Index (IQI 2016),Institutional Quality Index (IQI 2017),CPI_2016,CPI_2015,CPI_2014,CPI_2013,CPI_2012
+34°28'N,69°11'E,Afghanistan,Asia Pacific,Em desenvolvimento,Presidencialismo,0.0,0.479,0.12,0.0,0.0,0.0,0.3619,0.255,0.1154,0.0701,0.0931,0.0908,0.15,0.11,0.12,0.08,0.08
+41°18'N,19°49'E,Albania,Europe and Central Asia,Em desenvolvimento,República parlamentar,0.0,0.764,0.36,0.29,0.38,0.34,0.687,0.5980000000000001,0.5017,0.4907,0.515,0.5587,0.39,0.36,0.33,0.31,0.33
+36°42'N,03°08'E,Algeria,Middle East and North Africa,Em desenvolvimento,Semi-presidencialismo,Liga Árabe,0.745,0.0,0.0,0.69,0.14,0.4671,0.356,0.2597,0.0,0.0,0.2365,0.34,0.36,0.36,0.36,0.34
+08°50'S,13°15'E,Angola,Sub Saharan Africa,Em desenvolvimento,Presindencialismo,SADC,0.533,0.0,0.42700000000000005,0.0,0.0,0.41490000000000005,0.362,0.1064,0.0994,0.1127,0.1048,0.18,0.15,0.19,0.23,0.22
+36°30'S,60°00'W,Argentina,Americas,Em desenvolvimento,Presidencialismo,MERCOSUL/ALCA,0.827,0.6,0.42700000000000005,0.42,0.16,0.5811,0.696,0.3184,0.3004,0.2904,0.3082,0.36,0.32,0.34,0.34,0.35
+40°10'N,44°31'E,Armenia,Europe and Central Asia,Em desenvolvimento,Semi-presidencialismo,0.0,0.743,0.0,0.315,0.65,0.24,0.7251000000000001,0.41100000000000003,0.5575,0.5358,0.5144,0.5289,0.33,0.35,0.37,0.36,0.34
+35°15'S,149°08'E,Australia,Asia Pacific,Desenvolvido,Monarquia Constitucional com monarca cerimonial,APEC,0.939,0.79,0.349,0.41,0.0,0.8014,0.909,0.9324,0.926,0.9238,0.9152,0.79,0.79,0.8,0.81,0.85
+48°12'N,16°22'E,Austria,Europe and Central Asia,Desenvolvido,República parlamentar,UE,0.893,0.49,0.305,0.0,0.0,0.7854000000000001,0.842,0.8851,0.8796,0.874,0.8858,0.75,0.76,0.72,0.69,0.69
+40°29'N,49°56'E,Azerbaijan,Europe and Central Asia,Em desenvolvimento,Presidencialismo com primeiro-ministro,0.0,0.759,0.0,0.0,0.0,0.38,0.7019,0.265,0.3684,0.3536,0.4087,0.3684,0.3,0.29,0.29,0.28,0.27
+25°05'N,77°20'W,Bahamas,Americas,Desenvolvido,Monarquia Constitucional com monarca cerimonial,ALCA,0.792,0.17,0.0,0.0,0.0,0.5747,0.0,0.7449,0.7288,0.681,0.7194,0.66,0.0,0.71,0.71,0.71
+26°10'N,50°30'E,Bahrain,Middle East and North Africa,Desenvolvido,0.0,Liga Árabe,0.824,0.0,0.0,0.0,0.0,0.6812999999999999,0.271,0.0,0.0,0.0,0.569,0.43,0.51,0.49,0.48,0.51
+23°43'N,90°26'E,Bangladesh,Asia Pacific,Em desenvolvimento,República parlamentar,0.0,0.579,0.25,0.321,0.0,0.0,0.40990000000000004,0.5429999999999999,0.291,0.248,0.2604,0.233,0.26,0.25,0.25,0.27,0.26
+13°05'N,59°30'W,Barbados,Americas,Desenvolvido,Monarquia Constitucional com monarca cerimonial,ALCA,0.795,0.04,0.0,0.0,0.0,0.552,0.0,0.7449,0.7147,0.69,0.6779,0.61,0.0,0.74,0.75,0.76
+53°52'N,27°30'E,Belarus,Europe and Central Asia,0.0,Presidencialismo com primeiro-ministro,UEAA,0.796,0.0,0.272,0.45,0.2,0.7506,0.313,0.2826,0.2899,0.3118,0.3472,0.4,0.32,0.31,0.29,0.31
+50°51'N,04°21'E,Belgium,Europe and Central Asia,Desenvolvido,Monarquia Constitucional com monarca cerimonial,BENELUX,0.896,0.52,0.276,0.4,0.03,0.7169,0.778,0.8722,0.8511,0.8552,0.8703,0.77,0.77,0.76,0.75,0.75
+06°23'N,02°42'E,Benin,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,ECOWAS,0.485,0.0,0.434,0.0,0.0,0.5047,0.561,0.342,0.3815,0.3628,0.3666,0.36,0.37,0.39,0.36,0.36
+27°31'N,89°45'E,Bhutan,Asia Pacific,Em desenvolvimento,Monarquia Constitucional com monarca ativo,0.0,0.607,0.23,0.38799999999999996,0.0,0.0,0.6627,0.508,0.4211,0.4412,0.5162,0.5387,0.65,0.65,0.65,0.63,0.63
+16°20'S,68°10'W,Bolivia,Americas,Em desenvolvimento,Presidencialismo,Comunidade Andina/ALCA,0.674,0.3,0.484,0.53,0.28,0.5018,0.549,0.3077,0.2949,0.2926,0.2657,0.33,0.34,0.35,0.34,0.34
+43°52'N,18°26'E,Bosnia and Herzegovina,Europe and Central Asia,Em desenvolvimento,República parlamentar,0.0,0.75,0.26,0.33799999999999997,0.83,0.27,0.642,0.487,0.4541,0.471,0.4469,0.4435,0.39,0.38,0.39,0.42,0.42
+24°45'S,25°57'E,Botswana,Sub Saharan Africa,Em desenvolvimento,Sistema republicano misto,SADC,0.698,0.09,0.605,0.0,0.0,0.6494,0.7809999999999999,0.6879,0.6551,0.676,0.6698,0.6,0.63,0.63,0.64,0.65
+15°47'S,47°55'W,Brazil,Americas,Em desenvolvimento,Presidencialismo,MERCOSUL/ALCA,0.754,0.68,0.515,0.56,0.11,0.5645,0.686,0.4999,0.4858,0.8561,0.4397,0.4,0.38,0.43,0.42,0.43
+04°52'N,115°00'E,Brunei,Asia Pacific,Em desenvolvimento,Monarquia Absoluta,APEC/ASEAN,0.865,0.0,0.0,0.0,0.0,0.706,0.0,0.0,0.504,0.5139,0.0,0.58,0.0,0.0,0.6,0.55
+42°45'N,23°20'E,Bulgaria,Europe and Central Asia,0.0,República parlamentar,0.0,0.794,0.45,0.36,0.54,0.17,0.7191,0.7030000000000001,0.6195,0.6418,0.6346,0.645,0.41,0.41,0.43,0.41,0.41
+12°15'N,01°30'W,Burkina Faso,Sub Saharan Africa,Em desenvolvimento,Semi-presidencialismo,ECOWAS,0.402,0.0,0.353,0.0,0.0,0.5154,0.475,0.3428,0.3051,0.3975,0.3814,0.42,0.38,0.38,0.38,0.38
+03°16'S,29°18'E,Burundi,Sub Saharan Africa,Subdesenvolvido,Presindencialismo,0.0,0.404,0.0,0.33399999999999996,0.0,0.0,0.4692,0.233,0.1537,0.1496,0.16,0.1399,0.2,0.21,0.2,0.21,0.19
+11°33'N,104°55'E,Cambodia,Asia Pacific,Em desenvolvimento,Monarquia constitucinal com monarca cerimonial,ASEAN,0.563,0.17,0.308,0.56,0.4,0.5447,0.363,0.2918,0.2833,0.2668,0.2922,0.21,0.21,0.21,0.2,0.22
+03°50'N,11°35'E,Cameroon,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,Liga Árabe,0.518,0.11,0.465,0.0,0.0,0.47229999999999994,0.361,0.1895,0.1859,0.2308,0.199,0.26,0.27,0.27,0.25,0.26
+45°27'N,75°42'W,Canada,Americas,Desenvolvido,Monarquia Constitucional com monarca cerimonial,APEC/ALCA,0.92,0.69,0.337,0.0,0.0,0.7929,0.915,0.9315,0.9333,0.9398,0.9336,0.82,0.83,0.81,0.81,0.84
+15°02'N,23°34'W,Cape Verde,Sub Saharan Africa,Em desenvolvimento,Semi-presidencialismo,ECOWAS,0.648,0.0,0.47200000000000003,0.0,0.0,0.5624,0.788,0.5446,0.5556,0.5832,0.5849,0.59,0.55,0.57,0.58,0.6
+04°23'N,18°35'E,Central African Republic,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,0.0,0.352,0.0,0.562,0.0,0.0,0.3486,0.152,0.1106,0.0719,0.0921,0.0733,0.2,0.24,0.24,0.25,0.26
+12°10'N,14°59'E,Chad,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,0.0,0.396,0.0,0.433,0.0,0.0,0.38299999999999995,0.15,0.0625,0.0772,0.0944,0.0863,0.2,0.22,0.22,0.19,0.19
+33°24'S,70°40'W,Chile,Americas,Em desenvolvimento,Preseidencialismo,APEC/Aliança do Pacífico/ALCA,0.847,0.52,0.505,0.68,0.22,0.7121999999999999,0.784,0.8436,0.8417,0.8278,0.8198,0.66,0.7,0.73,0.71,0.72
+39°55'N,116°20'E,China,Asia Pacific,Em desenvolvimento,Estado com movimento político único,APEC,0.738,0.0,0.42200000000000004,0.0,0.26,0.657,0.31,0.355,0.3439,0.3553,0.3727,0.4,0.37,0.36,0.4,0.39
+04°34'N,74°00'W,Colombia,Americas,Em desenvolvimento,Presidencialismo,Comunidade Andina/Aliança do Pacífico/ALCA,0.727,0.64,0.535,0.59,0.3,0.6940999999999999,0.667,0.54,0.5289,0.5214,0.0,0.37,0.37,0.37,0.36,0.36
+11°40'S,43°16'E,Comoros,Sub Saharan Africa,Subdesenvolvido,0.0,0.0,0.497,0.0,0.0,0.0,0.0,0.4852,0.371,0.2558,0.2369,0.2571,0.2553,0.24,0.26,0.26,0.28,0.28
+09°55'N,84°02'W,Costa Rica,Americas,Em desenvolvimento,Preseidencialismo,MCCA/ALCA,0.776,0.23,0.485,0.59,0.24,0.6912999999999999,0.788,0.6882,0.734,0.771,0.7565,0.58,0.55,0.54,0.53,0.54
+06°49'N,05°17'W,Côte d´Ivoire,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,ECOWAS,0.474,0.0,0.43200000000000005,0.0,0.0,0.5371,0.393,0.2218,0.2721,0.3404,0.333,0.34,0.32,0.32,0.27,0.29
+45°50'N,15°58'E,Croatia,Europe and Central Asia,Desenvolvido,República parlamentar,UE,0.827,0.39,0.325,0.57,0.1,0.7170000000000001,0.663,0.5731,0.5865,0.6083,0.591,0.49,0.51,0.48,0.48,0.46
+23°08'N,82°22'W,Cuba,Americas,Em desenvolvimento,Estado com movimento político único,0.0,0.775,0.0,0.0,0.0,0.0,0.0,0.331,0.142,0.1426,0.1433,0.1378,0.47,0.47,0.46,0.46,0.48
+35°10'N,33°25'E,Cyprus,Europe and Central Asia,Desenvolvido,Preseidencialismo,0.0,0.856,0.0,0.34299999999999997,0.46,0.02,0.7162999999999999,0.759,0.7855,0.746,0.7209,0.7192,0.55,0.61,0.63,0.63,0.66
+50°05'N,14°22'E,Czech Republic,Europe and Central Asia,Desenvolvido,0.0,UE,0.878,0.5,0.261,0.67,0.09,0.7626999999999999,0.762,0.7433,0.7822,0.8161,0.8181,0.55,0.56,0.51,0.48,0.49
+04°20'S,15°15'E,Democratic Republic of Congo,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,SADC,0.435,0.0,0.42100000000000004,0.0,0.0,0.3765,0.161,0.0628,0.0698,0.0939,0.0886,0.21,0.22,0.22,0.22,0.21
+55°41'N,12°34'E,Denmark,Europe and Central Asia,Desenvolvido,Monarquia Constitucional com monarca cerimonial,UE,0.925,0.65,0.29100000000000004,0.0,0.0,0.8406,0.922,0.9618,0.9583,0.9564,0.9579,0.9,0.91,0.92,0.91,0.9
+11°08'N,42°20'E,Djibouti,Sub Saharan Africa,Em desenvolvimento,0.0,Liga Árabe,0.473,0.0,0.441,0.0,0.0,0.49579999999999996,0.27599999999999997,0.2511,0.2522,0.2132,0.1944,0.3,0.34,0.34,0.36,0.36
+15°20'N,61°24'W,Dominica,Americas,Em desenvolvimento,República parlamentar,ALCA,0.726,0.0,0.0,0.0,0.0,0.6096,0.0,0.6922,0.6666,0.6918,0.6861,0.59,0.0,0.58,0.58,0.58
+18°30'N,69°59'W,Dominican Republic,Americas,Em desenvolvimento,Presidencialismo,ALCA,0.722,0.27,0.47100000000000003,0.59,0.46,0.6093,0.666,0.4483,0.0,0.4717,0.4706,0.31,0.33,0.32,0.29,0.32
+00°15'S,78°35'W,Ecuador,Americas,Em desenvolvimento,0.0,Comunidade Andina/ALCA,0.739,0.0,0.45399999999999996,0.36,0.28,0.5783,0.602,0.2907,0.265,0.2895,0.2608,0.31,0.32,0.33,0.35,0.32
+30°01'N,31°14'E,Egypt,Middle East and North Africa,Em desenvolvimento,0.0,Liga Árabe,0.691,0.0,0.0,0.58,0.6,0.0,0.33599999999999997,0.302,0.284,0.2892,0.2613,0.34,0.36,0.37,0.32,0.32
+13°40'N,89°10'W,El Salvador,Americas,Em desenvolvimento,Presidencialismo,MCCA/ALCA,0.68,0.35,0.418,0.38,0.31,0.6642,0.643,0.4754,0.4977,0.543,0.5034,0.36,0.39,0.39,0.38,0.38
+15°19'N,38°55'E,Eritrea,Sub Saharan Africa,Em desenvolvimento,Estado com movimento político único,Liga Árabe,0.42,0.0,0.0,0.0,0.0,0.22870000000000001,0.23700000000000002,0.0402,0.026,0.0313,0.0305,0.18,0.18,0.18,0.2,0.25
+59°22'N,24°48'E,Estonia,Europe and Central Asia,Desenvolvido,República parlamentar,UE,0.865,0.0,0.332,0.37,0.05,0.8079999999999999,0.779,0.8756,0.8761,0.8776,0.888,0.7,0.7,0.69,0.68,0.64
+09°02'N,38°42'E,Ethiopia,Sub Saharan Africa,Em desenvolvimento,República parlamentar,0.0,0.448,0.0,0.332,0.0,0.0,0.4777,0.34199999999999997,0.2074,0.0,0.2332,0.2074,0.34,0.33,0.33,0.33,0.33
+60°15'N,25°03'E,Finland,Europe and Central Asia,Desenvolvido,República parlamentar,UE,0.895,0.69,0.271,0.0,0.0,0.8037000000000001,0.9029999999999999,0.9661,0.962,0.9486,0.9451,0.89,0.9,0.89,0.89,0.9
+48°50'N,02°20'E,France,Europe and Central Asia,Desenvolvido,Semi-presidencialismo,UE,0.897,0.7,0.331,0.64,0.02,0.7613,0.78,0.8147,0.7933,0.7906,0.7861,0.69,0.7,0.69,0.71,0.71
+00°25'N,09°26'E,Gabon,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,0.0,0.697,0.0,0.42200000000000004,0.0,0.0,0.4619,0.361,0.2613,0.2879,0.2684,0.2615,0.35,0.34,0.37,0.34,0.35
+13°28'N,16°40'W,Gambia,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,ECOWAS,0.452,0.0,0.0,0.0,0.0,0.5192,0.40599999999999997,0.3438,0.2643,0.2161,0.2292,0.26,0.28,0.29,0.28,0.34
+41°43'N,44°50'E,Georgia,Europe and Central Asia,Em desenvolvimento,Semi-presidencialismo,0.0,0.769,0.0,0.401,0.41,0.07,0.8204,0.593,0.7311,0.6939,0.6886,0.7232,0.57,0.52,0.52,0.49,0.52
+52°30'N,13°25'E,Germany,Europe and Central Asia,Desenvolvido,República parlamentar,UE,0.926,0.51,0.301,0.0,0.03,0.79,0.861,0.8972,0.9162,0.9203,0.9141,0.81,0.81,0.79,0.78,0.79
+05°35'N,00°06'W,Ghana,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,ECOWAS,0.579,0.16,0.428,0.0,0.0,0.5724,0.669,0.5401,0.0,0.5046,0.5042,0.43,0.47,0.48,0.46,0.45
+37°58'N,23°46'E,Greece,Europe and Central Asia,Desenvolvido,República parlamentar,0.0,0.866,0.46,0.36700000000000005,0.59,0.1,0.6801999999999999,0.729,0.5605,0.5348,0.5331,0.5304,0.44,0.46,0.43,0.4,0.36
+12° 07' N,61° 40' W,Grenada,Americas,Em desenvolvimento,Monarquia Constitucional com monarca cerimonial,ALCA,0.754,0.0,0.0,0.0,0.0,0.5294,0.0,0.0,0.5191,0.4908,0.488,0.56,0.0,0.0,0.0,0.0
+14°40'N,90°22'W,Guatemala,Americas,Em desenvolvimento,Presidencialismo,MCCA/ALCA,0.64,0.28,0.48700000000000004,0.28,0.28,0.6118,0.5860000000000001,0.4207,0.4315,0.4208,0.4237,0.28,0.28,0.32,0.29,0.33
+09°29'N,13°49'W,Guinea,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,ECOWAS,0.414,0.0,0.337,0.0,0.0,0.498,0.314,0.1428,0.1337,0.1604,0.1736,0.27,0.25,0.25,0.24,0.24
+11°45'N,15°45'W,Guinea-Bissau,Sub Saharan Africa,Em desenvolvimento,Semi-presidencialismo,ECOWAS,0.424,0.0,0.507,0.0,0.0,0.41450000000000004,0.198,0.116,0.1189,0.1542,0.1726,0.16,0.17,0.19,0.19,0.25
+06°50'N,58°12'W,Guyana,Americas,Em desenvolvimento,Presidencialismo com primeiro-ministro,ALCA,0.0,0.2,0.0,0.0,0.0,0.5628,0.646,0.3866,0.3672,0.357,0.376,0.34,0.29,0.3,0.27,0.28
+18°40'N,72°20'W,Haiti,Americas,Subdesenvolvido,Semi-presidencialismo,ALCA,0.493,0.0,0.608,0.0,0.0,0.3824,0.403,0.191,0.1933,0.2179,0.228,0.2,0.17,0.19,0.19,0.19
+14°05'N,87°14'W,Honduras,Americas,Em desenvolvimento,Presidencialismo,MCCA/ALCA,0.625,0.0,0.506,0.37,0.33,0.5846,0.572,0.3202,0.3371,0.3405,0.3496,0.3,0.31,0.29,0.26,0.28
+‎22°17'N,‎114°8'E,Hong Kong,Asia Pacific,Desenvolvido,Estado com movimento político único,APEC,0.917,0.51,0.0,0.6,0.02,0.8344,0.631,0.8869,0.881,0.8766,0.8818,0.77,0.75,0.74,0.75,0.77
+47°29'N,19°05'E,Hungary,Europe and Central Asia,Desenvolvido,República parlamentar,0.0,0.836,0.0,0.306,0.55,0.22,0.7239,0.6639999999999999,0.7023,0.6779,0.6738,0.6731,0.48,0.51,0.54,0.54,0.55
+64°10'N,21°57'W,Iceland,Europe and Central Asia,Desenvolvido,República parlamentar,EFTA,0.923,0.0,0.26899999999999996,0.0,0.0,0.785,0.958,0.8896,0.8908,0.8459,0.8568,0.78,0.79,0.79,0.78,0.82
+28°37'N,77°13'E,India,Asia Pacific,Em desenvolvimento,República parlamentar,0.0,0.624,0.47,0.35200000000000004,0.35,0.69,0.6076,0.7230000000000001,0.4627,0.4407,0.4909,0.494,0.4,0.38,0.38,0.36,0.36
+06°09'S,106°49'E,Indonesia,Asia Pacific,Em desenvolvimento,Presidencialismo,APEC/ASEAN,0.689,0.25,0.395,0.33,0.32,0.6647,0.639,0.4728,0.4739,0.5151,0.5114,0.37,0.36,0.34,0.32,0.32
+35°44'N,51°30'E,Iran,Middle East and North Africa,Em desenvolvimento,Teocracia,0.0,0.774,0.21,0.374,0.0,0.0,0.0,0.24500000000000002,0.1688,0.1606,0.1832,0.1802,0.29,0.27,0.27,0.25,0.28
+33°20'N,44°30'E,Iraq,Middle East and North Africa,Em desenvolvimento,República parlamentar,Liga Árabe,0.649,0.0,0.0,0.0,0.0,0.4487,0.409,0.1614,0.1461,0.134,0.1247,0.17,0.16,0.16,0.16,0.18
+53°21'N,06°15'W,Ireland,Europe and Central Asia,Desenvolvido,República parlamentar,UE,0.923,0.67,0.325,0.0,0.0,0.7951,0.915,0.9084,0.9141,0.9209,0.9153,0.73,0.75,0.74,0.72,0.69
+31°47'N,35°12'E,Israel,Middle East and North Africa,Desenvolvido,República parlamentar,0.0,0.899,0.41,0.428,0.0,0.0,0.7142000000000001,0.779,0.7516,0.7515,0.7865,0.7719,0.64,0.61,0.6,0.61,0.6
+41°54'N,12°29'E,Italy,Europe and Central Asia,Desenvolvido,República parlamentar,UE,0.887,0.47,0.35200000000000004,0.7,0.07,0.727,0.798,0.6207,0.6286,0.6572,0.6621,0.47,0.44,0.43,0.43,0.42
+18°00'N,76°50'W,Jamaica,Americas,Em desenvolvimento,Monarquia Constitucional com monarca cerimonial ,ALCA,0.73,0.26,0.0,0.43,0.21,0.6727,0.729,0.5798,0.6091,0.6431,0.6242,0.39,0.41,0.38,0.38,0.38
+ ‎35°39'N,139°50'E,Japan,Asia Pacific,Desenvolvido,Monarquia Constitucional com monarca cerimonial,APEC,0.903,0.61,0.321,0.6,0.002,0.7568,0.788,0.8613,0.8744,0.8538,0.8453,0.72,0.75,0.76,0.74,0.74
+31°57'N,35°52'E,Jordan,Middle East and North Africa,Em desenvolvimento,Monarquia Constitucional com monarca ativo,Liga Árabe,0.741,0.0,0.0,0.61,0.04,0.6058,0.387,0.5556,0.5558,0.5768,0.5872,0.48,0.53,0.49,0.45,0.48
+51°10'N,71°30'E,Kazakhstan,Europe and Central Asia,0.0,Presidencialismo com primeiro-ministro,UEAA,0.794,0.0,0.263,0.46,0.29,0.7544,0.306,0.4098,0.3927,0.4595,0.4752,0.29,0.28,0.29,0.26,0.28
+01°17'S,36°48'E,Kenya,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,0.0,0.555,0.15,0.485,0.0,0.0,0.6515000000000001,0.511,0.35,0.3378,0.3784,0.4397,0.26,0.25,0.25,0.27,0.27
+39°1'N,125°45'E ,Korea (North),Asia Pacific,Em desenvolvimento,Estado com movimento político único,0.0,0.595,0.0,0.0,0.0,0.0,0.0,0.10800000000000001,0.0198,0.0154,0.0098,0.011,0.12,0.08,0.08,0.08,0.08
+37°31'N,127°1'E,Korea (South),Asia Pacific,Desenvolvido,0.0,APEC,0.901,0.0,0.0,0.76,0.03,0.0,0.8,0.7941,0.789,0.7711,0.7842,0.53,0.56,0.55,0.55,0.56
+42°40'N,‎21°9'E,Kosovo,Europe and Central Asia,0.0,República parlamentar,0.0,0.68,0.26,0.0,0.67,0.1,0.7349,0.0,0.4927,0.505,0.5088,0.5214,0.36,0.33,0.33,0.33,0.34
+29°30'N,48°00'E,Kuwait,Middle East and North Africa,Em desenvolvimento,Monarquia Constitucional com monarca ativo ,Liga Árabe,0.8,0.0,0.0,0.0,0.0,0.6123,0.385,0.5359,0.5448,0.5756,0.5173,0.41,0.49,0.44,0.43,0.44
+42°54'N,74°46'E,Kyrgyzstan,Europe and Central Asia,Em desenvolvimento,República parlamentar,0.0,0.664,0.0,0.268,0.57,0.38,0.657,0.511,0.0,0.0,0.0,0.0,0.28,0.28,0.27,0.24,0.24
+17°58'N,102°36'E,Laos,Asia Pacific,Em desenvolvimento,Estado com movimento político único,ASEAN,0.586,0.0,0.0,0.0,0.0,0.5301,0.23700000000000002,0.3057,0.0,0.0,0.2284,0.3,0.25,0.25,0.26,0.21
+56°53'N,24°08'E,Latvia,Europe and Central Asia,Em desenvolvimento,República parlamentar,0.0,0.83,0.64,0.355,0.71,0.15,0.7926000000000001,0.725,0.6999,0.7534,0.7549,0.7746,0.57,0.55,0.55,0.53,0.49
+33°53'N,35°31'E,Lebanon,Middle East and North Africa,Em desenvolvimento,República parlamentar,Liga Árabe,0.763,0.0,0.0,0.76,0.28,0.5467,0.472,0.3745,0.3705,0.3417,0.3446,0.28,0.28,0.27,0.28,0.3
+29°18'S,27°30'E,Lesotho,Sub Saharan Africa,Em desenvolvimento,Monarquia Constitucional com monarca cerimonial ,SADC,0.497,0.16,0.542,0.0,0.0,0.6042000000000001,0.6639999999999999,0.3966,0.3975,0.3971,0.3948,0.39,0.44,0.49,0.49,0.45
+06°18'N,10°47'W,Liberia,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,ECOWAS,0.427,0.0,0.365,0.0,0.0,0.4355,0.523,0.2818,0.2413,0.2391,0.2956,0.37,0.37,0.37,0.38,0.41
+32°49'N,13°07'E,Libya,Middle East and North Africa,Em desenvolvimento,Transição,Liga Árabe,0.716,0.0,0.0,0.0,0.0,0.3321,0.23199999999999998,0.1655,0.1124,0.0608,0.0482,0.14,0.16,0.18,0.15,0.21
+54°38'N,25°19'E,Lithuania,Europe and Central Asia,Em desenvolvimento,Semi-presidencialismo,0.0,0.848,0.0,0.35200000000000004,0.71,0.24,0.7987000000000001,0.741,0.7973,0.8012,0.7835,0.8338,0.59,0.61,0.58,0.57,0.54
+49°37'N,06°09'E,Luxembourg,Europe and Central Asia,Desenvolvido,Monarquia Constitucional com monarca cerimonial,BENELUX,0.898,0.0,0.348,0.0,0.0,0.6901,0.881,0.8877,0.8823,0.8929,0.8918,0.81,0.81,0.82,0.8,0.8
+18°55'S,47°31'E,Madagascar,Sub Saharan Africa,Em desenvolvimento,Semi-presidencialismo,SADC,0.512,0.0,0.42700000000000005,0.0,0.0,0.4767,0.511,0.2745,0.2689,0.2991,0.2741,0.26,0.28,0.28,0.28,0.32
+14°00'S,33°48'E,Malawi,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,SADC,0.476,0.05,0.461,0.0,0.0,0.5893999999999999,0.549,0.3198,0.2999,0.291,0.3069,0.31,0.31,0.33,0.37,0.37
+03°09'N,101°41'E,Malaysia,Asia Pacific,Em desenvolvimento,Monarquia Constitucional com monarca cerimonial ,APEC/ASEAN,0.789,0.1,0.46299999999999997,0.62,0.23,0.7843000000000001,0.654,0.6485,0.6396,0.6635,0.6478,0.49,0.5,0.52,0.5,0.49
+04°00'N,73°28'E,Maldives,Asia Pacific,Em desenvolvimento,Presidencialismo,0.0,0.701,0.0,0.0,0.0,0.0,0.5442,0.0,0.3598,0.3324,0.3396,0.3221,0.36,0.0,0.0,0.0,0.0
+12°34'N,07°55'W,Mali,Sub Saharan Africa,Em desenvolvimento,Semi-presidencialismo,ECOWAS,0.442,0.0,0.33,0.0,0.0,0.5292,0.564,0.2751,0.3026,0.3438,0.3082,0.32,0.35,0.32,0.28,0.34
+35°54'N,14°31'E,Malta,Europe and Central Asia,Desenvolvido,República parlamentar,0.0,0.856,0.0,0.0,0.0,0.0,0.6472,0.8150000000000001,0.7586,0.7529,0.7623,0.7706,0.55,0.56,0.55,0.56,0.57
+20°10'S,57°30'E,Mauritania,Middle East and North Africa,Em desenvolvimento,Semi-presidencialismo,Liga Árabe,0.513,0.0,0.324,0.0,0.0,0.5088,0.382,0.2528,0.2226,0.2316,0.2087,0.27,0.31,0.3,0.3,0.31
+20°9'S,57°29'E,Mauritius,Sub Saharan Africa,Em desenvolvimento,República parlamentar,SADC,0.781,0.0,0.358,0.0,0.0,0.7754000000000001,0.8220000000000001,0.8086,0.8058,0.7953,0.7779,0.54,0.53,0.54,0.52,0.57
+19°20'N,99°10'W,Mexico,Americas,Em desenvolvimento,Presidencialismo,APEC/Aliança do Pacífico/ALCA,0.762,0.65,0.48200000000000004,0.61,0.51,0.7227,0.641,0.5114,0.5093,0.5122,0.4816,0.3,0.35,0.35,0.34,0.34
+47°02'N,28°50'E,Moldova,Europe and Central Asia,Em desenvolvimento,República parlamentar,0.0,0.701,0.0,0.268,0.84,0.42,0.73,0.0,0.4548,0.4529,0.4672,0.0,0.3,0.33,0.35,0.35,0.36
+47°55'N,106°54'E,Mongolia,Asia Pacific,Em desenvolvimento,Semi-presidencialismo,0.0,0.735,0.0,0.32,0.61,0.2,0.6903,0.65,0.5028,0.5022,0.5125,0.5264,0.38,0.39,0.39,0.38,0.36
+42°26'N,19°15'E ,Montenegro,Europe and Central Asia,Em desenvolvimento,República parlamentar,0.0,0.807,0.35,0.319,0.5,0.16,0.7318000000000001,0.5690000000000001,0.6267,0.6249,0.6204,0.5929,0.45,0.44,0.42,0.44,0.41
+34°0'N ,6°49'W,Morocco,Middle East and North Africa,Em desenvolvimento,Monarquia Constitucional com monarca ativo ,Liga Árabe,0.647,0.0,0.40700000000000003,0.64,0.48,0.6790999999999999,0.487,0.4197,0.4286,0.4381,0.4381,0.37,0.36,0.39,0.37,0.37
+25°58'S,32°32'E,Mozambique,Sub Saharan Africa,Em desenvolvimento,0.0,SADC,0.418,0.12,0.456,0.0,0.0,0.54,0.40199999999999997,0.3012,0.2929,0.2902,0.2493,0.27,0.31,0.31,0.3,0.31
+16°45'N,96°20'E,Myanmar,Asia Pacific,Em desenvolvimento,Presidencialismo,ASEAN,0.556,0.01,0.0,0.38,0.4,0.4421,0.383,0.0791,0.099,0.1105,0.1278,0.28,0.22,0.21,0.21,0.15
+22°35'S,17°04'E,Namibia,Sub Saharan Africa,Em desenvolvimento,Semi-presidencialismo,SADC,0.64,0.15,0.61,0.0,0.0,0.5993999999999999,0.631,0.531,0.5287,0.5575,0.5589,0.52,0.53,0.49,0.48,0.48
+27°45'N,85°20'E,Nepal,Asia Pacific,0.0,República parlamentar,0.0,0.558,0.2,0.32799999999999996,0.0,0.0,0.5995,0.518,0.2858,0.2838,0.304,0.3103,0.29,0.27,0.29,0.31,0.27
+52°23'N,04°54'E,Netherlands,Europe and Central Asia,Desenvolvido,Monarquia Constitucional,BENELUX,0.924,0.54,0.28,0.53,0.02,0.7603,0.889,0.9304,0.9249,0.9431,0.9364,0.83,0.87,0.83,0.83,0.84
+41°19'S,174°46'E,New Zealand,Asia Pacific,Desenvolvido,Monarquia Constitucional com monarca cerimonial,APEC,0.915,0.68,0.0,0.0,0.0,0.8654999999999999,0.9259999999999999,0.9681,0.9617,0.9597,0.9658,0.9,0.88,0.91,0.91,0.9
+12°06'N,86°20'W,Nicaragua,Americas,Em desenvolvimento,Presidencialismo,MCCA/ALCA,0.645,0.0,0.47100000000000003,0.4,0.3,0.5539000000000001,0.466,0.3941,0.3965,0.3497,0.3614,0.26,0.27,0.28,0.28,0.29
+13°27'N,02°06'E,Niger,Sub Saharan Africa,Em desenvolvimento,Semi-presidencialismo,ECOWAS,0.353,0.0,0.34,0.0,0.0,0.5234000000000001,0.376,0.2659,0.2699,0.2945,0.3061,0.35,0.34,0.35,0.34,0.33
+09°05'N,07°32'E,Nigeria,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,ECOWAS,0.527,0.0,0.43,0.0,0.0,0.5203,0.44400000000000006,0.2426,0.2255,0.2374,0.248,0.28,0.26,0.27,0.25,0.27
+59°55'N,10°45'E,Norway,Europe and Central Asia,Desenvolvido,Monarquia Constitucional com monarca cerimonial,UE/EFTA,0.949,0.69,0.259,0.0,0.0,0.8216,0.9869999999999999,0.9258,0.9423,0.9276,0.9361,0.85,0.87,0.86,0.86,0.85
+23°37'N,58°36'E,Oman,Middle East and North Africa,0.0,Monarquia absoluta,Liga Árabe,0.796,0.14,0.0,0.0,0.0,0.672,0.304,0.0,0.0,0.0,0.5298,0.45,0.45,0.45,0.47,0.47
+33°40'N,73°10'E,Pakistan,Asia Pacific,Em desenvolvimento,República parlamentar,0.0,0.55,0.19,0.307,0.55,0.4,0.5165,0.426,0.2585,0.2417,0.2457,0.2461,0.32,0.3,0.29,0.28,0.27
+09°00'N,79°25'W,Panama,Americas,Em desenvolvimento,Presidencialismo,ALCA,0.788,0.25,0.507,0.57,0.38,0.6527,0.708,0.5873,0.5738,0.6087,0.622,0.38,0.39,0.37,0.35,0.38
+09°24'S,147°08'E,Papua New Guinea,Asia Pacific,Em desenvolvimento,Monarquia Constitucional com monarca cerimonial ,APEC,0.516,0.0,0.439,0.0,0.0,0.5904,0.603,0.399,0.3733,0.3475,0.362,0.28,0.25,0.25,0.25,0.25
+25°10'S,57°30'W,Paraguay,Americas,Em desenvolvimento,Presidencialismo,ALCA,0.693,0.44,0.517,0.68,0.23,0.5918,0.631,0.3466,0.3533,0.3644,0.3689,0.3,0.27,0.24,0.24,0.25
+12°00'S,77°00'W,Peru,Americas,Em desenvolvimento,Presidencialismo com primeiro-ministro,Comunidade Andina/APEC/Aliança do Pacífico/ALCA,0.74,0.29,0.441,0.73,0.39,0.6945,0.649,0.6174,0.6072,0.5596,0.5596,0.35,0.36,0.38,0.38,0.38
+14°40'N,121°03'E,Philippines,Asia Pacific,Em desenvolvimento,Presidencialismo,APEC/ASEAN,0.682,0.3,0.43,0.0,0.0,0.5874,0.671,0.5078,0.54,0.5263,0.5148,0.35,0.35,0.38,0.36,0.34
+52°13'N,21°00'E,Poland,Europe and Central Asia,Desenvolvido,República parlamentar,UE,"0,855	",0.49,0.321,0.0,0.07,0.773,0.667,0.7428,0.7552,0.7737,0.7872,0.62,0.62,0.61,0.6,0.58
+38°42'N,09°10'W,Portugal,Europe and Central Asia,Desenvolvido,República parlamentar,UE,0.843,0.37,0.36,0.37,0.02,0.7684000000000001,0.784,0.773,0.7902,0.8099,0.7977,0.62,0.63,0.63,0.62,0.63
+25°15'N,51°35'E,Qatar,Middle East and North Africa,Desenvolvido,Monarquia Absoluta,Liga Árabe,0.856,0.0,0.0,0.0,0.0,0.6486,0.319,0.6904,0.6894,0.6655,0.6533,0.61,0.71,0.69,0.68,0.68
+4°16'S, 15°16'E,Republic of Congo,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,0.0,0.592,0.0,0.0,0.0,0.0,0.3957,0.325,0.1201,0.1223,0.1273,0.1202,0.2,0.23,0.23,0.22,0.26
+44°27'N,26°10'E,Romania,Europe and Central Asia,Em desenvolvimento,Semi-presidencialismo,0.0,0.802,0.51,0.275,0.42,0.29,0.7287,0.644,0.0,0.644,0.6726,0.6803,0.48,0.46,0.43,0.43,0.44
+55°45'N,37°35'E,Russia,Europe and Central Asia,Em desenvolvimento,Semi-presidencialismo,APEC/UEAA,0.804,0.43,0.41600000000000004,0.62,0.34,0.755,0.317,0.3153,0.3256,0.3425,0.3497,0.29,0.29,0.27,0.28,0.28
+01°59'S,30°04'E,Rwanda,Sub Saharan Africa,Subdesenvolvido,Presidencialismo com primeiro-ministro,0.0,0.498,0.0,0.504,0.0,0.0,0.7340000000000001,0.319,0.5344,0.5299,0.4769,0.5321,0.54,0.54,0.49,0.53,0.53
+14°02'N,60°58'W,Saint Lucia,Americas,Em desenvolvimento,Monarquia Constitucional com monarca cerimonial,ALCA,0.735,0.15,0.0,0.0,0.0,0.6288,0.0,0.7933,0.7435,0.7708,0.7525,0.6,0.0,0.0,0.71,0.71
+13°10'N,61°10'W,Saint Vincent and the Grenadines,Americas,Em desenvolvimento,Monarquia Constitucional com monarca cerimonial,ALCA,0.722,0.07,0.0,0.0,0.0,0.5572,0.0,0.7389,0.7178,0.7164,0.6953,0.6,0.0,0.67,0.62,0.62
+00°10'N,06°39'E,Sao Tome and Principe,Sub Saharan Africa,Em desenvolvimento,Semi-presidencialismo,0.0,0.574,0.0,0.308,0.0,0.0,0.4484,0.0,0.3251,0.3686,0.3835,0.3932,0.46,0.42,0.42,0.42,0.42
+24°41'N,46°42'E,Saudi Arabia,Middle East and North Africa,Em desenvolvimento,Monarquia absoluta,Liga Árabe,0.847,0.0,0.0,0.0,0.0,0.625,0.0,0.5377,0.496,0.5183,0.4709,0.46,0.52,0.49,0.46,0.44
+14°34'N,17°29'W,Senegal,Sub Saharan Africa,Em desenvolvimento,Semi-presidencialismo,ECOWAS,0.494,0.0,0.40299999999999997,0.0,0.0,0.5306000000000001,0.615,0.3422,0.3751,0.4097,0.41,0.45,0.44,0.43,0.41,0.36
+44°48'N,20°27'E ,Serbia,Europe and Central Asia,Em desenvolvimento,República parlamentar,0.0,0.776,0.41,0.29100000000000004,0.45,0.22,0.7313,0.641,0.4831,0.476,0.5482,0.5392,0.42,0.4,0.41,0.42,0.39
+08°30'N,13°17'W,Sierra Leone,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,ECOWAS,0.42,0.0,0.34,0.0,0.0,0.4818,0.466,0.2697,0.271,0.2771,0.2352,0.3,0.29,0.31,0.3,0.31
+‎1°17'N,103°51'E,Singapore,Asia Pacific,Desenvolvido,República parlamentar,APEC,0.925,0.6,0.0,0.0,0.0,0.8456999999999999,0.632,0.8364,0.8302,0.8258,0.8234,0.84,0.85,0.84,0.86,0.87
+48°10'N,17°07'E,Slovakia,Europe and Central Asia,Desenvolvido,0.0,0.0,0.845,0.47,0.261,0.56,0.12,0.7490000000000001,0.716,0.6981,0.7049,0.7126,0.722,0.51,0.51,0.5,0.47,0.46
+46°04'N,14°33'E,Slovenia,Europe and Central Asia,Desenvolvido,República parlamentar,UE,0.89,0.0049,0.256,0.77,0.03,0.7542,0.75,0.6917,0.6549,0.6693,0.6908,0.61,0.6,0.58,0.57,0.61
+09°27'S,159°57'E,Solomon Islands,Asia Pacific,Em desenvolvimento,Monarquia Constitucional com monarca cerimonial ,0.0,0.515,0.45,0.461,0.0,0.0,0.5813,0.0,0.4028,0.4196,0.4047,0.4234,0.42,0.0,0.0,0.0,0.0
+02°02'N,45°25'E,Somalia,Sub Saharan Africa,Subdesenvolvido,República parlamentar,ASPA/Liga Árabe,0.285,0.0,0.0,0.0,0.0,0.1998,0.0,0.0,0.0,0.0,0.0237,0.1,0.08,0.08,0.08,0.08
+25°44'S,28°12'E,South Africa,Sub Saharan Africa,Em desenvolvimento,Sistema republicano misto,SADC,0.666,0.4,0.634,0.0,0.0,0.6489,0.724,0.616,0.6118,0.6136,0.5923,0.45,0.44,0.44,0.42,0.43
+4°51'N,31°36'E,South Sudan,Sub Saharan Africa,Subdesenvolvido,Presidencialismo,0.0,0.418,0.0,0.46299999999999997,0.0,0.0,0.3286,0.0,0.1806,0.0693,0.0523,0.0,0.11,0.15,0.15,0.14,0.0
+40°25'N,03°45'W,Spain,Europe and Central Asia,Desenvolvido,Monarquia Constitucional com monarca cerimonial,UE,0.884,0.0,0.359,0.8,0.03,0.7702,0.808,0.773,0.7598,0.7606,0.7661,0.58,0.58,0.6,0.59,0.65
+6°55'N ,79°51'E,Sri Lanka,Asia Pacific,Em desenvolvimento,Semi-presidencialismo,0.0,0.766,0.0,0.392,0.23,0.15,0.5886,0.648,0.4393,0.3931,0.3925,0.4245,0.36,0.37,0.38,0.37,0.4
+15°31'N,32°35'E,Sudan,Middle East and North Africa,Em desenvolvimento,Presidencialismo,Liga Árabe,0.49,0.0,0.354,0.0,0.48,0.4446,0.215,0.1442,0.1113,0.1181,0.0897,0.14,0.12,0.11,0.11,0.13
+05°50'N,55°10'W,Suriname,Americas,Em desenvolvimento,Sistema republicano misto,ALCA,0.725,0.0,0.0,0.0,0.0,0.46869999999999995,0.6759999999999999,0.4152,0.4173,0.4007,0.4437,0.45,0.36,0.36,0.36,0.37
+59°20'N,18°03'E,Sweden,Europe and Central Asia,Desenvolvido,Monarquia Constitucional com monarca cerimonial,UE,0.913,0.53,0.273,0.28,0.01,0.8127,0.9390000000000001,0.9485,0.9407,0.93,0.9384,0.88,0.89,0.87,0.89,0.88
+46°57'N,07°28'E,Switzerland,Europe and Central Asia,Desenvolvido,Sistema republicano misto,UE/EFTA,0.939,0.36,0.316,0.28,0.0,0.7592,0.9029999999999999,0.9636,0.967,0.9658,0.9645,0.86,0.86,0.86,0.85,0.86
+33°30'N,36°18'E,Syria,Middle East and North Africa,Em desenvolvimento,Semi-presidencialismo,Liga Árabe,0.536,0.0,0.0,0.0,0.0,0.0,0.143,0.1025,0.0,0.0,0.0,0.13,0.18,0.2,0.17,0.26
+25°6'N,121°35'E,Taiwan,Asia Pacific,Em desenvolvimento,República parlamentar,APEC,0.882,0.9,0.0,0.54,0.06,0.8007,0.773,0.8487,0.8452,0.8561,0.8521,0.61,0.62,0.61,0.61,0.61
+38°33'N,68°48'E,Tajikistan,Europe and Central Asia,Em desenvolvimento,Presidencialismo com primeiro-ministro,0.0,0.627,0.0,0.308,0.0,0.5,0.5686,0.193,0.0,0.0,0.0,0.2364,0.25,0.26,0.23,0.22,0.22
+06°08'S,35°45'E,Tanzania,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,SADC,0.531,0.2,0.37799999999999995,0.0,0.0,0.5404,0.5469999999999999,0.353,0.345,0.3462,0.3547,0.32,0.3,0.31,0.33,0.35
+13°45'N,100°35'E,Thailand,Asia Pacific,Em desenvolvimento,Monarquia Constitucional com monarca cerimonial ,APEC/ASEAN,0.74,0.34,0.379,0.28,0.41,0.7744,0.0,0.5333,0.5232,0.5005,0.479,0.35,0.38,0.38,0.35,0.37
+42°01'N,21°26'E,The FYR of Macedonia,Europe and Central Asia,Em desenvolvimento,República parlamentar,0.0,0.748,0.31,0.441,0.47,0.12,0.8118000000000001,0.557,0.5861,0.5771,0.6267,0.5656,0.37,0.42,0.45,0.44,0.43
+8°33'S,125°33'E,Timor-Leste,Asia Pacific,Em desenvolvimento,Semi-presidencialismo,0.0,0.605,0.0,0.316,0.0,0.0,0.40619999999999995,0.7190000000000001,0.2584,0.2403,0.25,0.2703,0.35,0.28,0.28,0.3,0.33
+06°09'N,01°20'E,Togo,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,ECOWAS,0.487,0.0,0.46,0.0,0.0,0.4888,0.305,0.1783,0.1992,0.2344,0.244,0.32,0.32,0.29,0.29,0.3
+10°32'N,61°18'W,Trinidad and Tobago,Americas,Em desenvolvimento,República parlamentar,ALCA,0.78,0.21,0.0,0.6,0.06,0.6068,0.704,0.5693,0.5512,0.0,0.5188,0.35,0.39,0.38,0.38,0.39
+36°50'N,10°11'E,Tunisia,Middle East and North Africa,Em desenvolvimento,República parlamentar,Liga Árabe,0.725,0.22,0.358,0.62,0.09,0.6358,0.632,0.5012,0.0,0.0,0.0,0.41,0.38,0.4,0.41,0.41
+39°57'N,32°54'E,Turkey,Europe and Central Asia,Em desenvolvimento,República parlamentar,0.0,"0,767	",0.37,0.402,0.42,0.18,0.6914,0.488,0.58,0.5567,0.5182,0.4903,0.41,0.42,0.45,0.5,0.49
+38°00'N,57°50'E,Turkmenistan,Europe and Central Asia,Em desenvolvimento,0.0,0.0,0.691,0.0,0.345,0.0,0.0,0.0,0.172,0.0,0.036,0.0373,0.0,0.22,0.18,0.17,0.17,0.17
+00°20'N,32°30'E,Uganda,Sub Saharan Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,0.0,0.493,0.0,0.41,0.0,0.0,0.5694,0.509,0.3683,0.3493,0.3798,0.3695,0.25,0.25,0.26,0.26,0.29
+50°30'N,30°28'E,Ukraine,Europe and Central Asia,Em desenvolvimento,Semi-presidencialismo,0.0,0.743,0.48,0.24100000000000002,0.86,0.38,0.6575,0.5690000000000001,0.2958,0.2938,0.3273,0.3258,0.29,0.27,0.26,0.25,0.26
+24°28'N,54°22'E,United Arab Emirates,Middle East and North Africa,Desenvolvido,Monarquia Constitucional com monarca ativo,Liga Árabe,0.84,0.0,0.0,0.0,0.0,0.7873,0.269,0.6857,0.6939,0.6872,0.6923,0.66,0.7,0.7,0.69,0.68
+51°36'N,00°05'W,United Kingdom,Europe and Central Asia,Desenvolvido,Monarquia Constitucional com monarca cerimonial,UE,0.909,0.79,0.326,0.57,0.0,0.8222,0.853,0.9218,0.9182,0.9273,0.9257,0.81,0.81,0.78,0.76,0.74
+39°91'N,77°02'W,United States,Americas,Desenvolvido,Preseidencialismo,NAFTA/APEC/ALCA,0.92,0.65,0.41100000000000003,0.0,0.0,0.8254,0.798,0.9194,0.9116,0.9063,0.9101,0.74,0.76,0.74,0.73,0.73
+34°50'S,56°11'W,Uruguay,Americas,Em desenvolvimento,Preseidencialismo,MERCOSUL/ALCA,0.795,0.55,0.41600000000000004,0.47,0.22,0.6199,0.8119999999999999,0.7021,0.7012,0.699,0.6987,0.71,0.74,0.73,0.73,0.72
+41°20'N,69°10'E,Uzbekistan,Europe and Central Asia,Em desenvolvimento,Presidencialismo com primeiro-ministro,0.0,0.701,0.0,0.0,0.0,0.18,0.6633,0.195,0.1032,0.1168,0.1875,0.1904,0.21,0.19,0.18,0.17,0.17
+10°30'N,66°55'W,Venezuela,Americas,Em desenvolvimento,Presidencialismo,MERCOSUL/ALCA,0.767,0.14,0.469,0.76,0.38,0.30870000000000003,0.387,0.0841,0.0742,0.0622,0.0608,0.17,0.17,0.19,0.2,0.19
+21°05'N,105°55'E,Vietnam,Asia Pacific,Em desenvolvimento,Estado com movimento poítico único,APEC/ASEAN,0.683,0.0,0.376,0.6,0.65,0.6793,0.308,0.2895,0.3051,0.3546,0.3371,0.33,0.31,0.31,0.31,0.31
+15°22'N,44°11'E,Yemen,Middle East and North Africa,Em desenvolvimento,Presidencialismo com primeiro-ministro,Liga Árabe,0.482,0.0,0.0,0.91,0.77,0.33,0.207,0.1575,0.1545,0.1065,0.0948,0.14,0.18,0.19,0.18,0.23
+15°28'S,28°16'E,Zambia,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,SADC,0.579,0.19,0.556,0.0,0.0,0.645,0.568,0.4738,0.4358,0.4625,0.4158,0.38,0.38,0.38,0.38,0.37
+17°43'S,31°02'E,Zimbabwe,Sub Saharan Africa,Em desenvolvimento,Presidencialismo,SADC,0.516,0.13,0.43200000000000005,0.0,0.0,0.48469999999999996,0.316,0.0788,0.0883,0.1107,0.1096,0.22,0.21,0.21,0.21,0.2
