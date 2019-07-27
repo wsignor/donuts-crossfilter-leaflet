@@ -202,6 +202,7 @@
         function init(kkk) {
             // console.log(chartType);
             // console.log('File being loaded: ' + localStorage.getItem('file'));
+            console.log(localStorage.getItem('file'));
             console.log(localStorage.getItem('file').substring(12, localStorage.getItem('file').length));
             d3.csv(localStorage.getItem('file').substring(12, localStorage.getItem('file').length), function (error, data) {
                 //d3.csv(localStorage.getItem('file'), function (error, data) {
